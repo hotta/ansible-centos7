@@ -1,0 +1,7 @@
+# Make sure roles/base has been applied
+---
+- name: roles/base/tasks/prompt.yml
+  command: echo
+- name: Deploy vb_prompt.sh 
+  copy: src=vb_prompt.sh dest=/etc/profile.d
+  become: yes

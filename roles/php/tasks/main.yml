@@ -1,0 +1,16 @@
+---
+- name: roles/php/tasks/main.yml
+  command: echo
+- name: Install PHP stuff from remi repository
+  yum: name={{ item }} state=present
+  with_items:
+    - php70
+    - php70-php-mbstring
+    - php70-php-xml
+  become: yes
+- name: make php symlink as an alternative(1)
+  file: path=/etc/alternatives/php state=link src=/usr/bin/php70
+  become: yes
+- name: make php symlink as an alternative(2)
+  file: path=/usr/bin/php state=link src=/etc/alternatives/php
+  become: yes

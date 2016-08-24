@@ -1,0 +1,23 @@
+---
+- name: roles/base/tasks/mandatory.yml
+  command: echo
+- name: Install tools required for CentOS 7.x
+  yum: name={{item}} state=present
+  with_items:
+    - chrony
+    - glibc-devel
+    - gcc-c++
+    - python-passlib
+    - git
+    - elinks
+    - patch
+    - rsync
+    - vim-enhanced
+    - nkf
+    - bind-utils
+    - unzip
+    - bzip2
+    - wget
+    - w3m
+    - python-pip
+  become: yes

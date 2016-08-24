@@ -1,0 +1,12 @@
+- name: reload sshd
+  service: name=sshd state=reloaded
+  become: yes
+- name: reload network
+  service: name=network state=restarted
+  become: yes
+- name: reload sysctl
+  shell: /usr/sbin/sysctl -p
+  become: yes
+- name: reload chronyd
+  service: name=chronyd state=restarted enabled=yes
+  become: yes

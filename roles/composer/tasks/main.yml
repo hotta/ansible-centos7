@@ -1,0 +1,21 @@
+# There is a composer RPM package but it depends on php-5.4,
+# so we'd install it from original site.
+# If we locate composer at /usr/local/bin , ansible does not recognize it.
+---
+- name: roles/composer/tasks/main.yml
+  command: echo
+- name: get and deploy Composer
+  get_url: url=https://getcomposer.org/composer.phar 
+    dest=/usr/bin/composer mode=755 force=no
+  become: yes
+- name: Prepare $COMPOSER_HOME directory
+  file:
+    path: "{{ COMPOSER_HOME }}"
+    state: directory
+  become: yes
+- name: Install PHPUnit
+  composer:
+    command: require
+    arguments: "--dev phpunit/phpunit:5.5"
+    working_dir: "{{ COMPOSER_HOME }}"
+  become: yes

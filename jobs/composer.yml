@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook composer.yml
+---
+- hosts: localhost
+  roles:
+    - composer

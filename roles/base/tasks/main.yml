@@ -1,0 +1,13 @@
+# Basic Congiguration Control
+---
+- name: Check if not Ubuntu (not supported)
+  command: echo
+  failed_when: ansible_lsb.exists is defined
+- name: Check if VirtualBox
+  command: echo
+  failed_when: ansible_virtualization_type != 'virtualbox' 
+- name: Check if roles/base has applied
+  stat: path=/etc/profile.d/vb_prompt.sh
+  register: vb_prompt
+- include: batch.yml
+  when: vb_prompt.stat.exists != true

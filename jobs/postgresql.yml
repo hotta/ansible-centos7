@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook postgresql.yml
+---
+- hosts: localhost
+  roles:
+    - postgresql

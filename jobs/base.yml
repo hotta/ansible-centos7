@@ -1,0 +1,5 @@
+# ansible-playbook base.yml
+---
+- hosts: localhost
+  roles:
+    - base

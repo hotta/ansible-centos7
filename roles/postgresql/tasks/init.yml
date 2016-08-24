@@ -1,0 +1,21 @@
+# PostgreSQL へのデータ投入
+---
+- name: roles/postgresql/tasks/init.yml
+  command: echo
+- name: データベース初期化
+  shell: "{{PG_INITDB}}"
+  become: yes
+  ignore_errors: yes
+- name: アクセス制御設定の確認
+  shell: grep -v trust$ {{PG_DATADIR}}/pg_hba.conf >& /dev/null
+  register: trust_not_found
+  become: yes
+  ignore_errors: yes
+- name: アクセス制御設定(1)
+  copy: src=pg_hba.conf dest={{PG_DATADIR}}
+    owner=postgres group=postgres mode=600 force=yes
+  when: trust_not_found.rc == 0
+  become: yes
+- name: サービス開始
+  service: name={{PG_SERVICE}} enabled=yes state=restarted
+  become: yes
