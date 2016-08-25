@@ -13,9 +13,10 @@ This set of ansible playbooks aims to deploy development environment for Laravel
 
 - base
   - postgresql
-  - php
-    - composer
-      - laravel
+  - nginx
+    - php
+      - composer
+        - laravel
 
 # To run from scratch
 

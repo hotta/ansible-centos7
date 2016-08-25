@@ -1,0 +1,8 @@
+---
+- name: roles/nginx/tasks/main.yml
+  command: echo
+- name: Install nginx from epel repository
+  yum: name={{ item }} state=present
+  with_items:
+    - nginx
+  become: yes

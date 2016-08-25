@@ -7,6 +7,8 @@
     - php70
     - php70-php-mbstring
     - php70-php-xml
+    - php70-php-fpm
+    - php70-php-pgsql
   become: yes
 - name: make php symlink as an alternative(1)
   file: path=/etc/alternatives/php state=link src=/usr/bin/php70
@@ -14,3 +16,6 @@
 - name: make php symlink as an alternative(2)
   file: path=/usr/bin/php state=link src=/etc/alternatives/php
   become: yes
+- name: enable php-fpm daemon
+  command: echo
+  notify: reload php70-php-fpm

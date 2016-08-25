@@ -1,20 +1,18 @@
-# PostgreSQL のインストール
 ---
 - name: roles/postgresql/tasks/package.yml
   command: echo
-- name: デフォルトの Postgresql パッケージ削除
+- name: Remove default postgresql library if exists
   yum: name=postgresql-libs state=absent
   become: yes
-- name: 古い PostgreSQL データの削除
+- name: Remove old postgresql data
   file: path=/var/lib/pgsql/data state=absent
   become: yes
-- name: PGDG リポジトリの導入
-  yum: name={{PG_REPO_URI}} state=present
+- name: Install PGDG repository
+  yum: name={{ PG_REPO_URI }} state=present
   become: yes
-- name: Postgresql のインストール
+- name: Install postgresql packages
   yum: name={{item}} state=present
   with_items:
     - postgresql95-server
     - postgresql95-devel
-    - php71-php-pgsql
   become: yes

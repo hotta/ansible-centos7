@@ -1,9 +1,8 @@
-# # PostgreSQL のインストールとデータ投入
 ---
 - name: roles/postgresql/tasks/main.yml
   set_fact: pg_need_install=true
   tags: init
-- name: PGDG リポジトリ存在チェック
+- name: Check for PGDG repository
   stat: path=/etc/yum.repos.d/{{PG_REPO_FILE}}
   register: pgdg
 - include: package.yml
