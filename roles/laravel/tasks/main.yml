@@ -1,0 +1,14 @@
+---
+- name: roles/laravel/tasks/main.yml
+  command: echo
+- name: Prepare $LARAVEL_HOME directory
+  file:
+    path: "{{ LARAVEL_HOME }}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+  become: yes
+- name: Install minimum requirement
+  composer:
+    command: require
+    arguments: "illuminate/console:5.0.22"
+    working_dir: "{{ LARAVEL_HOME }}"
