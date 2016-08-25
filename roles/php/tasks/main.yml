@@ -19,3 +19,7 @@
 - name: enable php-fpm daemon
   command: echo
   notify: reload php70-php-fpm
+- name: put config for nginx
+  copy: src=php-fpm.conf dest=/etc/nginx/default.d/
+  become: yes
+  notify: reload nginx

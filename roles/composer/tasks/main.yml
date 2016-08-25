@@ -1,6 +1,7 @@
-# There is a composer RPM package but it depends on php-5.4,
-# so we'd install it from original site.
-# If we locate composer at /usr/local/bin , ansible does not recognize it.
+# Default "composer" RPM package depends on php-5.4, so we install it 
+# from the original site.
+# Composer will be installed as /usr/bin/composer. It should be at
+# /usr/local/bin, ansible does not recognize it unfortunately.
 ---
 - name: roles/composer/tasks/main.yml
   command: echo
