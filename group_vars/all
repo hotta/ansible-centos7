@@ -11,6 +11,7 @@ PG_DATADIR: /var/lib/pgsql/{{PG_VERSION}}/data
 PG_CONFIG: /usr/pgsql-{{PG_VERSION}}/bin/pg_config
 STAGE: default
 COMPOSER_HOME: /opt/composer
+COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
 LARAVEL_HOME: /var/www/laravel
 DOCUMENT_ROOT: "{{ LARAVEL_HOME }}"
 SERVER_NAME: localhost

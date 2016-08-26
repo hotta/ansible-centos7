@@ -14,6 +14,9 @@
     path: "{{ COMPOSER_HOME }}"
     state: directory
   become: yes
+- name: Add $COMPOSER_GLOBAL_BIN to $PATH
+  template: src=composer.sh dest=/etc/profile.d/
+  become: yes
 - name: Install PHPUnit
   composer:
     command: require
