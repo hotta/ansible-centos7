@@ -1,23 +1,22 @@
 ---
 - name: roles/laravel/tasks/main.yml
   command: echo
-- name: Prepare $LARAVEL_HOME directory
+- name: Prepare $LARAVEL_BASE directory
   file:
-    path: "{{ LARAVEL_HOME }}"
+    path: "{{ LARAVEL_BASE }}"
     state: directory
     owner: "{{ ansible_user_id }}"
   become: yes
-# - name: Install minimum requirement
-#   composer:
-#     command: require
-#     arguments: "illuminate/console:5.0.22"
-#     working_dir: "{{ LARAVEL_HOME }}"
 - name: Put laravel.conf for nginx
   template: src=laravel.conf dest=/etc/nginx/conf.d/laravel.conf
   become: yes
   notify: reload nginx
+- name: Check for the project existence
+  stat: path={{ LARAVEL_HOME }}
+  register: laravel
 - name: Install laravel 5.1 LTS
   composer:
-    command: create_project
+    command: create-project
     arguments: "laravel/laravel:5.1"
-   working_dir: "{{ LARAVEL_HOME }}"
+    working_dir: "{{ LARAVEL_BASE }}"
+  when: laravel.stat.exists == false
