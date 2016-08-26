@@ -7,12 +7,17 @@
     state: directory
     owner: "{{ ansible_user_id }}"
   become: yes
-- name: Install minimum requirement
-  composer:
-    command: require
-    arguments: "illuminate/console:5.0.22"
-    working_dir: "{{ LARAVEL_HOME }}"
+# - name: Install minimum requirement
+#   composer:
+#     command: require
+#     arguments: "illuminate/console:5.0.22"
+#     working_dir: "{{ LARAVEL_HOME }}"
 - name: Put laravel.conf for nginx
   template: src=laravel.conf dest=/etc/nginx/conf.d/laravel.conf
   become: yes
   notify: reload nginx
+- name: Install laravel 5.1 LTS
+  composer:
+    command: create_project
+    arguments: "laravel/laravel:5.1"
+   working_dir: "{{ LARAVEL_HOME }}"

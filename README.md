@@ -6,7 +6,7 @@ This set of ansible playbooks aims to deploy Laravel development environment.
 
 Vagrant + VirtualBox VM running CentOS 7.2.
 
-## Will install yum repository following:
+## Yum repositories will be installed:
 
 - epel
 - remi
