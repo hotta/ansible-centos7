@@ -35,3 +35,15 @@
   command: ./vendor/bin/comja5 -a
   args:
     chdir: "{{ LARAVEL_HOME }}"
+- name: Open permissions of storage/*
+  file: 
+    path:     "{{ LARAVEL_HOME }}/storage" 
+    state:    directory
+    mode:     "a+w" 
+    recurse:  yes
+- name: Open permissions of bootstrap/cache
+  file: 
+    path:     "{{ LARAVEL_HOME }}/bootstrap/cache"
+    state:    directory
+    mode:     "a+w" 
+    recurse:  yes
