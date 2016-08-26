@@ -66,3 +66,12 @@
     regexp:       "^ *require './Whoops.php';$"
     line:         "        require './Whoops.php';"
     insertbefore: "parent::render"
+- name: Check for aws stuff
+  stat: path={{ LARAVEL_HOME }}/vendor/aws/aws-sdk-php
+  register: aws
+- name: Install aws
+  composer:
+    command: require
+    arguments: "aws/aws-sdk-php:~3.0"
+    working_dir: "{{ LARAVEL_HOME }}"
+  when: aws.stat.exists == false
