@@ -23,3 +23,17 @@
   copy: src=php-fpm.conf dest=/etc/nginx/default.d/
   become: yes
   notify: reload nginx
+- name: Customize php.ini - date.timezone
+  lineinfile:
+    dest:         "{{ PHP_INI_DIR }}/php.ini"
+    regexp:       '^;date.timezone ='
+    line:         "date.timezone = {{ TIME_ZONE }}"
+  when: "{{ JAPANIZE_LARAVEL }} == true"
+  become: yes
+- name: Customize php.ini - mbstring.language
+  lineinfile:
+    dest:         "{{ PHP_INI_DIR }}/php.ini"
+    regexp:       '^;mbstring.language = Japanese'
+    line:         'mbstring.language = Japanese'
+  when: "{{ JAPANIZE_LARAVEL }} == true"
+  become: yes
