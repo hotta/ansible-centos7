@@ -47,3 +47,22 @@
     state:    directory
     mode:     "a+w" 
     recurse:  yes
+- name: Check for instance of whoops
+  stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops
+  register: whoops
+- name: Install Whoops - Error report package
+  composer:
+    command: require
+    arguments: "filp/whoops:~1.0"
+    working_dir: "{{ LARAVEL_HOME }}"
+  when: whoops.stat.exists == false
+- name: Put required file
+  copy:
+    src:  Whoops.php
+    dest: "{{ LARAVEL_HOME }}/app/Exceptions"
+- name: Insert code to require Whoops
+  lineinfile:
+    dest:         "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"
+    regexp:       "^ *require './Whoops.php';$"
+    line:         "        require './Whoops.php';"
+    insertbefore: "parent::render"
