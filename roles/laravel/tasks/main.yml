@@ -11,7 +11,7 @@
   template: src=laravel.conf dest=/etc/nginx/conf.d/laravel.conf
   become: yes
   notify: reload nginx
-- name: Check if the laravel project exists
+- name: Check for existence of the laravel project
   stat: path={{ LARAVEL_HOME }}
   register: laravel
 - name: Install laravel 5.1 LTS
@@ -20,7 +20,7 @@
     arguments: "laravel/laravel:5.1"
     working_dir: "{{ LARAVEL_BASE }}"
   when: laravel.stat.exists == false
-- name: Check if comja5 exists
+- name: Check for instance of comja
   stat: path={{ LARAVEL_HOME }}/vendor/laravel-ja/comja5
   register: comja
 - name: Install comja5 for Japanizing laravel
@@ -47,7 +47,7 @@
     state:    directory
     mode:     "a+w" 
     recurse:  yes
-- name: Check if whoops exists
+- name: Check for instance of whoops
   stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops
   register: whoops
 - name: Install Whoops - Error report package
@@ -66,10 +66,10 @@
     regexp:       "^ *require './Whoops.php';$"
     line:         "        require './Whoops.php';"
     insertbefore: "parent::render"
-- name: Check if aws stuff exists
+- name: Check for aws stuff
   stat: path={{ LARAVEL_HOME }}/vendor/aws/aws-sdk-php
   register: aws
-- name: Install aws-sdk-php
+- name: Install aws
   composer:
     command: require
     arguments: "aws/aws-sdk-php:~3.0"

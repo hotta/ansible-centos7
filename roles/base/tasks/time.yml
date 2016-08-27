@@ -6,7 +6,6 @@
   shell: timedatectl set-timezone {{ TIME_ZONE }}
   become: yes
 - name: Set chrony.conf
-  copy: src=chrony.conf dest=/etc
+  copy: src={{ CHRONY_CONFIG }} dest=/etc
   become: yes
-  when: "{{ JAPANIZE_LARAVEL }} == true"
   notify: reload chronyd
