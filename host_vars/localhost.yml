@@ -1,5 +1,4 @@
 # host_vars/localhost.yml - Host specific variables
 ---
-TIME_ZONE: Asia/Tokyo
-CHRONY_CONFIG: ja_JP/chrony.conf"
 JAPANIZE_LARAVEL: true
+TIME_ZONE: Asia/Tokyo

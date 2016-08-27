@@ -5,7 +5,3 @@
 - name: Set time zone
   shell: timedatectl set-timezone {{ TIME_ZONE }}
   become: yes
-- name: Set chrony.conf
-  copy: src={{ CHRONY_CONFIG }} dest=/etc
-  become: yes
-  notify: reload chronyd
