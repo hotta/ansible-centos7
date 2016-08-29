@@ -17,6 +17,10 @@ You may use https://github.com/hotta/vagrant-cent72-box.git .
 - group_vars/all          - Common constants among all environment
 - host_vars/localhost.yml - Host specific definitions
   - Locale-dependent settings (optimized for use in Japan)
+  - Database settings (default postgresql)
+  - You might have to change values following:
+    - LARAVEL_SERVER_NAME (will be used as a VirtualHost Name)
+    - LARAVEL_IP_ADDRESS (config.vm.network value in your Vagrantfile)
 
 ## Dependencies in roles
 
