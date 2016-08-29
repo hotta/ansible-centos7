@@ -75,3 +75,12 @@
     arguments: "aws/aws-sdk-php:~3.0"
     working_dir: "{{ LARAVEL_HOME }}"
   when: aws.stat.exists == false
+- name: Customize config/*.php
+  template: 
+    src:  config/{{ item }}
+    dest: "{{ LARAVEL_HOME }}/config/"
+  with_items:
+    - app.php
+    - database.php
+    - mail.php
+    - queue.php

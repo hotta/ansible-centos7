@@ -2,3 +2,13 @@
 ---
 JAPANIZE_LARAVEL: true
 TIME_ZONE: Asia/Tokyo
+DB_CONNECTION: pgsql
+DB_HOST: localhost
+DB_DATABASE: laravel
+DB_USERNAME: vagrant
+DB_PASSWORD:
+MAIL_DRIVER: sendmail
+MAIL_HOST: localhost
+MAIL_PORT: 25
+MAIL_PRETEND: true
+QUEUE_DRIVER: database
