@@ -5,6 +5,7 @@ This set of ansible playbooks aims to deploy Laravel development environment.
 ## Prerequisite
 
 Vagrant + VirtualBox VM running CentOS 7.2.
+You may use https://github.com/hotta/vagrant-cent72-box.git .
 
 ## Yum repositories will be installed:
 
@@ -25,3 +26,13 @@ Vagrant + VirtualBox VM running CentOS 7.2.
     - php
       - composer
         - laravel
+
+## Important log directories
+
+- /var/log/nginx
+- /var/opt/remi/php70/log/php-fpm/
+- /var/www/laravel/storage/logs
+
+## Remarks
+
+Though we adopt nginx+php-fpm combination, php70-php-fpm uses apache/apache as its effective user/group.
