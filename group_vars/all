@@ -17,4 +17,3 @@ LARAVEL_HOME: "{{ LARAVEL_BASE }}/laravel"
 DOCUMENT_ROOT: "{{ LARAVEL_HOME }}"
 SERVER_NAME: localhost
 PHP_INI_DIR: /etc/opt/remi/php70
-PHP_FPM_USER: apache
