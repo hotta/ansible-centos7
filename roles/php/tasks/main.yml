@@ -19,21 +19,19 @@
 - name: enable php-fpm daemon
   command: echo
   notify: reload php70-php-fpm
-- name: put config for nginx
+- name: put config file /etc/nginx/default.d/php-fpm.conf
   copy: src=php-fpm.conf dest=/etc/nginx/default.d/
   become: yes
   notify: reload nginx
-- name: Customize php.ini - date.timezone
-  lineinfile:
-    dest:         "{{ PHP_INI_DIR }}/php.ini"
-    regexp:       '^;date.timezone ='
-    line:         "date.timezone = {{ TIME_ZONE }}"
+- name: Customize php.ini
+  patch:
+    dest: "{{ PHP_INI_DIR }}/php.ini"
+    src:  php.ini.patch
   when: "{{ JAPANIZE_LARAVEL }} == true"
   become: yes
-- name: Customize php.ini - mbstring.language
-  lineinfile:
-    dest:         "{{ PHP_INI_DIR }}/php.ini"
-    regexp:       '^;mbstring.language = Japanese'
-    line:         'mbstring.language = Japanese'
+- name: Customize php-fpm.d/www.conf
+  patch:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    src:  www.conf.patch
   when: "{{ JAPANIZE_LARAVEL }} == true"
   become: yes

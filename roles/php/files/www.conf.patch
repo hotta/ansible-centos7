@@ -1,0 +1,9 @@
+--- www.conf.orig	2016-08-29 10:50:00.953824869 +0900
++++ www.conf	2016-08-29 10:52:17.038947554 +0900
+@@ -420,3 +420,6 @@
+ php_value[soap.wsdl_cache_dir]  = /var/opt/remi/php70/lib/php/wsdlcache
+ 
+ ;php_value[opcache.file_cache]  = /var/opt/remi/php70/lib/php/opcache
++; Optimization for use in Japan.
++php_value[date.timezone] = Asia/Tokyo
++php_value[mbstring.language] = Japanese
