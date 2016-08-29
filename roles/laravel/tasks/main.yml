@@ -8,7 +8,10 @@
     owner: "{{ ansible_user_id }}"
   become: yes
 - name: Put laravel.conf for nginx
-  template: src=laravel.conf dest=/etc/nginx/conf.d/laravel.conf
+  template:
+    src:  laravel.conf
+    dest: /etc/nginx/conf.d/laravel.conf
+    force: no
   become: yes
   notify: reload nginx
 - name: Check for existence of the laravel project
@@ -56,10 +59,10 @@
     arguments: "filp/whoops:~1.0"
     working_dir: "{{ LARAVEL_HOME }}"
   when: whoops.stat.exists == false
-- name: Put required file
-  copy:
-    src:  Whoops.php
-    dest: "{{ LARAVEL_HOME }}/app/Exceptions"
+- name: Enable Whoops
+  patch:
+    dest: "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"
+    src:  Handler.php.patch
 - name: Insert code to require Whoops
   lineinfile:
     dest:         "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"
@@ -84,3 +87,20 @@
     - database.php
     - mail.php
     - queue.php
+- name: Settle {404,50x}.html 
+  copy:
+    dest: "{{ LARAVEL_HOME }}/public"
+    remote_src: true
+    src:  "/usr/share/nginx/html/{{ item }}"
+  with_items:
+    - 404.html
+    - 50x.html
+    - nginx-logo.png
+    - poweredby.png
+- name: Add $LARAVEL_SERVER_NAME entry to /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    insertafter:  EOF
+    line: "{{ LARAVEL_IP_ADDRESS }} {{ LARAVEL_SERVER_NAME }}"
+    regexp: "^{{ LARAVEL_IP_ADDRESS }} +{{ LARAVEL_SERVER_NAME }}"
+  become: yes
