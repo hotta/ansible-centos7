@@ -23,6 +23,22 @@
     arguments: "laravel/laravel:5.1"
     working_dir: "{{ LARAVEL_BASE }}"
   when: laravel.stat.exists == false
+- name: Open permissions of storage/*
+  file: 
+    path:     "{{ LARAVEL_HOME }}/storage" 
+    state:    directory
+    owner: "{{ ansible_user_id }}"
+    mode:     "a+w" 
+    recurse:  yes
+  become: yes
+- name: Open permissions of bootstrap/cache
+  file: 
+    path:     "{{ LARAVEL_HOME }}/bootstrap/cache"
+    state:    directory
+    owner: "{{ ansible_user_id }}"
+    mode:     "a+w" 
+    recurse:  yes
+  become: yes
 - name: Check for instance of comja
   stat: path={{ LARAVEL_HOME }}/vendor/laravel-ja/comja5
   register: comja
@@ -32,24 +48,12 @@
     arguments: "laravel-ja/comja5:~1"
     working_dir: "{{ LARAVEL_HOME }}"
   when:
-    - "{{ JAPANIZE_LARAVEL }} == true"
+    - "{{ LARAVEL_APPLY_COMJA5 }} == true"
     - comja.stat.exists == false
 - name: Japanize laravel source tree (comja5)
   command: ./vendor/bin/comja5 -a
   args:
     chdir: "{{ LARAVEL_HOME }}"
-- name: Open permissions of storage/*
-  file: 
-    path:     "{{ LARAVEL_HOME }}/storage" 
-    state:    directory
-    mode:     "a+w" 
-    recurse:  yes
-- name: Open permissions of bootstrap/cache
-  file: 
-    path:     "{{ LARAVEL_HOME }}/bootstrap/cache"
-    state:    directory
-    mode:     "a+w" 
-    recurse:  yes
 - name: Check for instance of whoops
   stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops
   register: whoops
@@ -63,6 +67,7 @@
   patch:
     dest: "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"
     src:  Handler.php.patch
+  ignore_errors: true
 - name: Insert code to require Whoops
   lineinfile:
     dest:         "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"

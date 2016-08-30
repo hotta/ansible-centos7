@@ -1,20 +1,11 @@
---- php.ini.orig	2016-08-29 10:53:03.090635457 +0900
-+++ php.ini	2016-08-29 10:52:24.934722589 +0900
-@@ -874,7 +874,7 @@
- [Date]
- ; Defines the default timezone used by the date functions
- ; http://php.net/date.timezone
--;date.timezone =
-+date.timezone = Asia/Tokyo
+--- php.ini.orig	2016-08-30 10:48:45.025030501 +0900
++++ php.ini	2016-08-30 10:51:23.019030501 +0900
+@@ -565,7 +565,7 @@
+ ; empty.
+ ; http://php.net/error-log
+ ; Example:
+-;error_log = php_errors.log
++error_log = /var/opt/remi/php70/log/php_errors.log
+ ; Log errors to syslog.
+ ;error_log = syslog
  
- ; http://php.net/date.default-latitude
- ;date.default_latitude = 31.7667
-@@ -1462,7 +1462,7 @@
- ; language for internal character representation.
- ; This affects mb_send_mail() and mbstring.detect_order.
- ; http://php.net/mbstring.language
--;mbstring.language = Japanese
-+mbstring.language = Japanese
- 
- ; Use of this INI entry is deprecated, use global internal_encoding instead.
- ; internal/script encoding.
