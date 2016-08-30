@@ -5,3 +5,6 @@
 - name: reload nginx
   service: name=nginx state=reloaded
   become: yes
+- name: reload php-fpm
+  service: name=php70-php-fpm state=reloaded
+  become: yes

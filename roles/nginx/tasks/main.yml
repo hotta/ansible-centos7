@@ -6,6 +6,17 @@
   with_items:
     - nginx
   become: yes
+- name: nginx - Change log setting
+  lineinfile:
+    dest:   /etc/nginx/nginx.conf
+    regexp: "^error_log /var/log/nginx/error.log"
+    line:   "error_log /var/log/nginx/error.log warn;"
+  become: yes
+- name: nginx - Add common settings
+  copy:
+    dest: /etc/nginx/conf.d/
+    src:  http_common.conf
+  become: yes
 - name: Enable eninx
   command: echo
   notify: enable nginx

@@ -28,6 +28,7 @@ You may use https://github.com/hotta/vagrant-cent72-box.git .
   - postgresql
   - nginx
     - php
+      - php-fpm
       - composer
         - laravel
 

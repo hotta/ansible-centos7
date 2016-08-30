@@ -1,0 +1,19 @@
+---
+- name: roles/php-fpm/tasks/main.yml
+  command: echo
+- name: Install package from remi repository
+  yum: name={{ item }} state=present
+  with_items:
+    - php70-php-fpm
+  become: yes
+- name: php-fpm.conf - Use epoll instead of poll
+  patch:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.conf"
+    src:  php-fpm.conf.patch
+  become: yes
+- name: www.conf - Use Unix Socket and change user to nginx
+  patch:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    src:  www.conf.patch
+  become: yes
+  notify: reload php70-php-fpm

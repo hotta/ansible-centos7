@@ -7,7 +7,6 @@
     - php70
     - php70-php-mbstring
     - php70-php-xml
-    - php70-php-fpm
     - php70-php-pgsql
   become: yes
 - name: make php symlink as an alternative(1)
@@ -16,25 +15,6 @@
 - name: make php symlink as an alternative(2)
   file: path=/usr/bin/php state=link src=/etc/alternatives/php
   become: yes
-- name: php-fpm.conf - Use epoll instead of poll
-  patch:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.conf"
-    src:  php-fpm.conf.patch
-  become: yes
-- name: www.conf - Use Unix Socket and change user to nginx
-  patch:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    src:  www.conf.patch
-  become: yes
-- name: enable php-fpm daemon
-  command: echo
-  notify: reload php70-php-fpm
-- name: put config file /etc/nginx/default.d/php-fpm-nginx.conf
-  copy:
-    src:  php-fpm-nginx.conf
-    dest: /etc/nginx/default.d/
-  become: yes
-  notify: reload nginx
 - name: Customize php.ini for remi
   patch:
     dest: "{{ PHP_INI_DIR }}/php.ini"
@@ -44,7 +24,7 @@
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php.ini"
     regexp:       "^;date.timezone ="
-    line:         "date.timezone = {{ PHP_TIME_ZONE }}"
+    line:         "date.timezone = {{ TIME_ZONE }}"
   become: yes
   when:           "{{ PHP_JAPANIZE }} == true"
 - name: php.ini - mbstring.language

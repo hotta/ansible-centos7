@@ -1,8 +1,7 @@
 # host_vars/localhost.yml - Host specific variables
 ---
-PHP_TIME_ZONE: Asia/Tokyo
+TIME_ZONE: Asia/Tokyo
 PHP_JAPANIZE: true
-LARAVEL_TIME_ZONE: "{{ PHP_TIME_ZONE }}"
 LARAVEL_LOCALE: ja
 LARAVEL_APPLY_COMJA5: true
 DB_CONNECTION: pgsql
