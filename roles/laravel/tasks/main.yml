@@ -104,8 +104,30 @@
     - poweredby.png
 - name: Add $LARAVEL_SERVER_NAME entry to /etc/hosts
   lineinfile:
-    dest: /etc/hosts
-    insertafter:  EOF
-    line: "{{ LARAVEL_IP_ADDRESS }} {{ LARAVEL_SERVER_NAME }}"
+    dest:   /etc/hosts
+    line:   "{{ LARAVEL_IP_ADDRESS }} {{ LARAVEL_SERVER_NAME }}"
     regexp: "^{{ LARAVEL_IP_ADDRESS }} +{{ LARAVEL_SERVER_NAME }}"
+    insertafter:  EOF
   become: yes
+- name: Update .env - DB_DATABASE
+  lineinfile:
+    dest:   "{{ LARAVEL_HOME }}/.env"
+    regexp: "^DB_DATABASE="
+    line:   "DB_DATABASE={{ DB_DATABASE }}"
+- name: Update .env - DB_USERNAME
+  lineinfile:
+    dest:   "{{ LARAVEL_HOME }}/.env"
+    regexp: "^DB_USERNAME="
+    line:   "DB_USERNAME={{ DB_USERNAME }}"
+- name: Create DB_USERNAME
+  command: "createuser -U postgres -s {{ DB_USERNAME }}"
+  ignore_errors: yes
+- name: Create DB_DATABASE
+  command: "createdb {{ DB_DATABASE }}"
+  ignore_errors: yes
+- name: Change LANG
+  lineinfile:
+    dest:   "/home/{{ ansible_user_id }}/.bashrc"
+    regexp: "^export LANG="
+    line:   "export LANG=ja_JP.UTF-8"
+  when:     "{{ PHP_JAPANIZE }} == true"

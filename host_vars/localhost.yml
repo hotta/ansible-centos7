@@ -6,7 +6,7 @@ LARAVEL_LOCALE: ja
 LARAVEL_APPLY_COMJA5: true
 DB_CONNECTION: pgsql
 DB_HOST: localhost
-DB_DATABASE: laravel
+DB_DATABASE: vagrant
 DB_USERNAME: vagrant
 DB_PASSWORD:
 MAIL_DRIVER: sendmail
