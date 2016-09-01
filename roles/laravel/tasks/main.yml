@@ -39,21 +39,6 @@
     mode:     "a+w" 
     recurse:  yes
   become: yes
-- name: Check for instance of comja
-  stat: path={{ LARAVEL_HOME }}/vendor/laravel-ja/comja5
-  register: comja
-- name: Install comja5 for Japanizing laravel
-  composer:
-    command: require
-    arguments: "laravel-ja/comja5:~1"
-    working_dir: "{{ LARAVEL_HOME }}"
-  when:
-    - "{{ LARAVEL_APPLY_COMJA5 }} == true"
-    - comja.stat.exists == false
-- name: Japanize laravel source tree (comja5)
-  command: ./vendor/bin/comja5 -a
-  args:
-    chdir: "{{ LARAVEL_HOME }}"
 - name: Check for instance of whoops
   stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops
   register: whoops
@@ -131,3 +116,20 @@
     regexp: "^export LANG="
     line:   "export LANG=ja_JP.UTF-8"
   when:     "{{ PHP_JAPANIZE }} == true"
+- name: Check for instance of comja
+  stat: path={{ LARAVEL_HOME }}/vendor/laravel-ja/comja5
+  register: comja
+- name: Install comja5 for Japanizing laravel
+  composer:
+    command: require
+    arguments: "laravel-ja/comja5:~1"
+    working_dir: "{{ LARAVEL_HOME }}"
+  when:
+    - "{{ LARAVEL_APPLY_COMJA5 }} == true"
+    - comja.stat.exists == false
+- name: Japanize laravel source tree (comja5)
+  command: ./vendor/bin/comja5 -a
+  args:
+    chdir: "{{ LARAVEL_HOME }}"
+  when:
+    - "{{ LARAVEL_APPLY_COMJA5 }} == true"
