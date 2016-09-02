@@ -1,0 +1,18 @@
+---
+- name: roles/php-xdebug/tasks/main.yml
+  command: echo
+- name: Install php-xdebug
+  yum: name={{ item }} state=present
+  with_items:
+    - "{{ PHP_VERSION }}-php-xdebug"
+  become: yes
+- name: Put additional settings file.
+  template:
+    src:  16-xdebug.ini
+    dest: "{{ PHP_INI_DIR }}/php.d/"
+  become: yes
+- name: |
+    Make sure xdebug.remote_host in "{{ PHP_INI_DIR }}/php.d/"
+    matches the IP address of VirtualBox Host-Only Network
+    of the PC which runs VirtualBox
+  command: echo
