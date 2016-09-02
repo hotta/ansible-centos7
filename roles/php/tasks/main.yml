@@ -4,21 +4,26 @@
 - name: Install PHP stuff from remi repository
   yum: name={{ item }} state=present
   with_items:
-    - php70
-    - php70-php-mbstring
-    - php70-php-xml
-    - php70-php-pgsql
+    - "{{ PHP_VERSION }}"
+    - "{{ PHP_VERSION }}-php-mbstring"
+    - "{{ PHP_VERSION }}-php-xml"
+    - "{{ PHP_VERSION }}-php-pgsql"
   become: yes
 - name: make php symlink as an alternative(1)
-  file: path=/etc/alternatives/php state=link src=/usr/bin/php70
+  file: path=/etc/alternatives/php state=link src=/usr/bin/{{ PHP_VERSION }}
   become: yes
 - name: make php symlink as an alternative(2)
   file: path=/usr/bin/php state=link src=/etc/alternatives/php
   become: yes
+- name: make patch for php.ini
+  template:
+    src:  php.ini.patch
+    dest: /tmp
 - name: Customize php.ini for remi
   patch:
+    src:  /tmp/php.ini.patch
     dest: "{{ PHP_INI_DIR }}/php.ini"
-    src:  php.ini.patch
+    remote_src: yes
   become: yes
 - name: php.ini - date.timezone
   lineinfile:

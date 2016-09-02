@@ -1,18 +1,17 @@
 # group_vars/all - Common constants among all environment
 ---
-PG_VERSION: 9.5
-PG_REPO_NAME: pgdg-centos95-9.5-2.noarch.rpm
-PG_REPO_FILE: pgdg-95-centos.repo
-PG_REPO_URI: http://yum.postgresql.org/{{PG_VERSION}}/redhat/rhel-7-x86_64/{{PG_REPO_NAME}}
-PG_SERVICE: postgresql-{{PG_VERSION}}
-PG_SETUP: postgresql95-setup
-PG_INITDB: /usr/pgsql-{{PG_VERSION}}/bin/{{PG_SETUP}} initdb
-PG_DATADIR: /var/lib/pgsql/{{PG_VERSION}}/data
-PG_CONFIG: /usr/pgsql-{{PG_VERSION}}/bin/pg_config
-STAGE: default
-COMPOSER_HOME: /opt/composer
+PG_VERSION:     9.5
+PG_REPO_NAME:   pgdg-centos95-9.5-2.noarch.rpm
+PG_REPO_FILE:   pgdg-95-centos.repo
+PG_REPO_URI:    http://yum.postgresql.org/{{PG_VERSION}}/redhat/rhel-7-x86_64/{{PG_REPO_NAME}}
+PG_SERVICE:     postgresql-{{PG_VERSION}}
+PG_SETUP:       postgresql95-setup
+PG_INITDB:      /usr/pgsql-{{PG_VERSION}}/bin/{{PG_SETUP}} initdb
+PG_DATADIR:     /var/lib/pgsql/{{PG_VERSION}}/data
+PG_CONFIG:      /usr/pgsql-{{PG_VERSION}}/bin/pg_config
+STAGE:          default
+COMPOSER_HOME:  /opt/composer
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
-LARAVEL_BASE: /var/www
-LARAVEL_HOME: "{{ LARAVEL_BASE }}/laravel"
-DOCUMENT_ROOT: "{{ LARAVEL_HOME }}"
-PHP_INI_DIR: /etc/opt/remi/php70
+LARAVEL_BASE:   /var/www
+LARAVEL_HOME:   "{{ LARAVEL_BASE }}/laravel"
+DOCUMENT_ROOT:  "{{ LARAVEL_HOME }}"

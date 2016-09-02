@@ -4,16 +4,35 @@
 - name: Install package from remi repository
   yum: name={{ item }} state=present
   with_items:
-    - php70-php-fpm
+    - "{{ PHP_FPM }}"
   become: yes
 - name: php-fpm.conf - Use epoll instead of poll
   patch:
     dest: "{{ PHP_INI_DIR }}/php-fpm.conf"
     src:  php-fpm.conf.patch
   become: yes
+- name: make patch file for www.conf
+  template:
+    src:  www.conf.patch
+    dest: /tmp
 - name: www.conf - Use Unix Socket and change user to nginx
   patch:
+    src:  /tmp/www.conf.patch
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    src:  www.conf.patch
+    remote_src: yes
   become: yes
-  notify: reload php70-php-fpm
+  notify: start {{ PHP_FPM }}
+- name: Check for Japanese settings in www.conf
+  shell: "grep Japanese {{ PHP_INI_DIR }}/php-fpm.d/www.conf >& /dev/null"
+  register: Japanese_exists
+  ignore_errors: yes
+- name: make additional patch for www.conf
+  template:
+    src:  www.conf.append
+    dest: /tmp
+  when: Japanese_exists.rc != 0
+- name: Append Japanese settings to www.conf
+  shell: "cat /tmp/www.conf.append >> {{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+  when: Japanese_exists.rc != 0
+  become: yes
+  notify: start {{ PHP_FPM }}

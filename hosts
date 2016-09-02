@@ -42,4 +42,7 @@
 
 ## db-[99:101]-node.example.com
 
+[php56]
 localhost ansible_connection=local
+
+[php70]

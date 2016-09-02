@@ -1,10 +1,10 @@
 ---
-- name: reload php70-php-fpm
-  service: name=php70-php-fpm state=started enabled=yes
+- name: start {{ PHP_VERSION }}-php-fpm
+  service: name={{ PHP_VERSION }}-php-fpm state=started enabled=yes
   become: yes
 - name: reload nginx
   service: name=nginx state=reloaded
   become: yes
 - name: reload php-fpm
-  service: name=php70-php-fpm state=reloaded
+  service: name={{ PHP_VERSION }}-php-fpm state=reloaded
   become: yes
