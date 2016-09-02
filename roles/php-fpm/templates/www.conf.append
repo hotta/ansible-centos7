@@ -1,0 +1,3 @@
+; Default values for use in Japan.
+php_value[date.timezone] = {{ TIME_ZONE }}
+php_value[mbstring.language] = Japanese

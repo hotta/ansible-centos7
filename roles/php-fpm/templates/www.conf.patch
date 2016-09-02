@@ -17,7 +17,7 @@
  ;   '/path/to/unix/socket' - to listen on a unix socket.
  ; Note: This value is mandatory.
 -listen = 127.0.0.1:9000
-+listen = /var/opt/remi/php70/run/php-fpm/php-fpm.sock
++listen = {{ PHP_VAR_DIR }}/run/php-fpm/php-fpm.sock
  
  ; Set listen(2) backlog.
  ; Default Value: 511
