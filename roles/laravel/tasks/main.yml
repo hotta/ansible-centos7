@@ -89,12 +89,10 @@
   template:
     src:    env.default
     dest:   "{{ LARAVEL_HOME }}/.env.default"
-    force:  no
 - name: Set default settings for laravel
   copy:
     src:        "{{ LARAVEL_HOME }}/.env.default"
     dest:       "{{ LARAVEL_HOME }}/.env"
-    force:      no
     remote_src: true
 - name: Create DB_USERNAME
   command: "createuser -U postgres -s {{ DB_USERNAME }}"

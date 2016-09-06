@@ -1,3 +1,4 @@
 dependencies:
   - { role: php-fpm }
   - { role: composer }
+  - { role: postgresql , when: DB_CONNECTION == "pgsql" }
