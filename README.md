@@ -30,13 +30,13 @@ Ansible playbooks to deploy Laravel development environment optimized for Japane
 ## Dependencies in roles
 
 - base
-  - postgresql
   - nginx
     - php
       - php-fpm
         - xdebug
       - composer
         - laravel
+      - postgresql
 
 ## Log directories
 
