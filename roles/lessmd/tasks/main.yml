@@ -10,15 +10,11 @@
   pip:
     name: grip
   become: yes
-- name: Check if lessmd exists
-  shell: grep lessmd ~/.bashrc >& /dev/null
-  register: lessmd
-  ignore_errors: yes
-- name: Add a function to your {{ ansible_user_dir }}/.bashrc
-  patch:
-    dest: "{{ ansible_user_dir }}/.bashrc"
-    src: bashrc.patch
-  when: lessmd.rc != 0
+- name: Copy lessmd.sh to /etc/profile.d
+  copy:
+    src: lessmd.sh
+    dest: /etc/profile.d
+  become: yes
 - name: |
     NOTE: Now you can use lessmd command to view a markdown file locally.
   command: echo

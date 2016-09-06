@@ -1,9 +1,0 @@
---- .bashrc.orig	2016-09-06 10:25:26.600750326 +0900
-+++ .bashrc	2016-09-06 10:25:13.394126607 +0900
-@@ -11,3 +11,6 @@
- # User specific aliases and functions
- export LANG=ja_JP.UTF-8
- alias serve='sudo php artisan serve --host=laravel.local --port=80'
-+function lessmd() {
-+  grip --export $1 /dev/stdout | w3m -T text/html
-+}
