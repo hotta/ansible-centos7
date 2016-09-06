@@ -68,15 +68,6 @@
     arguments: "aws/aws-sdk-php:~3.0"
     working_dir: "{{ LARAVEL_HOME }}"
   when: aws.stat.exists == false
-- name: Customize config/*.php
-  template: 
-    src:  config/{{ item }}
-    dest: "{{ LARAVEL_HOME }}/config/"
-  with_items:
-    - app.php
-    - database.php
-    - mail.php
-    - queue.php
 - name: Settle {404,50x}.html 
   copy:
     dest: "{{ LARAVEL_HOME }}/public"
@@ -94,23 +85,26 @@
     regexp: "^{{ LARAVEL_IP_ADDRESS }} +{{ LARAVEL_SERVER_NAME }}"
     insertafter:  EOF
   become: yes
-- name: Update .env - DB_DATABASE
-  lineinfile:
-    dest:   "{{ LARAVEL_HOME }}/.env"
-    regexp: "^DB_DATABASE="
-    line:   "DB_DATABASE={{ DB_DATABASE }}"
-- name: Update .env - DB_USERNAME
-  lineinfile:
-    dest:   "{{ LARAVEL_HOME }}/.env"
-    regexp: "^DB_USERNAME="
-    line:   "DB_USERNAME={{ DB_USERNAME }}"
+- name: Put .env.default
+  template:
+    src:    env.default
+    dest:   "{{ LARAVEL_HOME }}/.env.default"
+    force:  no
+- name: Set default settings for laravel
+  copy:
+    src:        "{{ LARAVEL_HOME }}/.env.default"
+    dest:       "{{ LARAVEL_HOME }}/.env"
+    force:      no
+    remote_src: true
 - name: Create DB_USERNAME
   command: "createuser -U postgres -s {{ DB_USERNAME }}"
   ignore_errors: yes
+  when: "{{ DB_CONNECTION }} == 'pgsql'"
 - name: Create DB_DATABASE
   command: "createdb {{ DB_DATABASE }}"
   ignore_errors: yes
-- name: Change LANG
+  when: "{{ DB_CONNECTION }} == 'pgsql'"
+- name: Change LANG env
   lineinfile:
     dest:   "/home/{{ ansible_user_id }}/.bashrc"
     regexp: "^export LANG="
