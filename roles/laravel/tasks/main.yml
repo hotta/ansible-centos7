@@ -99,11 +99,11 @@
 - name: Create DB_USERNAME
   command: "createuser -U postgres -s {{ DB_USERNAME }}"
   ignore_errors: yes
-  when: "{{ DB_CONNECTION }} == 'pgsql'"
+  when: DB_CONNECTION == "pgsql"
 - name: Create DB_DATABASE
   command: "createdb {{ DB_DATABASE }}"
   ignore_errors: yes
-  when: "{{ DB_CONNECTION }} == 'pgsql'"
+  when: DB_CONNECTION == "pgsql"
 - name: Change LANG env
   lineinfile:
     dest:   "/home/{{ ansible_user_id }}/.bashrc"
