@@ -1,6 +1,6 @@
 ## What is this ?
 
-Ansible playbooks to deploy Laravel development environment especially optimized for Japanese users.
+Ansible playbooks to deploy Laravel development environment optimized for Japanese users.
 
 ## Prerequisite
 
@@ -15,7 +15,7 @@ Ansible playbooks to deploy Laravel development environment especially optimized
 ## php version 
 
 - php 5.6 will be installed as default.
-- You may want to move localhost entry to php70 section in /etc/ansible/hosts to use php-7.x.
+- Move localhost entry to php70 section in /etc/ansible/hosts to use php-7.x.
 
 ## Constans definitions
 
@@ -34,6 +34,7 @@ Ansible playbooks to deploy Laravel development environment especially optimized
   - nginx
     - php
       - php-fpm
+        - xdebug
       - composer
         - laravel
 
