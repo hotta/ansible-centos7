@@ -22,7 +22,7 @@ Ansible playbooks to deploy Laravel development environment optimized for Japane
 - group_vars/all          - Common constants 
 - host_vars/localhost.yml - Host specific definitions
   - Locale-dependent settings (optimized for use in Japan)
-  - Database settings (default postgresql)
+  - Database settings (default sqlite)
   - You should change values following:
     - LARAVEL_SERVER_NAME (will be used as a VirtualHost name)
     - LARAVEL_IP_ADDRESS (config.vm.network value in your Vagrantfile)
