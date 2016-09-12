@@ -1,0 +1,38 @@
+---
+- name: roles/laravel/tasks/db.yml
+  command: echo
+
+- name: 1.Create DB_USERNAME for pgsql
+  command: "createuser -U postgres -s {{ DB_USERNAME }}"
+  when: DB_CONNECTION == "pgsql"
+  ignore_errors: yes
+
+- name: 2.Create DB_DATABASE for pgsql
+  command: "createdb {{ DB_DATABASE }}"
+  when: DB_CONNECTION == "pgsql"
+  ignore_errors: yes
+
+- name: 3.Create database file for sqlite
+  file:
+    path:   "{{ LARAVEL_HOME }}/storage/database.sqlite"
+    mode:   0666
+    state:  touch
+  when: DB_CONNECTION == "sqlite"
+
+- name: 4.Create DB_USERNAME for mysql
+  shell:
+    echo "CREATE USER {{ DB_USERNAME }} IDENTIFIED BY '{{ DB_PASSWORD }}'" |
+    mysql -u root
+  ignore_errors: yes
+  when: DB_CONNECTION == "mysql"
+
+- name: 5.Create DB_DATABASE for mysql
+  command: mysqladmin -u root create {{ DB_DATABASE }}
+  when: DB_CONNECTION == "pgsql"
+  ignore_errors: yes
+
+- name: 6.Grant access for mysql
+  shell:
+    echo "GRANT ALL ON {{ DB_DATABASE }}.* TO {{ DB_USERNAME }}@localhost" |
+    mysql -u root
+  ignore_errors: yes

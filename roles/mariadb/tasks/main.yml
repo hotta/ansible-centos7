@@ -1,0 +1,13 @@
+---
+- name: roles/mariadb/tasks/main.yml
+  command: echo
+- name: Install mariadb packages
+  yum: name={{item}} state=present
+  with_items:
+    - mariadb-server
+    - mariadb
+    - "{{ PHP_VERSION }}-php-mysqlnd"
+  become: yes
+- name: Enable mariadb
+  service: name=mariadb state=started enabled=yes
+  become: yes

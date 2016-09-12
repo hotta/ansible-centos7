@@ -1,0 +1,47 @@
+---
+- name: roles/laravel/tasks/core.yml
+  command: echo
+
+- name: 1.Prepare $LARAVEL_BASE directory
+  file:
+    path: "{{ LARAVEL_BASE }}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+  become: yes
+
+- name: 2.Put laravel.conf for nginx
+  template:
+    src:  laravel.conf
+    dest: /etc/nginx/conf.d/laravel.conf
+    force: no
+  become: yes
+  notify: reload nginx
+
+- name: 3.Check for existence of the laravel project
+  stat: path={{ LARAVEL_HOME }}
+  register: laravel
+
+- name: 4.Install laravel {{ LARAVEL_VERSION }}
+  composer:
+    command: create-project
+    arguments: "laravel/laravel:{{ LARAVEL_VERSION }}"
+    working_dir: "{{ LARAVEL_BASE }}"
+  when: laravel.stat.exists == false
+
+- name: 5.Open permissions of storage/*
+  file: 
+    path:     "{{ LARAVEL_HOME }}/storage" 
+    state:    directory
+    owner: "{{ ansible_user_id }}"
+    mode:     "a+w" 
+    recurse:  yes
+  become: yes
+
+- name: 6.Open permissions of bootstrap/cache
+  file: 
+    path:     "{{ LARAVEL_HOME }}/bootstrap/cache"
+    state:    directory
+    owner: "{{ ansible_user_id }}"
+    mode:     "a+w" 
+    recurse:  yes
+  become: yes

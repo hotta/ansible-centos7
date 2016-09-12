@@ -1,0 +1,55 @@
+---
+- name: roles/laravel/tasks/additional.yml
+  command: echo
+
+- name: 1.Check for instance of Whoops
+  stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops
+  register: whoops
+
+- name: 2.Install Whoops - Error report package
+  composer:
+    command: require
+    arguments: "filp/whoops:~1.0"
+    working_dir: "{{ LARAVEL_HOME }}"
+  when: 
+    - whoops.stat.exists == false
+    - LARAVEL_VERSION|string < '5.2.0'
+
+- name: 3.Enable Whoops
+  patch:
+    dest: "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"
+    src:  "{{ LARAVEL_VERSION }}-Handler.php.patch"
+  ignore_errors: true
+  when: LARAVEL_VERSION|string < '5.2.0'
+
+- name: 4.Check for aws stuff
+  stat: path={{ LARAVEL_HOME }}/vendor/aws/aws-sdk-php
+  register: aws
+
+- name: 5.Install aws-sdk-php
+  composer:
+    command: require
+    arguments: "aws/aws-sdk-php:~3.0"
+    working_dir: "{{ LARAVEL_HOME }}"
+  when: aws.stat.exists == false
+
+- name: 6.Install laravel-debugbar
+  composer:
+    command: require
+    arguments: "barryvdh/laravel-debugbar"
+    working_dir: "{{ LARAVEL_HOME }}"
+    no_dev: no
+
+- name: 7.Enable Laravel-Debugbar
+  lineinfile:
+    dest: "{{ LARAVEL_HOME }}/config/app.php"
+    regexp: "^ +Barryvdh\\Debugbar\\ServiceProvider::class,"
+    line:   "        Barryvdh\\Debugbar\\ServiceProvider::class,"
+    insertafter: 'ViewServiceProvider'
+
+- name: 8.Insert Debugbar Facade
+  lineinfile:
+    dest: "{{ LARAVEL_HOME }}/config/app.php"
+    regexp: "^ +'Debugbar' => Barryvdh\\Debugbar\\Facade::class,"
+    line:   "        'Debugbar' => Barryvdh\\Debugbar\\Facade::class,"
+    insertafter: 'DB::class'
