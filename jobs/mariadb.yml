@@ -1,0 +1,5 @@
+# -*- coding: utf_8 -*- 
+---
+- hosts: localhost
+  roles:
+    - mariadb

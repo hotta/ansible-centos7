@@ -1,0 +1,29 @@
+---
+- name: roles/laravel/tasks/japan.yml
+  command: echo
+
+- name: 1.Change LANG env
+  lineinfile:
+    dest:   "/home/{{ ansible_user_id }}/.bashrc"
+    regexp: "^export LANG="
+    line:   "export LANG=ja_JP.UTF-8"
+  when:     PHP_JAPANIZE == true
+
+- name: 2.Check for instance of comja
+  stat: path={{ LARAVEL_HOME }}/vendor/laravel-ja/comja5
+  register: comja
+
+- name: 3.Install comja5 for Japanizing laravel
+  composer:
+    command: require
+    arguments: "laravel-ja/comja5:~1"
+    working_dir: "{{ LARAVEL_HOME }}"
+  when:
+    - LARAVEL_APPLY_COMJA5 == true
+    - comja.stat.exists == false
+
+- name: 4.Japanize laravel source tree (comja5)
+  command: ./vendor/bin/comja5 -a
+  args:
+    chdir: "{{ LARAVEL_HOME }}"
+  when: LARAVEL_APPLY_COMJA5 == true

@@ -1,31 +1,17 @@
 ## What is this ?
 
-Ansible playbooks to deploy Laravel development environment optimized for Japanese users.
+Ansible playbooks to build environment using CentOS7.x.
 
 ## Prerequisite
 
 - Vagrant + VirtualBox VM running CentOS 7.2.
 - You may want to use https://github.com/hotta/vagrant-cent72-box.git .
 
-## Yum repositories will be installed:
+## Combination of each software versions ( as of 2016/09/07 ).
 
-- epel
-- remi
-
-## php version 
-
-- php 5.6 will be installed as default.
-- Move localhost entry to php70 section in /etc/ansible/hosts to use php-7.x.
-
-## Constans definitions
-
-- group_vars/all          - Common constants 
-- host_vars/localhost.yml - Host specific definitions
-  - Locale-dependent settings (optimized for use in Japan)
-  - Database settings (default sqlite)
-  - You should change values following:
-    - LARAVEL_SERVER_NAME (will be used as a VirtualHost name)
-    - LARAVEL_IP_ADDRESS (config.vm.network value in your Vagrantfile)
+- php-5.6.25
+- MariaDB-5.5.50
+- Laravel-5.2.45(tag is 5.2.31)
 
 ## Dependencies in roles
 
@@ -35,8 +21,8 @@ Ansible playbooks to deploy Laravel development environment optimized for Japane
       - php-fpm
         - xdebug
       - composer
+      - ( mariadb / postgresql )
         - laravel
-      - postgresql
 
 ## Log directories
 
