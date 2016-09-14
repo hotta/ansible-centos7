@@ -1,0 +1,29 @@
+---
+- name: roles/laravel/tasks/debugbar.yml
+  command: echo
+
+- name: 1.Check for laravel-debugbar
+  stat: path={{ LARAVEL_HOME }}/vendor/barryvdh/laravel-debugbar
+  register: debugbar
+
+- name: 2.Install laravel-debugbar
+  composer:
+    command: require
+    arguments: "barryvdh/laravel-debugbar"
+    working_dir: "{{ LARAVEL_HOME }}"
+    no_dev: no
+  when: debugbar.stat.exists == false
+
+- name: 3.Enable Laravel-Debugbar Service Provider
+  lineinfile:
+    dest: "{{ LARAVEL_HOME }}/config/app.php"
+    regexp: "^ +Barryvdh\\\\Debugbar"
+    line:   "        Barryvdh\\Debugbar\\ServiceProvider::class,"
+    insertafter: 'ViewServiceProvider'
+
+- name: 4.Insert Debugbar Facade
+  lineinfile:
+    dest: "{{ LARAVEL_HOME }}/config/app.php"
+    regexp: "^ +'Debugbar'"
+    line:   "        'Debugbar' => Barryvdh\\Debugbar\\Facade::class,"
+    insertafter: 'DB::class'

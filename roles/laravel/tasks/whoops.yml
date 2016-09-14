@@ -1,0 +1,23 @@
+---
+- name: roles/laravel/tasks/whoops.yml
+  command: echo
+
+- name: 1.Check for instance of Whoops
+  stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops
+  register: whoops
+
+- name: 2.Install Whoops - Error report package
+  composer:
+    command: require
+    arguments: "filp/whoops:~1.0"
+    working_dir: "{{ LARAVEL_HOME }}"
+  when: 
+    - whoops.stat.exists == false
+    - LARAVEL_VERSION|string < '5.2.0'
+
+- name: 3.Enable Whoops
+  patch:
+    dest: "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"
+    src:  "{{ LARAVEL_VERSION }}-Handler.php.patch"
+  ignore_errors: true
+  when: LARAVEL_VERSION|string < '5.2.0'
