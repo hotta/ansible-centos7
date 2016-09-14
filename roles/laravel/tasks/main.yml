@@ -8,3 +8,4 @@
 - include: whoops.yml
 - include: debugbar.yml
 - include: aws.yml
+- include: vendor.yml

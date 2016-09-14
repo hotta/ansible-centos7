@@ -26,8 +26,3 @@
     regexp: "^ +'AWS'"
     line:   "        'AWS' => Aws\\Laravel\\AwsFacade::class,"
     insertafter: "'App'"
-
-- name: 5.Put config file
-  copy:
-    src: aws.php
-    dest: "{{ LARAVEL_HOME }}/config/"
