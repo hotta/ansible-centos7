@@ -5,4 +5,6 @@
 - include: env.yml
 - include: localize.yml
 - include: db.yml
-- include: additional.yml
+- include: whoops.yml
+- include: debugbar.yml
+- include: aws.yml
