@@ -1,0 +1,8 @@
+---
+- name: roles/laravel/tasks/vendor.yml
+  command: echo
+
+- name: 1.artisan vendor:publish
+  command: php artisan vendor:publish
+  args:
+    chdir: "{{ LARAVEL_HOME }}"
