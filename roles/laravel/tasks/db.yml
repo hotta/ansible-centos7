@@ -28,11 +28,12 @@
 
 - name: 5.Create DB_DATABASE for mysql
   command: mysqladmin -u root create {{ DB_DATABASE }}
-  when: DB_CONNECTION == "pgsql"
+  when: DB_CONNECTION == "mysql"
   ignore_errors: yes
 
 - name: 6.Grant access for mysql
   shell:
     echo "GRANT ALL ON {{ DB_DATABASE }}.* TO {{ DB_USERNAME }}@localhost" |
     mysql -u root
+  when: DB_CONNECTION == "mysql"
   ignore_errors: yes
