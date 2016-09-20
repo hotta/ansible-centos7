@@ -18,10 +18,10 @@ $ vi /etc/ansible/host_vars/localhost.yml
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
 
-## Combination of each software versions ( as of 2016/09/07 ).
+## Versions ( as of 2016/09/20 ).
 
-- php-5.6.25
-- MariaDB-5.5.50
+- php-5.6.25 / php-7.0.9
+- SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.4
 - Laravel-5.2.45(tag points to 5.2.31)
 
 ## Dependencies in roles
@@ -32,7 +32,7 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
       - php-fpm
         - xdebug
       - composer
-      - ( mariadb / postgresql )
+      - ( sqlite / mariadb / postgresql )
         - laravel
 
 ## Log directories
