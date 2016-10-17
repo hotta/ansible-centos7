@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook supervisor.yml
+---
+- hosts: localhost
+  roles:
+    - supervisor
