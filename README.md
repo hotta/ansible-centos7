@@ -14,10 +14,10 @@ Ansible playbooks to build laravel-5.2 development environment on CentOS7.x.
 $ git clone git@github.com:hotta/laravel-centos7.git
 $ sudo rm -r /etc/ansible
 $ sudo mv laravel-centos7 /etc/ansible
-$ vi /etc/ansible/host_vars/localhost.yml
 $ cd /etc/ansible/host_vars
-$ ln -fs YOUR_FAVORITE_DB_ENGINE.yml localhost.yml
-$ vi localhost.yml
+$ cp localhost-tmpl.yml localhost.yml
+$ vi localhost.yml 
+$ cd
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
 

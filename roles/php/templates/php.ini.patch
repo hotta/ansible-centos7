@@ -5,7 +5,7 @@
  ; http://php.net/error-log
  ; Example:
 -;error_log = php_errors.log
-+error_log = {{ PHP_VAR_DIR }}/log/php_errors.log
++error_log = {{ PHP_LOG_DIR }}/php_errors.log
  ; Log errors to syslog.
  ;error_log = syslog
  

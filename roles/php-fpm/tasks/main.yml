@@ -31,6 +31,13 @@
     src:  www.conf.append
     dest: /tmp
   when: Japanese_exists.rc != 0
+- name: Change directory owner to $WEBSERVER_USER
+  file: 
+    path: "{{ PHP_LOG_DIR }}"
+    owner: "{{ WEBSERVER_USER }}"
+    recurse: yes
+    state: directory
+  become: yes
 - name: Append Japanese settings to www.conf
   shell: "cat /tmp/www.conf.append >> {{ PHP_INI_DIR }}/php-fpm.d/www.conf"
   when: Japanese_exists.rc != 0

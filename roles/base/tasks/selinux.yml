@@ -1,0 +1,6 @@
+---
+- name: roles/base/tasks/selinux.yml
+  command: echo
+- name: Disable selinux 
+  selinux: state=disabled
+  become: yes
