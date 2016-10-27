@@ -10,8 +10,9 @@ APP_ENV:        local
 APP_DEBUG:      true
 DB_CONNECTION:  sqlite
 DB_HOST:        localhost
-DB_DATABASE:    vagrant
-DB_USERNAME:    vagrant
+DB_DATABASE:    laravel
+DB_USERNAME:    "{{ ansible_user_id }}"
 DB_PASSWORD:
 MAIL_DRIVER:    log
 LARAVEL_VERSION: 5.2.31
+WEBSERVER_USER: nginx

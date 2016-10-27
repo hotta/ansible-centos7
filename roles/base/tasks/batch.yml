@@ -6,3 +6,4 @@
 - include: mandatory.yml
 - include: time.yml
 - include: prompt.yml
+- include: selinux.yml

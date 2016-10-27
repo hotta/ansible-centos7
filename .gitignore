@@ -1,2 +1,3 @@
 *.swp
 .env
+host_vars/localhost.yml

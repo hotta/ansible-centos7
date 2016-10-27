@@ -3,4 +3,5 @@
 PHP_VERSION:    php56
 PHP_INI_DIR:    /opt/remi/{{ PHP_VERSION }}/root/etc
 PHP_VAR_DIR:    /opt/remi/{{ PHP_VERSION }}/root/var
+PHP_LOG_DIR:    /opt/remi/{{ PHP_VERSION }}/root/var/log
 PHP_FPM:        "{{ PHP_VERSION }}-php-fpm"
