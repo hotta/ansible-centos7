@@ -2,6 +2,7 @@
 ---
 COMPOSER_HOME:  /opt/composer
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
+LARAVEL_BIN:   "{{ COMPOSER_GLOBAL_BIN }}/laravel"
 LARAVEL_BASE:   /var/www
 LARAVEL_HOME:   "{{ LARAVEL_BASE }}/laravel"
 DOCUMENT_ROOT:  "{{ LARAVEL_HOME }}"
@@ -14,5 +15,5 @@ DB_DATABASE:    laravel
 DB_USERNAME:    "{{ ansible_user_id }}"
 DB_PASSWORD:
 MAIL_DRIVER:    log
-LARAVEL_VERSION: 5.2.31
+LARAVEL_VERSION: 5.3.16
 WEBSERVER_USER: nginx

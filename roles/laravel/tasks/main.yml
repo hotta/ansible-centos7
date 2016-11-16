@@ -2,6 +2,7 @@
 - name: roles/laravel/tasks/main.yml
   command: echo
 - include: core.yml
+  tags: laravel
 - include: env.yml
 - include: localize.yml
 - include: db.yml

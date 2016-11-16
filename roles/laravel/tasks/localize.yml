@@ -19,8 +19,8 @@
     arguments: "laravel-ja/comja5:~1"
     working_dir: "{{ LARAVEL_HOME }}"
   when:
-    - LARAVEL_APPLY_COMJA5 == true
-    - comja.stat.exists == false
+    - LARAVEL_APPLY_COMJA5
+    - comja.stat.isdir is not defined
 
 - name: 4.Japanize laravel source tree (comja5)
   command: ./vendor/bin/comja5 -a

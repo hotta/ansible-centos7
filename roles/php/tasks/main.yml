@@ -8,6 +8,7 @@
     - "{{ PHP_VERSION }}-php-mbstring"
     - "{{ PHP_VERSION }}-php-xml"
     - "{{ PHP_VERSION }}-php-pdo"
+    - "{{ PHP_VERSION }}-php-pecl-zip"
   become: yes
 - name: make php symlink as an alternative(1)
   file: path=/etc/alternatives/php state=link src=/usr/bin/{{ PHP_VERSION }}

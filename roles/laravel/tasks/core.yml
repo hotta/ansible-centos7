@@ -2,14 +2,21 @@
 - name: roles/laravel/tasks/core.yml
   command: echo
 
-- name: 1.Prepare $LARAVEL_BASE directory
-  file:
-    path: "{{ LARAVEL_BASE }}"
-    state: directory
-    owner: "{{ ansible_user_id }}"
+- name: core-01.Check for existence of the laravel installer
+  stat: path={{ COMPOSER_GLOBAL_BIN }}/laravel
+  register: laravel_installer
+
+- name: core-02.Install laravel installer
+  composer:
+    command: require
+    arguments: "laravel/installer"
+    working_dir: "{{ COMPOSER_HOME }}"
+  when: 
+    - laravel_installer.stat.exists is defined
+    - laravel_installer.stat.exists == false
   become: yes
 
-- name: 2.Put laravel.conf for nginx
+- name: core-03.Put laravel.conf for nginx
   template:
     src:  laravel.conf
     dest: /etc/nginx/conf.d/laravel.conf
@@ -17,31 +24,35 @@
   become: yes
   notify: reload nginx
 
-- name: 3.Check for existence of the laravel project
-  stat: path={{ LARAVEL_HOME }}
-  register: laravel
+- name: core-04.Deploy laravel installation
+  command: "{{ LARAVEL_BIN }} new laravel"
+  args:
+    creates: "{{ LARAVEL_BASE }}/laravel"
+    chdir: "{{ LARAVEL_BASE }}"
 
-- name: 4.Install laravel {{ LARAVEL_VERSION }}
-  composer:
-    command: create-project
-    arguments: "laravel/laravel:{{ LARAVEL_VERSION }}"
-    working_dir: "{{ LARAVEL_BASE }}"
-  when: laravel.stat.exists == false
-
-- name: 5.Open permissions of storage/*
+- name: core-05.Change owner under laravel
   file: 
-    path:     "{{ LARAVEL_HOME }}/storage" 
+    path:     "{{ LARAVEL_HOME }}" 
     state:    directory
-    owner: "{{ ansible_user_id }}"
+    owner:    nginx
     mode:     "a+w" 
     recurse:  yes
   become: yes
 
-- name: 6.Open permissions of bootstrap/cache
+- name: core-06.Open permissions of storage/*
+  file: 
+    path:     "{{ LARAVEL_HOME }}/storage" 
+    state:    directory
+    owner:    nginx
+    mode:     "a+w" 
+    recurse:  yes
+  become: yes
+
+- name: core-07.Open permissions of bootstrap/cache
   file: 
     path:     "{{ LARAVEL_HOME }}/bootstrap/cache"
     state:    directory
-    owner: "{{ ansible_user_id }}"
+    owner:    nginx
     mode:     "a+w" 
     recurse:  yes
   become: yes
