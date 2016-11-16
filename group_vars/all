@@ -2,6 +2,7 @@
 ---
 COMPOSER_HOME:  /opt/composer
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
+LARAVEL_BIN:   "{{ COMPOSER_GLOBAL_BIN }}/laravel"
 LARAVEL_BASE:   /var/www
 LARAVEL_HOME:   "{{ LARAVEL_BASE }}/laravel"
 DOCUMENT_ROOT:  "{{ LARAVEL_HOME }}"
