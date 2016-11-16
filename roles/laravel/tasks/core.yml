@@ -35,7 +35,6 @@
     path:     "{{ LARAVEL_HOME }}" 
     state:    directory
     owner:    nginx
-    mode:     "a+w" 
     recurse:  yes
   become: yes
 
