@@ -1,6 +1,6 @@
 ## What is this ?
 
-Ansible playbooks to build laravel-5.2 development environment on CentOS7.x.
+Ansible playbooks to build laravel-5.3 development environment on CentOS7.x.
 
 ## Prerequisite
 
@@ -21,11 +21,11 @@ $ cd
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
 
-## Versions ( as of 2016/09/20 ).
+## Versions ( as of 2016/11/16 ).
 
-- php-5.6.25 / php-7.0.9
+- php-5.6.25 / php-7.0.13
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.4
-- Laravel-5.2.45(tag points to 5.2.31)
+- Laravel-5.3.23
 
 ## Dependencies in roles
 
