@@ -10,11 +10,10 @@
     - "{{ PHP_VERSION }}-php-pdo"
     - "{{ PHP_VERSION }}-php-pecl-zip"
   become: yes
-- name: make php symlink as an alternative(1)
-  file: path=/etc/alternatives/php state=link src=/usr/bin/{{ PHP_VERSION }}
-  become: yes
-- name: make php symlink as an alternative(2)
-  file: path=/usr/bin/php state=link src=/etc/alternatives/php
+- name: add php executables dir to $PATH
+  template:
+    src:  php.sh
+    dest: /etc/profile.d
   become: yes
 - name: make patch for php.ini
   template:
