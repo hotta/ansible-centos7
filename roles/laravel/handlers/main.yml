@@ -1,4 +1,10 @@
 ---
+- name: restart php56-php-fpm
+  service: name={{ PHP_FPM }} state=started enabled=yes
+  become: yes
+- name: restart php70-php-fpm
+  service: name={{ PHP_FPM }} state=started enabled=yes
+  become: yes
 - name: reload nginx
   service: name=nginx state=reloaded
   become: yes

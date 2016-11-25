@@ -24,34 +24,40 @@
   become: yes
   notify: reload nginx
 
-- name: core-04.Deploy laravel installation
+- name: core-04.Prepar directory for LARAVEL_BASE
+  file: 
+    path:     "{{ LARAVEL_BASE }}"
+    state:    directory
+    owner:    "{{ ansible_user_id }}"
+  become: yes
+
+- name: core-05.Deploy laravel installation
   command: "{{ LARAVEL_BIN }} new laravel"
   args:
     creates: "{{ LARAVEL_BASE }}/laravel"
     chdir: "{{ LARAVEL_BASE }}"
 
-- name: core-05.Change owner under laravel
+- name: core-06.Change owner under laravel
   file: 
     path:     "{{ LARAVEL_HOME }}" 
     state:    directory
-    owner:    nginx
+    owner:    "{{ ansible_user_id }}"
     recurse:  yes
   become: yes
 
-- name: core-06.Open permissions of storage/*
+- name: core-07.Open permissions of storage/*
   file: 
     path:     "{{ LARAVEL_HOME }}/storage" 
     state:    directory
-    owner:    nginx
     mode:     "a+w" 
     recurse:  yes
   become: yes
 
-- name: core-07.Open permissions of bootstrap/cache
+- name: core-08.Open permissions of bootstrap/cache
   file: 
     path:     "{{ LARAVEL_HOME }}/bootstrap/cache"
     state:    directory
-    owner:    nginx
     mode:     "a+w" 
     recurse:  yes
   become: yes
+  notify: start {{ PHP_FPM }}
