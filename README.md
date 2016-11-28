@@ -1,12 +1,20 @@
 ## What is this ?
 
-Ansible playbooks to build laravel-5.3 development environment on CentOS7.x.
+Ansible playbooks to make laravel-5.3 development environment on CentOS7.x.
 
 ## Prerequisite
 
-- Vagrant + VirtualBox VM running CentOS 7.2.
-- git and ansible 2.x.
-- You may want to use https://github.com/hotta/vagrant-cent72-box.git .
+- Vagrant + VirtualBox VM running CentOS 7.2 with git and ansible 2.x.
+- typical installation process looks like:
+
+```bash
+mkdir XXXX
+cd XXXXX
+vagrant box add bento/cent-7.2 --provider virtualbox
+vagrant init
+vagrant up
+vagrant ssh
+```
 
 ## Quick start
 
