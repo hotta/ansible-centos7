@@ -6,3 +6,5 @@
   command: php artisan vendor:publish
   args:
     chdir: "{{ LARAVEL_HOME }}"
+  environment:
+    PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"

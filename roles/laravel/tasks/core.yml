@@ -15,6 +15,8 @@
     - laravel_installer.stat.exists is defined
     - laravel_installer.stat.exists == false
   become: yes
+  environment:
+    PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
 
 - name: core-03.Put laravel.conf for nginx
   template:
@@ -36,6 +38,8 @@
   args:
     creates: "{{ LARAVEL_BASE }}/laravel"
     chdir: "{{ LARAVEL_BASE }}"
+  environment:
+    PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
 
 - name: core-06.Change owner under laravel
   file: 
