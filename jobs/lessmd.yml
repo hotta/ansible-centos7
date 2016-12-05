@@ -1,4 +1,5 @@
 # -*- coding: utf_8 -*- 
+# lessmd ... A markdown viewer runs on console.
 ---
 - hosts: localhost
   roles:

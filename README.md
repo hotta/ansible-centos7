@@ -1,6 +1,6 @@
 ## What is this ?
 
-Ansible playbooks to make laravel-5.3 development environment on CentOS7.x.
+This set of ansible playbooks will deploy various environment such as laravel / IBM MQ / VNC on CentOS7.x.
 
 ## Prerequisite
 
@@ -28,6 +28,7 @@ $ cd /etc/ansible/host_vars
 $ cp localhost-tmpl.yml localhost.yml
 $ vi localhost.yml 
 $ cd
+# to deploy laravel base environment for example
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
 
@@ -39,6 +40,7 @@ available.
 - php-5.6.25 / php-7.0.13
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.4
 - Laravel-5.3.23
+- IBM MQ 8.0.0
 
 ## Dependencies in roles
 
