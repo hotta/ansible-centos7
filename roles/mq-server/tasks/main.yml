@@ -1,0 +1,10 @@
+---
+- name: roles/mq-server/tasks/main.yml
+  command: echo
+- name: Install MQ server components
+  yum:
+    name: "{{ ansible_user_dir }}/MQServer/{{ item }}{{ MQ_PACKAGE_SUFFIX }}"
+    state: present
+  with_items:
+    - "{{ MQ_SERVER_PACKAGES }}"
+  become: yes

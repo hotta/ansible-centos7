@@ -1,0 +1,47 @@
+---
+- name: roles/mq/tasks/main.yml
+  command: echo
+- name: Check if MQ archive has been downloaded
+  stat:
+    path: "{{ ansible_user_dir }}/{{ MQ_FILENAME }}"
+  register: mq
+- name: Download MQ archive if it is not downloaded yet. (It'll take a while)
+  get_url:
+    url: "{{ MQ_URL }}"
+    dest: "{{ ansible_user_dir }}"
+  when:
+    mq.stat.exists == false
+- name: Check if MQ archive has been extracted
+  stat:
+    path: "{{ ansible_user_dir }}/MQServer"
+  register: mq_series
+- name: Extract MQ Series archive
+  unarchive:
+    src: "{{ ansible_user_dir }}/{{ MQ_FILENAME }}"
+    remote_src: yes
+    dest: "{{ ansible_user_dir }}"
+  when:
+    mq.stat.exists == false
+- name: Create user mqm
+  user:
+    group: mqm
+    home: /var/mqm
+    name: mqm
+    state: present
+    system: yes
+  become: yes
+- name: Add {{ ansible_user_id }} to group mqm
+  user:
+    append: yes
+    group: mqm
+    user: "{{ ansible_user_id }}"
+  become: yes
+- name: Accept the MQ license
+  shell: "{{ ansible_user_dir }}/MQServer/mqlicense.sh -text_only -accept"
+  become: yes
+- name: Install MQ common components
+  yum:
+    name: "{{ ansible_user_dir }}/MQServer/{{ item }}{{ MQ_PACKAGE_SUFFIX }}"
+    state: present
+  with_items: "{{ MQ_CORE_PACKAGES }}"
+  become: yes

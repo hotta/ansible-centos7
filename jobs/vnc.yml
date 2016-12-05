@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook vnc.yml
+---
+- hosts: localhost
+  roles:
+    - vnc

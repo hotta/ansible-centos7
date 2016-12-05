@@ -31,6 +31,9 @@ $ cd
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
 
+You may want to take a look at /etc/ansible/jobs to see what jobs are
+available.
+
 ## Versions ( as of 2016/11/16 ).
 
 - php-5.6.25 / php-7.0.13
@@ -47,6 +50,10 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
       - composer
       - ( sqlite / mariadb / postgresql )
         - laravel
+  - vnc
+  - mq-core
+    - mq-client
+    - mq-server
 
 ## Log directories
 
