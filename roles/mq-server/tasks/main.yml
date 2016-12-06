@@ -8,3 +8,10 @@
   with_items:
     - "{{ MQ_SERVER_PACKAGES }}"
   become: yes
+- name: Expand file-max
+  sysctl:
+    name: fs.file-max
+    value: 524288
+    state: present
+  tags: sysctl
+  become: yes
