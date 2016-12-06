@@ -21,11 +21,11 @@ sudo yum -y install ansible
 ## Quick start
 
 ```bash
-$ git clone https://github.com/hotta/laravel-centos7.git
+$ git clone https://github.com/hotta/ansible-centos7.git
 $ sudo rm -r /etc/ansible
-$ sudo mv laravel-centos7 /etc/ansible
+$ sudo mv ansible-centos7 /etc/ansible
 $ cd /etc/ansible/host_vars
-$ cp localhost-tmpl.yml localhost.yml
+$ cp localhost.yml.tmpl localhost.yml
 $ vi localhost.yml 
 $ cd
 # to deploy laravel base environment for example

@@ -1,5 +1,5 @@
 # -*- coding: utf_8 -*- 
-# ansible-playbook supervisor.yml
+# A daemon to daemonize a script
 ---
 - hosts: localhost
   roles:
