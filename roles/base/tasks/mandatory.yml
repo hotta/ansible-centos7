@@ -20,4 +20,5 @@
     - wget
     - w3m
     - python-pip
+    - kernel-devel
   become: yes
