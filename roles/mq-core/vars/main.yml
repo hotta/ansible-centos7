@@ -9,8 +9,10 @@ MQ_CORE_PACKAGES:
   - MQSeriesSDK
 MQ_SERVER_PACKAGES:
   - MQSeriesServer
+  - MQSeriesSamples
+MQ_EXPLORER_PACKAGES:
   - MQSeriesJava
   - MQSeriesJRE
-  - MQSeriesGSKit
-  - MQSeriesSamples
+  - MQSeriesExplorer
 MQ_BIN_DIR: /opt/mqm/bin
+MQ_PACKAGE_BASE_DIR: /usr/local/src

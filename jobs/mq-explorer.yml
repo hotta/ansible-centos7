@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook mq.yml
+---
+- hosts: localhost
+  roles:
+    - mq-explorer
