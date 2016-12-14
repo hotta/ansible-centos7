@@ -32,3 +32,8 @@
     group: mqm
     user: "{{ ansible_user_id }}"
   become: yes
+- name: Add {{ MQ_BIN_DIR }} to $PATH
+  template:
+    src: mq.sh
+    dest: /etc/profile.d
+  become: yes

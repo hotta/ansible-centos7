@@ -15,4 +15,6 @@ MQ_EXPLORER_PACKAGES:
   - MQSeriesJRE
   - MQSeriesExplorer
 MQ_BIN_DIR: /opt/mqm/bin
+MQ_MAN_DIR: /opt/mqm/man
 MQ_PACKAGE_BASE_DIR: /usr/local/src
+MQ_CLIENT_PORT: 1414
