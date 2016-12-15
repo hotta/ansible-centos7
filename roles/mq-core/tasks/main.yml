@@ -29,7 +29,7 @@
 - name: Add {{ ansible_user_id }} to group mqm
   user:
     append: yes
-    group: mqm
+    groups: mqm
     user: "{{ ansible_user_id }}"
   become: yes
 - name: Add {{ MQ_BIN_DIR }} to $PATH
