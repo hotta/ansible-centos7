@@ -54,8 +54,10 @@ available.
         - laravel
   - vnc
   - mq-core
+    - mq-docker
     - mq-client
     - mq-server
+    - mq-exploler
 
 ## Log directories
 
