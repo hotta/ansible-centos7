@@ -4,10 +4,17 @@
 - name: yum update. It takes time...
   yum: name=* state=latest
   become: yes
+- name: Install dependency
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - "{{ PHP_VERSION }}-php-devel"
+    - re2c
+  become: yes
 - name: Get mqseries pecl module
   git:
     clone: yes
-    dest: "{{ ansible_user_dir }}/pecl-networking-mqseries"
+    dest: /tmp/pecl-networking-mqseries
     repo: https://github.com/adoy/pecl-networking-mqseries.git
     version: PHP7
     update: no
@@ -15,12 +22,12 @@
 - name: Build module
   shell: phpize && ./configure && make
   args:
-    chdir: "{{ ansible_user_dir }}/pecl-networking-mqseries"
+    chdir: /tmp/pecl-networking-mqseries
 - name: Copy module
   copy:
     dest: /opt/remi/php70/root/lib64/php/modules
     remote_src: yes
-    src: "{{ ansible_user_dir }}/pecl-networking-mqseries/modules/mqseries.so"
+    src: /tmp/pecl-networking-mqseries/modules/mqseries.so
   become: yes
 - name: Copy ini file
   copy:
