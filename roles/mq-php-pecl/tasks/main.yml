@@ -11,6 +11,7 @@
     repo: https://github.com/adoy/pecl-networking-mqseries.git
     version: PHP7
     update: no
+  ignore_errors: yes
 - name: Build module
   shell: phpize && ./configure && make
   args:

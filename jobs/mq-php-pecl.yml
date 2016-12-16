@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook mq-php-pecl.yml
+---
+- hosts: localhost
+  roles:
+    - mq-php-pecl

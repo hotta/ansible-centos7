@@ -58,6 +58,7 @@ available.
     - mq-client
     - mq-server
     - mq-exploler
+    - mq-php-pecl
 
 ## Log directories
 

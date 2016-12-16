@@ -1,3 +1,3 @@
 dependencies:
-  - { role: php }
+  - { role: php-fpm }
   - { role: mq-core }
