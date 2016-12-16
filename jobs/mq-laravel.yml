@@ -3,4 +3,4 @@
 ---
 - hosts: localhost
   roles:
-    - mq-laravel
+    - { role: mq-laravel, tags: mq-laravel }
