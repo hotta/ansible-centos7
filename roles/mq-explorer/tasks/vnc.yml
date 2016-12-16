@@ -1,0 +1,27 @@
+---
+- name: roles/mq/tasks/main.yml
+  command: echo
+- name: Install GNOME Desktop and VNC server
+  yum: 
+    name: item
+    with_items:
+      - "@^gnome-desktop-environment"
+      - tigervnc-server
+  state: present
+  become: yes
+- name: prepare the directory for vnc auth
+  file:
+    path: {{ ansible_user_dir }}/.vnc
+    state: directory
+- name: enable vnc access without a password
+  shell: echo | vncpasswd -f > {{ ansible_user_dir }}/.vnc/passwd 
+- name: Check if MQ archive has been downloaded
+  stat:
+    path: "{{ MQ_ARCHIVE_PATH }}"
+  register: mq
+- name: Download MQ archive if it is not downloaded yet
+  get_url:
+    url: {{ MQ_URL }}
+    dest: {{ MQ_ARCHIVE_PATH }}
+  when:
+    mq.stat.exists == false

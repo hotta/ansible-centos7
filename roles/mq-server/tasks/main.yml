@@ -1,0 +1,44 @@
+---
+- name: roles/mq-server/tasks/main.yml
+  command: echo
+- name: Install MQ server components
+  yum:
+    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ item }}{{ MQ_PACKAGE_SUFFIX }}"
+    state: present
+  with_items:
+    - "{{ MQ_SERVER_PACKAGES }}"
+  become: yes
+- name: Expand file-max kernel parameter
+  sysctl:
+    name: fs.file-max
+    value: 524288
+    state: present
+  tags: sysctl
+  become: yes
+- name: Ease restriction of nofile
+  pam_limits:
+    domain:     "{{ item }}"
+    limit_item: nofile
+    limit_type: "-"
+    value:      10240
+  with_items:
+    - root
+    - mqm
+    - "{{ ansible_user_id }}"
+  become: yes
+- name: Install xinetd for listener
+  yum:
+    name: xinetd
+    state: present
+  become: yes
+- name: Set xinetd for listener
+  copy:
+    dest: /etc/xinetd.d
+    src:  mqseries-stream
+  become: yes
+- name: Enable xinetd
+  service:
+    enabled: yes
+    name:   xinetd
+    state:  started
+  become: yes

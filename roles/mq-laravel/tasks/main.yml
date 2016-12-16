@@ -1,0 +1,14 @@
+---
+- name: roles/mq-laravel/tasks/main.yml
+  command: echo
+
+- name: Composer update
+  composer:
+    command: update
+    working_dir: "{{ LARAVEL_HOME }}"
+
+- name: Install mqseries-php
+  composer:
+    command: require
+    arguments: bariton3/mqseries-php
+    working_dir: "{{ LARAVEL_HOME }}"

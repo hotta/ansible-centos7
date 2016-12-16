@@ -1,0 +1,32 @@
+---
+- name: roles/mq-docker/tasks/main.yml
+  command: echo
+- name: Install Docker
+  yum:
+    name: docker-python
+    state: present
+  become: yes
+- name: Start docker service
+  service:
+    enabled: yes
+    name: docker
+    state: started
+  become: yes
+- name: Expand file-max
+  sysctl:
+    name: fs.file-max
+    value: 524288
+    state: present
+  tags: sysctl
+  become: yes
+- name: Get Docker env
+  git:
+    dest: "{{ ansible_user_dir }}/mq-docker"
+    repo: https://github.com/kiririmode/mq-docker
+    update: no
+- name: Building docker container
+  docker_image:
+    path: "{{ ansible_user_dir }}/mq-docker/8.0.0/"
+    name: mq
+    tag: mq
+  become: yes

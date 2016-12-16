@@ -1,0 +1,20 @@
+MQ_FILENAME: mqadv_dev80_linux_x86-64.tar.gz
+MQ_URL: http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/messaging/mqadv/{{ MQ_FILENAME }}
+MQ_PACKAGE_SUFFIX: -8.0.0-4.x86_64.rpm
+MQ_CORE_PACKAGES:
+  - MQSeriesRuntime
+  - MQSeriesMan
+  - MQSeriesMsg_ja
+  - MQSeriesClient
+  - MQSeriesSDK
+MQ_SERVER_PACKAGES:
+  - MQSeriesServer
+  - MQSeriesSamples
+MQ_EXPLORER_PACKAGES:
+  - MQSeriesJava
+  - MQSeriesJRE
+  - MQSeriesExplorer
+MQ_BIN_DIR: /opt/mqm/bin
+MQ_MAN_DIR: /opt/mqm/man
+MQ_PACKAGE_BASE_DIR: /usr/local/src
+MQ_CLIENT_PORT: 1414

@@ -1,0 +1,23 @@
+---
+- name: roles/mq-explorer/tasks/main.yml
+  command: echo
+- name: Install MQ explorer components
+  yum:
+    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ item }}{{ MQ_PACKAGE_SUFFIX }}"
+    state: present
+  with_items:
+    - "{{ MQ_EXPLORER_PACKAGES }}"
+  become: yes
+- name: Install GNOME Desktop and VNC server
+  yum: 
+    name: "{{ item }}"
+  with_items:
+    - "@^gnome-desktop-environment"
+    - tigervnc-server
+  become: yes
+- name: prepare the directory for vnc auth
+  file:
+    path: "{{ ansible_user_dir }}/.vnc"
+    state: directory
+- name: enable vnc access without a password
+  shell: echo | vncpasswd -f > {{ ansible_user_dir }}/.vnc/passwd 

@@ -1,6 +1,6 @@
 # -*- coding: utf_8 -*- 
-# A daemon to daemonize a script
+# ansible-playbook mq-laravel.yml
 ---
 - hosts: localhost
   roles:
-    - supervisor
+    - mq-laravel

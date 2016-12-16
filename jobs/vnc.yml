@@ -1,6 +1,6 @@
 # -*- coding: utf_8 -*- 
-# A daemon to daemonize a script
+# ansible-playbook vnc.yml
 ---
 - hosts: localhost
   roles:
-    - supervisor
+    - vnc
