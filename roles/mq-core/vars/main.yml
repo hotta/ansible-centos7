@@ -14,7 +14,8 @@ MQ_EXPLORER_PACKAGES:
   - MQSeriesJava
   - MQSeriesJRE
   - MQSeriesExplorer
-MQ_BIN_DIR: /opt/mqm/bin
-MQ_MAN_DIR: /opt/mqm/man
+MQ_BASE_DIR: /opt/mqm
+MQ_BIN_DIR: "{{ MQ_BASE_DIR }}/bin"
+MQ_MAN_DIR: "{{ MQ_BASE_DIR }}/man"
 MQ_PACKAGE_BASE_DIR: /usr/local/src
 MQ_CLIENT_PORT: 1414

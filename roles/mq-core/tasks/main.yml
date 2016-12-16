@@ -37,3 +37,6 @@
     src: mq.sh
     dest: /etc/profile.d
   become: yes
+- name: Complete Installation Process
+  shell: "{{ MQ_BIN_DIR }}/setmqinst -i -p {{ MQ_BASE_DIR }}"
+  become: yes
