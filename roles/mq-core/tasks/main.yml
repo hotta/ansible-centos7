@@ -4,14 +4,14 @@
 - name: Download MQ archive if not yet (It'll take a while).
   get_url:
     url: "{{ MQ_URL }}"
-    dest: "{{ ansible_user_dir }}/{{ MQ_FILENAME }}"
+    dest: "/tmp/{{ MQ_FILENAME }}"
 - name: Check if MQ archive has already been extracted
   stat:
     path: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/copyright"
   register: mq
 - name: Extract MQ Series archive
   unarchive:
-    src: "{{ ansible_user_dir }}/{{ MQ_FILENAME }}"
+    src: "/tmp/{{ MQ_FILENAME }}"
     remote_src: yes
     dest: "{{ MQ_PACKAGE_BASE_DIR }}"
   become: yes
