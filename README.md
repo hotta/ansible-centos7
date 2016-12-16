@@ -59,6 +59,7 @@ available.
     - mq-server
     - mq-exploler
     - mq-php-pecl
+      - mq-laravel
 
 ## Log directories
 

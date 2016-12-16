@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook mq-laravel.yml
+---
+- hosts: localhost
+  roles:
+    - mq-laravel
