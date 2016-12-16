@@ -2,13 +2,24 @@
 - name: roles/mq-laravel/tasks/main.yml
   command: echo
 
+- name: Check for existence of mqseries-php
+  stat:
+    path: "{{ LARAVEL_HOME }}/vendor/bariton3/mqseries-php"
+  register: mqseries_php
 - name: Composer update
   composer:
     command: update
     working_dir: "{{ LARAVEL_HOME }}"
+  when: mqseries_php.stat.exists != true
 
 - name: Install mqseries-php
   composer:
     command: require
     arguments: bariton3/mqseries-php
     working_dir: "{{ LARAVEL_HOME }}"
+  when: mqseries_php.stat.exists != true
+
+- name: Publish configuration file
+  shell: php artisan vendor:publish --tag=mqseries --force
+  args:
+    chdir: "{{ LARAVEL_HOME }}"
