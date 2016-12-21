@@ -20,7 +20,7 @@
     update: no
   ignore_errors: yes
 - name: Build module
-  shell: phpize && ./configure && make
+  shell: export PATH={{ PHP_BIN_DIR }}:$PATH && phpize && ./configure && make
   args:
     chdir: /tmp/pecl-networking-mqseries
 - name: Copy module

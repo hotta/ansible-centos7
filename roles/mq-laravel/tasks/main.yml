@@ -6,9 +6,17 @@
   stat:
     path: "{{ LARAVEL_HOME }}/vendor/bariton3/mqseries-php"
   register: mqseries_php
+
 - name: Composer update
   composer:
     command: update
+    working_dir: "{{ LARAVEL_HOME }}"
+  when: mqseries_php.stat.exists != true
+
+- name: Install psr/log
+  composer:
+    command: require
+    arguments: psr/log:1.0.0
     working_dir: "{{ LARAVEL_HOME }}"
   when: mqseries_php.stat.exists != true
 
