@@ -1,11 +1,17 @@
 #!/bin/bash
 #
 if [ $# -eq 0 ]; then
-  echo "Register a MFA user"
-  echo
-  echo "Usage: $0 username"
-  echo "    usename ==> ^[A-Za-z][A-Za-z0-9-_]+"
+  cat <<__EOF__
+Register a MFA-authenticatable user
+
+Usage: $0 username
+    usename format : ^[A-Za-z][A-Za-z0-9-_]+
+__EOF__
   exit
+fi
+if [ "$USER" != "root" ]; then
+  echo "Run as root"
+  exit 1
 fi
 user=$1
 id $user >& /dev/null 
@@ -13,6 +19,5 @@ if [ $? -eq 0 ]; then
   echo "User $user already exists."
   exit 1
 fi
-sudo useradd -g radius-enabled $user
-yes | sudo -u $user /usr/local/bin/google-authenticator > /tmp/$user.log
-head -3 /tmp/$user.log | tail -1
+useradd -g radius-enabled $user
+su - $user /usr/local/bin/reauth-mfauser $user

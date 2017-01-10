@@ -102,8 +102,11 @@
   become: yes
 - name: Put command shell to make MFA user
   copy:
-    src: add-mfauser
+    src: "{{ item }}"
     dest: /usr/local/bin
     owner: root
     mode: 0755
+  with_items:
+    - add-mfauser
+    - reauth-mfauser
   become: yes

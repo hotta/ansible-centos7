@@ -1,0 +1,28 @@
+# EC2 Specific Configuration ( to make hostname static )
+---
+- name: Modify /etc/hostname
+  lineinfile:
+    dest: /etc/hostname
+    regexp: ^.+
+    line: "{{ LARAVEL_SERVER_NAME | quote }}"
+  become: yes
+- name: Modify /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: 127.0.0.1
+    line: 127.0.0.1 {{ LARAVEL_SERVER_NAME | quote }} localhost.localdomain localhost
+  become: yes
+- name: Modify /etc/sysconfig/network
+  lineinfile:
+    dest: /etc/sysconfig/network
+    regexp: ^HOSTNAME
+    line: HOSTNAME={{ LARAVEL_SERVER_NAME | quote }}
+  become: yes
+- name: Modify /etc/cloud/cloud.cfg
+  lineinfile:
+    dest: /etc/cloud/cloud.cfg
+    regexp: ^preserve_hostname
+    line: "preserve_hostname: true"
+  become: yes
+- name: Need to reboot to change hostname completely
+  command: echo 
