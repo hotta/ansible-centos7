@@ -1,17 +1,17 @@
 ## What is this ?
 
-This set of ansible playbooks will deploy various environment such as laravel / IBM MQ / VNC / Radius on CentOS7.x.
+This set of ansible playbooks deploy various environment such as laravel / IBM MQ / VNC / Radius on CentOS7.x.
 
 ## Prerequisite
 
-- Vagrant + VirtualBox VM running CentOS 7.2 with git and ansible 2.x.
+- Vagrant + VirtualBox VM running CentOS 7.3 with git and ansible 2.x.
 - typical installation process could be :
 
 ```bash
 mkdir XXXX
 cd XXXXX
-vagrant box add bento/centos-7.2 --provider virtualbox
-vagrant init bento/centos-7.2 
+vagrant box add bento/centos-7.3 --provider virtualbox
+vagrant init bento/centos-7.3 
 vagrant up
 vagrant ssh
 sudo yum -y install git epel-release
@@ -35,12 +35,13 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
 You may want to take a look at /etc/ansible/jobs to see what jobs are
 available.
 
-## Versions ( as of 2016/11/16 ).
+## Component's versions ( as of 2017/01/10 ).
 
-- php-5.6.25 / php-7.0.13
-- SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.4
+- php-5.6.25 / php-7.0.14
+- SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.5
 - Laravel-5.3.23
 - IBM MQ 8.0.0
+- FreeRadius 3.0.4
 
 ## Dependencies in roles
 
