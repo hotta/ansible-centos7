@@ -2,9 +2,7 @@ GAL:      google-authenticator-libpam
 GAL_DIR:  "{{ ansible_user_dir }}/{{ GAL }}"
 # group enabled auth via radius
 MFA_GROUP: radius-enabled
-# Address range radius protocol is acceptable from
+# Address range that radius protocol should be acceptable from
 MFA_ACCEPT_FROM: 172.18.0.0/23
-# SECRET for radius ( MUST CHANGE )
-MFA_RADIUS_SECRET: 4b1d354eb6b&c142%deFVCK740a
-# User to run goole-authenticator
-MFA_GA_USER: ga_user
+# SECRET for radius ( MUST BE CHANGED )
+MFA_RADIUS_SECRET: 4b1d354eb6bKc142WdeFVCK740a

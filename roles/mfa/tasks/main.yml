@@ -100,8 +100,10 @@
     state: restarted
     enabled: yes
   become: yes
-- name: Create user to execute google authenticator
-  user:
-    name: "{{ MFA_GA_USER }}"
-    groups: "{{ MFA_GROUP }}"
+- name: Put command shell to make MFA user
+  copy:
+    src: add-mfauser
+    dest: /usr/local/bin
+    owner: root
+    mode: 755
   become: yes
