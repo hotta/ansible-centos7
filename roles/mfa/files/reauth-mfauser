@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+if [ $# -eq 0 ]; then
+  cat <<__EOF__
+Rebuild MFA authentication info for a user
+
+Usage: $0 username
+__EOF__
+  exit
+fi
+user=$1
+id $user >& /dev/null 
+if [ $? -ne 0 ]; then
+  echo "User $user does not exist."
+  exit 1
+fi
+rm -rf /home/$user/.google_authenticator
+/usr/local/bin/google-authenticator \
+  --time-based    \
+  --force         \
+  --allow-reuse   \
+  --rate-limit=3  \
+  --rate-time=30  \
+  --window-size=5 \
+  > /tmp/$user.log
+head -2 /tmp/$user.log | tail -1

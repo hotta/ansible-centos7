@@ -3,11 +3,19 @@
 - name: Check if not Ubuntu (not supported)
   command: echo
   failed_when: ansible_lsb.exists is defined
-# - name: Check if VirtualBox
-#   command: echo
-#   failed_when: ansible_virtualization_type != 'virtualbox' 
+- name: Check if EC2
+  stat:
+    path: /etc/cloud/cloud.cfg
+  register: cloud
+# - debug: var=cloud
+#   failed_when: true
 - name: Check if roles/base has applied
   stat: path=/etc/profile.d/vb_prompt.sh
   register: vb_prompt
 - include: batch.yml
   when: vb_prompt.stat.exists != true
+- include: ec2.yml
+  when:
+    - cloud.stat.exists == true
+    - ansible_distribution == 'CentOS'
+    - ansible_distribution_major_version == '7'

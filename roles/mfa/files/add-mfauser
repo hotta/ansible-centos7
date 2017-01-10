@@ -1,0 +1,23 @@
+#!/bin/bash
+#
+if [ $# -eq 0 ]; then
+  cat <<__EOF__
+Register a MFA-authenticatable user
+
+Usage: $0 username
+    usename format : ^[A-Za-z][A-Za-z0-9-_]+
+__EOF__
+  exit
+fi
+if [ "$USER" != "root" ]; then
+  echo "Run as root"
+  exit 1
+fi
+user=$1
+id $user >& /dev/null 
+if [ $? -eq 0 ]; then
+  echo "User $user already exists."
+  exit 1
+fi
+useradd -g radius-enabled $user
+su - $user /usr/local/bin/reauth-mfauser $user

@@ -1,0 +1,112 @@
+# See http://aws.typepad.com/sajp/2014/10/google-authenticator.html for details.
+---
+- name: roles/mfa/tasks/main.yml
+  command: echo
+- name: Install dependency
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - freeradius
+    - freeradius-utils
+    - pam-devel
+    - qrencode
+    - qrencode-devel
+    - autoconf
+    - automake
+    - libtool
+  become: yes
+- name: Chech if GAL PAM module exists
+  stat:
+    path: /usr/lib64/security/pam_google_authenticator.so
+  register: so
+# - debug: var=so
+#  failed_when: true
+- name: Get google-authenticator-libpam
+  git:
+    dest: "{{ GAL_DIR }}"
+    repo: https://github.com/google/{{ GAL }}.git
+  when: so.stat.isreg is not defined 
+- name: Build GAL
+  shell: ./bootstrap.sh && ./configure --libdir=/usr/lib64 && make
+  args:
+    chdir: "{{ GAL_DIR }}"
+  when: so.stat.isreg is not defined 
+- name: Install GAL
+  shell: make install
+  args:
+    chdir: "{{ GAL_DIR }}"
+  become: yes
+  when: so.stat.isreg is not defined 
+- name: Create group which is enabled authentication via radius
+  group:
+    name: "{{ MFA_GROUP }}"
+  become: yes
+- name: Change effective group for radiusd
+  lineinfile:
+    dest: /etc/raddb/radiusd.conf
+    line: "\tuser = root"
+    regexp: "^\tuser = radiusd"
+    backrefs: yes
+  become: yes
+- name: Change effective user for radiusd
+  lineinfile:
+    dest: /etc/raddb/radiusd.conf
+    line: '\tgroup = root'
+    regexp: '^\tgroup = radiusd'
+    backrefs: yes
+  become: yes
+- name: Change user auth policy
+  copy:
+    src: authorize
+    dest: /etc/raddb/mods-config/files/
+    owner: root
+    group: radiusd
+    mode: 640
+  become: yes
+- name: Make radius authentication use PAM
+  lineinfile:
+    dest: /etc/raddb/sites-available/default
+    line: "\tpam"
+    regexp: "^#\tpam"
+    backrefs: yes
+  become: yes
+- name: Use Google Authenticator's PAM module
+  copy:
+    src: radiusd
+    dest: /etc/pam.d/
+    owner: root
+    group: root
+    mode: 644
+  become: yes
+- name: Enable PAM module
+  file:
+    path: /etc/raddb/mods-enabled/pam
+    src: ../mods-available/pam
+    state: link
+    owner: root
+    group: radiusd
+  become: yes
+- name: Accept radius protocol
+  template:
+    src: clients.conf
+    dest: /etc/raddb/
+    owner: root
+    group: radiusd
+    mode: 640
+  become: yes
+- name: Start radiusd
+  service:
+    name: radiusd
+    state: restarted
+    enabled: yes
+  become: yes
+- name: Put command shell to make MFA user
+  copy:
+    src: "{{ item }}"
+    dest: /usr/local/bin
+    owner: root
+    mode: 0755
+  with_items:
+    - add-mfauser
+    - reauth-mfauser
+  become: yes
