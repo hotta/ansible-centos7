@@ -2,6 +2,29 @@
 
 This set of ansible playbooks deploy various environment such as laravel / IBM MQ / VNC / Radius on CentOS7.x.
 
+## Current status in Changing php70 to php71
+
+- base.yml        - OK
+- composer.yml    - not tested
+- laravel.yml     - not tested
+- lessmd.yml      - OK
+- mariadb.yml     - not tested
+- mfa.yml         - not tested
+- mq-client.yml   - not tested
+- mq-core.yml     - not tested
+- mq-docker.yml   - not tested
+- mq-explorer.yml - not tested
+- mq-laravel.yml  - not tested
+- mq-php-pecl.yml - not tested
+- mq-server.yml   - not tested
+- nginx.yml       - not tested
+- php-fpm.yml     - not tested
+- php.yml         - OK
+- postgresql.yml  - not tested
+- supervisor.yml  - not tested
+- vnc.yml         - not tested
+- xdebug.yml      - not tested
+
 ## Prerequisite
 
 - Vagrant + VirtualBox VM running CentOS 7.3 with git and ansible 2.x.
@@ -24,7 +47,10 @@ sudo yum -y install ansible
 $ git clone https://github.com/hotta/ansible-centos7.git
 $ sudo rm -r /etc/ansible
 $ sudo mv ansible-centos7 /etc/ansible
-$ cd /etc/ansible/host_vars
+$ cd /etc/ansible/
+$ cp hosts.example hosts
+$ vi hosts
+$ cd ../host_vars
 $ cp localhost.yml.tmpl localhost.yml
 $ vi localhost.yml 
 $ cd
@@ -66,6 +92,6 @@ available.
 ## Log directories
 
 - /var/log/nginx
-- /var/opt/remi/php70/log/php-fpm/
-- /opt/remi/php56/root/var/log/php-fpm/
+- /var/log/php-fpm/
 - /var/www/laravel/storage/logs
+

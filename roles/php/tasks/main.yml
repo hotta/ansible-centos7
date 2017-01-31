@@ -1,14 +1,21 @@
 ---
 - name: roles/php/tasks/main.yml
   command: echo
+- name: Enable remi-php71 at all times
+  shell: sed -i '1,/\[remi-php71-debuginfo\]/ s/enabled=0/enabled=1/' remi-php71.repo
+  args:
+    chdir: /etc/yum.repos.d
+  become: yes
 - name: Install PHP stuff from remi repository
-  yum: name={{ item }} state=present
+  yum:
+    name: "{{ item }}"
+    state: present
   with_items:
-    - "{{ PHP_VERSION }}"
-    - "{{ PHP_VERSION }}-php-mbstring"
-    - "{{ PHP_VERSION }}-php-xml"
-    - "{{ PHP_VERSION }}-php-pdo"
-    - "{{ PHP_VERSION }}-php-pecl-zip"
+    - php-mbstring
+    - php-cli
+    - php-xml
+    - php-pdo
+    - php-pecl-zip
   become: yes
 - name: add php executables dir to $PATH
   template:

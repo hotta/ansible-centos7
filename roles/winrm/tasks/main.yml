@@ -1,0 +1,7 @@
+---
+- name: roles/winrm/main.yml
+  command: echo
+- name: Install pywinrm
+  pip:
+    name: pywinrm
+  become: yes

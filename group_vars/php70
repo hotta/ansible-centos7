@@ -1,8 +1,0 @@
-# group_vars/php70 - Version dependent settings for php
----
-PHP_VERSION:  php70
-PHP_INI_DIR:  /etc/opt/remi/{{ PHP_VERSION }}
-PHP_VAR_DIR:  /var/opt/remi/{{ PHP_VERSION }}
-PHP_LOG_DIR:  /var/opt/remi/{{ PHP_VERSION }}/log
-PHP_BIN_DIR:  /opt/remi/{{ PHP_VERSION }}/root/usr/bin
-PHP_FPM:      "{{ PHP_VERSION }}-php-fpm"
