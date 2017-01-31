@@ -2,29 +2,6 @@
 
 This set of ansible playbooks deploy various environment such as laravel / IBM MQ / VNC / Radius on CentOS7.x.
 
-## Current status in Changing php70 to php71
-
-- base.yml        - OK
-- composer.yml    - not tested
-- laravel.yml     - not tested
-- lessmd.yml      - OK
-- mariadb.yml     - not tested
-- mfa.yml         - not tested
-- mq-client.yml   - not tested
-- mq-core.yml     - not tested
-- mq-docker.yml   - not tested
-- mq-explorer.yml - not tested
-- mq-laravel.yml  - not tested
-- mq-php-pecl.yml - not tested
-- mq-server.yml   - not tested
-- nginx.yml       - not tested
-- php-fpm.yml     - not tested
-- php.yml         - OK
-- postgresql.yml  - not tested
-- supervisor.yml  - not tested
-- vnc.yml         - not tested
-- xdebug.yml      - not tested
-
 ## Prerequisite
 
 - Vagrant + VirtualBox VM running CentOS 7.3 with git and ansible 2.x.
