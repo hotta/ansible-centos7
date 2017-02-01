@@ -44,7 +44,7 @@
 
 [php56]
 
-[php70]
+[php71]
 localhost ansible_connection=local
 
 [windows]

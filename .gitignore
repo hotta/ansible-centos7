@@ -1,3 +1,4 @@
+*.retry
 *.swp
 .env
 host_vars/localhost.yml

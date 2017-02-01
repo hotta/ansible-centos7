@@ -15,6 +15,7 @@
     - php-cli
     - php-xml
     - php-pdo
+    - php-pgsql
     - php-pecl-zip
   become: yes
 - name: add php executables dir to $PATH

@@ -1,17 +1,11 @@
 ---
 - name: roles/postgresql/tasks/main.yml
-  set_fact: pg_need_install=true
-  tags: init
+  command: echo
 - name: Check for PGDG repository
   stat: path=/etc/yum.repos.d/{{PG_REPO_FILE}}
   register: pgdg
 - include: package.yml
-  when: 
-    - pg_need_install == true
-    - pgdg.stat.exists == false
-  ignore_errors: yes
+  when: pgdg.stat.exists == false
 - include: init.yml
-  when:
-    - pg_need_install == true
   ignore_errors: yes
   tags: init

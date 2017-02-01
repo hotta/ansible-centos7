@@ -38,11 +38,11 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
 You may want to take a look at /etc/ansible/jobs to see what jobs are
 available.
 
-## Component's versions ( as of 2017/01/10 ).
+## Component's versions ( as of 2017/02/01 ).
 
-- php-5.6.25 / php-7.0.14
+- php-7.1.1
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.5
-- Laravel-5.3.23
+- Laravel-5.3.22
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 

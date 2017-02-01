@@ -15,5 +15,5 @@
   with_items:
     - postgresql95-server
     - postgresql95-devel
-    - "{{ PHP_VERSION }}-php-pgsql"
+    - php-pgsql
   become: yes
