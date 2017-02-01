@@ -2,7 +2,9 @@
 - name: roles/php-fpm/tasks/main.yml
   command: echo
 - name: Install package from remi repository
-  yum: name={{ item }} state=present
+  yum:
+    name: "{{ item }}"
+    state:  present
   with_items:
     - "{{ PHP_FPM }}"
   become: yes

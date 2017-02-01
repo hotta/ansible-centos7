@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook winrm.yml
+---
+- hosts: localhost
+  roles:
+    - winrm

@@ -24,7 +24,10 @@ sudo yum -y install ansible
 $ git clone https://github.com/hotta/ansible-centos7.git
 $ sudo rm -r /etc/ansible
 $ sudo mv ansible-centos7 /etc/ansible
-$ cd /etc/ansible/host_vars
+$ cd /etc/ansible/
+$ cp hosts.example hosts
+$ vi hosts
+$ cd ../host_vars
 $ cp localhost.yml.tmpl localhost.yml
 $ vi localhost.yml 
 $ cd
@@ -35,11 +38,11 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
 You may want to take a look at /etc/ansible/jobs to see what jobs are
 available.
 
-## Component's versions ( as of 2017/01/10 ).
+## Component's versions ( as of 2017/02/01 ).
 
-- php-5.6.25 / php-7.0.14
+- php-7.1.1
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.5
-- Laravel-5.3.23
+- Laravel-5.3.22
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 
@@ -66,6 +69,6 @@ available.
 ## Log directories
 
 - /var/log/nginx
-- /var/opt/remi/php70/log/php-fpm/
-- /opt/remi/php56/root/var/log/php-fpm/
+- /var/log/php-fpm/
 - /var/www/laravel/storage/logs
+

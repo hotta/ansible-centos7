@@ -44,5 +44,14 @@
 
 [php56]
 
-[php70]
+[php71]
 localhost ansible_connection=local
+
+[windows]
+windows_hostname_or_ip_address_to_be_managed
+
+[windows:vars]
+ansible_user=username_in_windows
+ansible_password=password_for_ansible_user
+ansible_port=5986
+ansible_connection=winrm

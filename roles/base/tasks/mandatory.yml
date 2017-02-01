@@ -19,6 +19,6 @@
     - bzip2
     - wget
     - w3m
-    - python-pip
+    - python2-pip
     - kernel-devel
   become: yes

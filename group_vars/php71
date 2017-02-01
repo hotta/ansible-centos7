@@ -1,0 +1,8 @@
+# group_vars/php71 - Version dependent settings for php
+---
+PHP_VERSION:  php71
+PHP_INI_DIR:  /etc
+PHP_VAR_DIR:  /var
+PHP_LOG_DIR:  /var/log
+PHP_BIN_DIR:  /usr/bin
+PHP_FPM:      php-fpm
