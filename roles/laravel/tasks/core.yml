@@ -65,3 +65,9 @@
     recurse:  yes
   become: yes
   notify: start {{ PHP_FPM }}
+
+- name: Put laravel.sh for adding PATH
+  copy:
+    src: laravel.sh
+    dest: /etc/profile.d
+  become: yes

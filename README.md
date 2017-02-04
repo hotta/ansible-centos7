@@ -26,10 +26,10 @@ $ sudo rm -r /etc/ansible
 $ sudo mv ansible-centos7 /etc/ansible
 $ cd /etc/ansible/
 $ cp hosts.example hosts
-$ vi hosts
-$ cd ../host_vars
+$ vi hosts (You may want to make some changes.)
+$ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
-$ vi localhost.yml 
+$ vi localhost.yml  (You may want to make some changes.)
 $ cd
 # to deploy laravel base environment for example
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
@@ -42,7 +42,7 @@ available.
 
 - php-7.1.1
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.5.5
-- Laravel-5.3.22
+- Laravel-5.4.7
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 
