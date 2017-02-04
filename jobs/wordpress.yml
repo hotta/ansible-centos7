@@ -1,0 +1,9 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook wordpress.yml
+# -------------------------------------------------------------------
+# WARNING: This job will install Japanese latest version of WordPress
+# -------------------------------------------------------------------
+---
+- hosts: localhost
+  roles:
+    - wordpress

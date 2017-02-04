@@ -1,0 +1,5 @@
+---
+- name: roles/wordpress/tasks/main.yml
+  command: echo
+- include: core.yml
+  tags: wp

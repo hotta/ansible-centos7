@@ -6,7 +6,9 @@
   with_items:
     - mariadb-server
     - mariadb
-    - "{{ PHP_VERSION }}-php-mysqlnd"
+    - php-mysqlnd
+    - mysql-connector-python
+    - MySQL-python
   become: yes
 - name: Enable mariadb
   service: name=mariadb state=started enabled=yes

@@ -26,9 +26,9 @@
   become: yes
   notify: reload nginx
 
-- name: core-04.Prepar directory for LARAVEL_BASE
+- name: core-04.Prepar directory for WWW_BASE
   file: 
-    path:     "{{ LARAVEL_BASE }}"
+    path:     "{{ WWW_BASE }}"
     state:    directory
     owner:    "{{ ansible_user_id }}"
   become: yes
@@ -36,8 +36,8 @@
 - name: core-05.Deploy laravel installation
   command: "{{ LARAVEL_BIN }} new laravel"
   args:
-    creates: "{{ LARAVEL_BASE }}/laravel"
-    chdir: "{{ LARAVEL_BASE }}"
+    creates: "{{ WWW_BASE }}/laravel"
+    chdir: "{{ WWW_BASE }}"
   environment:
     PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
 

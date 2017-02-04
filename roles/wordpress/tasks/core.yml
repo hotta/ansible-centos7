@@ -1,0 +1,41 @@
+---
+- name: roles/wordpress/tasks/core.yml
+  command: echo
+- name: Create Database
+  mysql_db:
+    name: "{{ WP_DB_NAME }}"
+  become: yes
+- name: Create Database User for WordPress
+  mysql_user:
+    name: "{{ WP_DB_USER }}"
+    password: "{{ WP_DB_PASSWORD }}"
+    priv: '*.*:ALL'
+  become: yes
+- name: Check if WP_ARCHIVE has already been downloaded
+  stat: 
+    path: /tmp/{{ WP_ARCHIVE }}
+  register: wp
+- name: Get latest tarball for Japanese use
+  get_url:
+    url: https://ja.wordpress.org/{{ WP_ARCHIVE }}
+    dest: /tmp
+  when: wp.stat.exists == false
+- name: Unarchive tarball
+  unarchive:
+    src: /tmp/{{ WP_ARCHIVE }}
+    dest: /var/www
+    remote_src: yes
+- name: Put wp-config.php
+  template:
+    src: wp-config.php
+    dest: "{{ WP_HOME }}"
+- name: Check if wp-cli has been installed
+  stat:
+    path: /tmp/wp-cli.phar
+  register: wp
+- name: Get wp-cli if not exists
+  get_url:
+    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+    dest: /usr/local/bin/wp
+    mode: 0755
+  become: yes
