@@ -47,6 +47,12 @@
 [php71]
 localhost ansible_connection=local
 
+[laravel]
+localhost ansible_connection=local
+
+[wordpress]
+localhost ansible_connection=local
+
 [windows]
 windows_hostname_or_ip_address_to_be_managed
 

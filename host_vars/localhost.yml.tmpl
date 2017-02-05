@@ -17,4 +17,17 @@ XDEBUG_REMOTE_HOST: 192.168.56.1
 # application key to be used in remote debugging
 XDEBUG_IDEKEY: netbeans-xdebug
 # DB engine - one of pgsql / mariadb / sqlite
-DB_CONNECTION: pgsql
+LARAVEL_DB_CONNECTION: pgsql
+# WordPress staff - default values will be inherited from group_vars/all
+WP_DB_NAME:     "{{ WP_DB_NAME }}"
+WP_DB_USER:     "{{ WP_DB_USER }}"
+WP_DB_PASSWORD: "{{ WP_DB_PASSWORD }}"
+WP_DB_HOST:     "{{ WP_DB_HOST }}"
+WP_HOME:        "{{ WP_HOME }}"
+WP_SERVER_NAME: "{{ WP_SERVER_NAME }}"
+WP_SITEURL:     http://{{ WP_SERVER_NAME }}
+WP_TITLE:       "{{ WP_TITLE }}"
+WP_ADMIN_USER:  "{{ WP_ADMIN_USER }}"
+WP_ADMINPASS:   "{{ WP_ADMINPASS }}"
+WP_ADMIN_EMAIL: "{{ WP_ADMIN_EMAIL }}"
+
