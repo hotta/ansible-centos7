@@ -10,10 +10,10 @@
 # - debug: var=cloud
 #   failed_when: true
 - name: Check if roles/base has applied
-  stat: path=/etc/profile.d/vb_prompt.sh
-  register: vb_prompt
+  stat: path=/etc/profile.d/{{ PROMPT_FILE }}.sh
+  register: prompt
 - include: batch.yml
-  when: vb_prompt.stat.exists != true
+  when: prompt.stat.exists != true
 - include: ec2.yml
   when:
     - cloud.stat.exists == true

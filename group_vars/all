@@ -5,3 +5,5 @@ WEBSERVER_USER: nginx
 # Composer
 COMPOSER_HOME:  /opt/composer
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
+# Bash
+PROMPT_FILE: bash_prompt.sh

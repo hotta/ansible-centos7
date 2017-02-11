@@ -18,16 +18,17 @@ XDEBUG_REMOTE_HOST: 192.168.56.1
 XDEBUG_IDEKEY: netbeans-xdebug
 # DB engine - one of pgsql / mariadb / sqlite
 LARAVEL_DB_CONNECTION: pgsql
-# WordPress staff - default values will be inherited from group_vars/all
-WP_DB_NAME:     "{{ WP_DB_NAME }}"
-WP_DB_USER:     "{{ WP_DB_USER }}"
-WP_DB_PASSWORD: "{{ WP_DB_PASSWORD }}"
-WP_DB_HOST:     "{{ WP_DB_HOST }}"
-WP_HOME:        "{{ WP_HOME }}"
-WP_SERVER_NAME: "{{ WP_SERVER_NAME }}"
+# WordPress staff 
+WP_DB_NAME:     wp
+WP_DB_USER:     wp
+WP_DB_PASSWORD:
+WP_DB_HOST:     localhost
+WP_HOME:        "{{ WWW_BASE }}/wordpress"
+WP_SERVER_NAME: wordpress.local
 WP_SITEURL:     http://{{ WP_SERVER_NAME }}
-WP_TITLE:       "{{ WP_TITLE }}"
-WP_ADMIN_USER:  "{{ WP_ADMIN_USER }}"
-WP_ADMINPASS:   "{{ WP_ADMINPASS }}"
-WP_ADMIN_EMAIL: "{{ WP_ADMIN_EMAIL }}"
-
+WP_TITLE:       WordPress Default Site
+WP_ADMIN_USER:  wp-admin
+WP_ADMINPASS:   _adm1np@ss
+WP_ADMIN_EMAIL: admin@example.com
+WP_FORCE_REINSTALL: false
+WP_JAPANIZE:    true

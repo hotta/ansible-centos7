@@ -5,25 +5,39 @@
 
 - name: Get wp-cli if not exists
   get_url:
-    url: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-    dest: {{ WP_CLI }}
+    url: "{{ WP_CLI_ARCHIVE }"
+    dest: "{{ WP_CLI }}"
     mode: 0755
   become: yes
 
-- name: Download and extract wp core archive
-  shell: {{ WP_CLI }} core download --locale=jp --path={{ WP_HOME }}
+- name: Get WP_ARCHIVE if not already downloaded
+  get_url:
+    url: "{{ WP_ARCHIVE_URL }}"
+    dest: /tmp/{{ WP_ARCHIVE }}
+
+- name: Extract core archive
+  unarchive:
+    src: /tmp/{{ WP_ARCHIVE }}
+    dest: "{{ WWW_BASE }}"
+    remote_src: yes
   become: yes
-  become_user: nginx
 
 - name: Configure wp instance
-  shell: {{ WP_CLI }} core config --path={{ WP_HOME }}
+  shell: "{{ WP_CLI }} core config --locale=ja --path={{ WP_HOME }}
     --dbname={{ WP_DB_NAME }} --dbuser={{ WP_DB_USER }}
-    --dbpass={{ WP_DB_PASSWORD }} --dbhost={{ WP_DB_HOST }}
+    --dbpass={{ WP_DB_PASSWORD }} --dbhost={{ WP_DB_HOST }}"
   become: yes
-  become_user: nginx
 
 - name: Install wp instance --path={{ WP_HOME }}
-  shell: {{ WP_CLI }} core install --url={{ WP_SERVER_NAME }}
-    --title={{ WP_TITLE }} --admin_user={{ WP_ADMIN_USER }}
-    --admin_password={{ WP_ADMINPASS }} --admin_email={{ WP_ADMIN_EMAIL }}
+  shell: "{{ WP_CLI }} core install --path={{ WP_HOME }}
+    --url={{ WP_SERVER_NAME }} --title='{{ WP_TITLE }}' 
+    --admin_user={{ WP_ADMIN_USER }} --admin_password={{ WP_ADMINPASS }} 
+    --admin_email={{ WP_ADMIN_EMAIL }}"
   become: yes
+
+- name: Put nginx config file
+  template:
+    src: wordpress.conf
+    dest: /etc/nginx/conf.d
+  become: yes
+  notify: reload nginx
