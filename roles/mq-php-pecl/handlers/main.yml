@@ -1,7 +1,0 @@
----
-- name: restart php56-php-fpm
-  service: name={{ PHP_FPM }} state=restarted enabled=yes
-  become: yes
-- name: restart php70-php-fpm
-  service: name={{ PHP_FPM }} state=restarted enabled=yes
-  become: yes

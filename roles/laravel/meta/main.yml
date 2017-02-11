@@ -1,5 +1,7 @@
 dependencies:
   - { role: php-fpm,    tags: before_laravel}
   - { role: composer,   tags: before_laravel}
-  - { role: postgresql, tags: before_laravel, when: DB_CONNECTION == "pgsql" }
-  - { role: mariadb,    tags: before_laravel, when: DB_CONNECTION == "mysql" }
+  - { role: postgresql, tags: before_laravel, 
+                        when: LARAVEL_DB_CONNECTION == "pgsql" }
+  - { role: mariadb,    tags: before_laravel, 
+                        when: LARAVEL_DB_CONNECTION == "mysql" }

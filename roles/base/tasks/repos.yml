@@ -2,17 +2,39 @@
 ---
 - name: roles/base/tasks/repos.yml
   command: echo
+
 - name: Check for access to the Internet
   wait_for: host=www.yahoo.co.jp port=80 timeout=5
-- name: |
-    Install additional repositories for CentOS 7.x
-    - epel(Enterprise Packages for RedHat Enterprise Linux)
-    - remi(Remi's RPM repository)
-  yum: name={{item}} state=present
+
+- name: Import rpm-gpg key for epel
+  rpm_key:
+    key: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
   become: yes
-  with_items:
-    - epel-release
-    - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+
+- name: Install additional repositories for CentOS 7.x - epel
+  yum_repository:
+    name: epel-release
+    description: Extra Packages for Enterprise Linux 7 - $basearch
+    mirrorlist: https://mirrors.fedoraproject.org/metalink?repo=epel-7&arch=$basearch
+    failovermethod: priority
+    enabled: yes
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+    gpgcheck: yes
+  become: yes
+- name: Import rpm-gpg key for remi
+  rpm_key:
+    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi
+  become: yes
+- name: Install additional repositories for CentOS 7.x - remi
+  yum_repository:
+    name: remi-release-7.rpm
+    description: "Remi's RPM repository for Enterprise Linux 7 - $basearch"
+    mirrorlist: http://rpms.remirepo.net/enterprise/7/remi/mirror
+    enabled: yes
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
+    gpgcheck: yes
+  become: yes
+#   - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 - name: yum update. It takes time...
   yum: name=* state=latest
   become: yes

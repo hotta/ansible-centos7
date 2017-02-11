@@ -42,9 +42,13 @@
 
 ## db-[99:101]-node.example.com
 
-[php56]
-
 [php71]
+localhost ansible_connection=local
+
+[laravel]
+localhost ansible_connection=local
+
+[wordpress]
 localhost ansible_connection=local
 
 [windows]

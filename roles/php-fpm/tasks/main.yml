@@ -44,4 +44,4 @@
   shell: "cat /tmp/www.conf.append >> {{ PHP_INI_DIR }}/php-fpm.d/www.conf"
   when: Japanese_exists.rc != 0
   become: yes
-  notify: start {{ PHP_FPM }}
+  notify: restart php-fpm

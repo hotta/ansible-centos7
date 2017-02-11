@@ -1,19 +1,12 @@
 # group_vars/all - Common constants among all environment
 ---
+WWW_BASE:       /var/www
+WEBSERVER_USER: nginx
+# Composer
 COMPOSER_HOME:  /opt/composer
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
-LARAVEL_BIN:   "{{ COMPOSER_GLOBAL_BIN }}/laravel"
-LARAVEL_BASE:   /var/www
-LARAVEL_HOME:   "{{ LARAVEL_BASE }}/laravel"
-DOCUMENT_ROOT:  "{{ LARAVEL_HOME }}"
-# referred from roles/laravel/templates/env.default
-APP_ENV:        local
-APP_DEBUG:      true
-DB_CONNECTION:  sqlite
-DB_HOST:        localhost
-DB_DATABASE:    laravel
-DB_USERNAME:    "{{ ansible_user_id }}"
-DB_PASSWORD:
-MAIL_DRIVER:    log
-LARAVEL_VERSION: 5.3.16
-WEBSERVER_USER: nginx
+# Bash
+PROMPT_FILE: bash_prompt.sh
+WP_CLI_ARCHIVE: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+WP_ARCHIVE_FILE: latest-ja.tar.gz
+WP_ARCHIVE_URL: https://ja.wordpress.org/{{ WP_ARCHIVE_FILE }}

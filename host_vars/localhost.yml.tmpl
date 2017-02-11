@@ -11,10 +11,23 @@ LARAVEL_APPLY_COMJA5: true
 # FQDN to serve this service
 LARAVEL_SERVER_NAME: laravel.local
 # IP address of this host
-LARAVEL_IP_ADDRESS: 192.168.56.2
+MY_IP_ADDRESS: 192.168.56.2
 # Your Terminal's IP Address for Remote Debugging
 XDEBUG_REMOTE_HOST: 192.168.56.1
 # application key to be used in remote debugging
 XDEBUG_IDEKEY: netbeans-xdebug
 # DB engine - one of pgsql / mariadb / sqlite
-DB_CONNECTION: pgsql
+LARAVEL_DB_CONNECTION: pgsql
+# WordPress staff 
+WP_DB_NAME:     wp
+WP_DB_USER:     wp
+WP_DB_PASSWORD:
+WP_DB_HOST:     localhost
+WP_HOME:        "{{ WWW_BASE }}/wordpress"
+WP_SERVER_NAME: wordpress.local
+WP_SITEURL:     http://{{ WP_SERVER_NAME }}
+WP_TITLE:       WordPress Default Site
+WP_ADMIN_USER:  wp-admin
+WP_ADMINPASS:   _adm1np@ss
+WP_ADMIN_EMAIL: admin@example.com
+WP_FORCE_REINSTALL: false
