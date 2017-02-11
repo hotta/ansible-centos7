@@ -6,7 +6,7 @@
 - name: Check for access to the Internet
   wait_for: host=www.yahoo.co.jp port=80 timeout=5
 
-- name: Import rpm-gpg key for rpel
+- name: Import rpm-gpg key for epel
   rpm_key:
     key: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
   become: yes

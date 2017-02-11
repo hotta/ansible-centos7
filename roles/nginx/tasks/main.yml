@@ -19,4 +19,4 @@
   become: yes
 - name: Enable eninx
   command: echo
-  notify: enable nginx
+  notify: restart nginx
