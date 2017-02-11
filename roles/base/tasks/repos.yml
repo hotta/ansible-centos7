@@ -2,8 +2,15 @@
 ---
 - name: roles/base/tasks/repos.yml
   command: echo
+
 - name: Check for access to the Internet
   wait_for: host=www.yahoo.co.jp port=80 timeout=5
+
+- name: Import rpm-gpg key for rpel
+  rpm_key:
+    key: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
+  become: yes
+
 - name: Install additional repositories for CentOS 7.x - epel
   yum_repository:
     name: epel-release
@@ -13,6 +20,10 @@
     enabled: yes
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
     gpgcheck: yes
+  become: yes
+- name: Import rpm-gpg key for remi
+  rpm_key:
+    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi
   become: yes
 - name: Install additional repositories for CentOS 7.x - remi
   yum_repository:

@@ -2,6 +2,6 @@
 ---
 - name: roles/base/tasks/prompt.yml
   command: echo
-- name: Deploy {{ PROMPT_FILE }}.sh 
+- name: Deploy {{ PROMPT_FILE }}
   copy: src={{ PROMPT_FILE }} dest=/etc/profile.d
   become: yes

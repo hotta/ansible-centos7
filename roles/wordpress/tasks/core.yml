@@ -5,28 +5,35 @@
 
 - name: Get wp-cli if not exists
   get_url:
-    url: "{{ WP_CLI_ARCHIVE }"
+    url: "{{ WP_CLI_ARCHIVE }}"
     dest: "{{ WP_CLI }}"
     mode: 0755
   become: yes
 
-- name: Get WP_ARCHIVE if not already downloaded
+- name: Get WP_ARCHIVE_FILE if not already downloaded
   get_url:
     url: "{{ WP_ARCHIVE_URL }}"
-    dest: /tmp/{{ WP_ARCHIVE }}
+    dest: /tmp/{{ WP_ARCHIVE_FILE }}
 
 - name: Extract core archive
   unarchive:
-    src: /tmp/{{ WP_ARCHIVE }}
+    src: /tmp/{{ WP_ARCHIVE_FILE }}
     dest: "{{ WWW_BASE }}"
     remote_src: yes
   become: yes
 
-- name: Configure wp instance
-  shell: "{{ WP_CLI }} core config --locale=ja --path={{ WP_HOME }}
-    --dbname={{ WP_DB_NAME }} --dbuser={{ WP_DB_USER }}
-    --dbpass={{ WP_DB_PASSWORD }} --dbhost={{ WP_DB_HOST }}"
+- name: Create wp-config.php
+  template:
+    src: wp-config.php
+    dest: "{{ WP_HOME }}"
   become: yes
+
+- name: Create Database
+  command: "{{ WP_CLI }} db create"
+  args:
+    chdir: "{{ WP_HOME }}"
+  become: yes
+  become_user: mysql
 
 - name: Install wp instance --path={{ WP_HOME }}
   shell: "{{ WP_CLI }} core install --path={{ WP_HOME }}

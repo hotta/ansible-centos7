@@ -8,7 +8,6 @@
     mirrorlist: http://rpms.remirepo.net/enterprise/7/php71/mirror
     enabled: yes
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-    gpgcheck: yes
   become: yes
 
 - name: Install PHP stuff from remi repository
