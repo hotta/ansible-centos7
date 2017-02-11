@@ -29,18 +29,25 @@
   become: yes
 
 - name: Create Database
-  command: "{{ WP_CLI }} db create"
-  args:
-    chdir: "{{ WP_HOME }}"
-  become: yes
-  become_user: mysql
-
+  mysql_db:
+    login_user: root
+    name: "{{ WP_DB_NAME }}"
+  
+- name: Create Database User
+  mysql_user:
+    login_user: root
+    name: "{{ WP_DB_USER }}"
+    password: "{{ WP_DB_PASSWORD }}"
+    login_host: "{{ WP_DB_HOST }}"
+    priv: "{{ WP_DB_NAME }}.*:ALL,GRANT"
+  
 - name: Install wp instance --path={{ WP_HOME }}
   shell: "{{ WP_CLI }} core install --path={{ WP_HOME }}
     --url={{ WP_SERVER_NAME }} --title='{{ WP_TITLE }}' 
     --admin_user={{ WP_ADMIN_USER }} --admin_password={{ WP_ADMINPASS }} 
     --admin_email={{ WP_ADMIN_EMAIL }}"
   become: yes
+  notify: reload php-fpm
 
 - name: Put nginx config file
   template:
@@ -48,3 +55,11 @@
     dest: /etc/nginx/conf.d
   become: yes
   notify: reload nginx
+
+- name: Add $LARAVEL_SERVER_NAME entry to /etc/hosts
+  lineinfile:
+    dest:   /etc/hosts
+    line:   "{{ MY_IP_ADDRESS }} {{ WP_SERVER_NAME }}"
+    regexp: "^{{ MY_IP_ADDRESS }} +{{ WP_SERVER_NAME }}"
+    insertafter:  EOF
+  become: yes

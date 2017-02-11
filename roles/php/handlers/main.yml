@@ -1,7 +1,0 @@
----
-- name: reload nginx
-  service: name=nginx state=reloaded
-  become: yes
-- name: reload php-fpm
-  service: name={{ PHP_VERSION }}-php-fpm state=reloaded
-  become: yes
