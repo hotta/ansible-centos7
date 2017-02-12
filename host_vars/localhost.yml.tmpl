@@ -1,33 +1,33 @@
 # host_vars/localhost.yml - Host specific variables
 ---
-# timezone in OS level
-TIME_ZONE: Asia/Tokyo
+# IP address of this host
+MY_IP_ADDRESS:        192.168.56.2
+# Your Terminal's IP Address for Remote Debugging
+XDEBUG_REMOTE_HOST:   192.168.56.1
+# application key to be used in remote debugging
+XDEBUG_IDEKEY:        netbeans-xdebug
+# Basic stuff
+TIME_ZONE:            Asia/Tokyo
 # whether you'd like to localize php and laravel environment into Japanese 
-PHP_JAPANIZE: true
-# locale value in laravel
-LARAVEL_LOCALE: ja
+PHP_JAPANIZE:         true
+# Laravel stuff
+LARAVEL_LOCALE:       ja
 # if true then we will translate source comments into Japanese
 LARAVEL_APPLY_COMJA5: true
 # FQDN to serve this service
-LARAVEL_SERVER_NAME: laravel.local
-# IP address of this host
-MY_IP_ADDRESS: 192.168.56.2
-# Your Terminal's IP Address for Remote Debugging
-XDEBUG_REMOTE_HOST: 192.168.56.1
-# application key to be used in remote debugging
-XDEBUG_IDEKEY: netbeans-xdebug
+LARAVEL_SERVER_NAME:  laravel.local
 # DB engine - one of pgsql / mariadb / sqlite
 LARAVEL_DB_CONNECTION: pgsql
 # WordPress staff 
-WP_DB_NAME:     wp
-WP_DB_USER:     wp
+WP_DB_NAME:           wp
+WP_DB_USER:           wp
 WP_DB_PASSWORD:
-WP_DB_HOST:     localhost
-WP_HOME:        "{{ WWW_BASE }}/wordpress"
-WP_SERVER_NAME: wordpress.local
-WP_SITEURL:     http://{{ WP_SERVER_NAME }}
-WP_TITLE:       WordPress Default Site
-WP_ADMIN_USER:  wp-admin
-WP_ADMINPASS:   _adm1np@ss
-WP_ADMIN_EMAIL: admin@example.com
-WP_FORCE_REINSTALL: false
+WP_DB_HOST:           localhost
+WP_HOME:              "{{ WWW_BASE }}/wordpress"
+WP_SERVER_NAME:       wordpress.local
+WP_SITEURL:           http://{{ WP_SERVER_NAME }}
+WP_TITLE:             WordPress Default Site
+WP_ADMIN_USER:        wp-admin
+WP_ADMINPASS:         _adm1np@ss
+WP_ADMIN_EMAIL:       admin@example.com
+WP_FORCE_REINSTALL:   false

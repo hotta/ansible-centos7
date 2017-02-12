@@ -26,13 +26,6 @@
   become: yes
   notify: reload nginx
 
-- name: core-04.Prepar directory for WWW_BASE
-  file: 
-    path:     "{{ WWW_BASE }}"
-    state:    directory
-    owner:    "{{ ansible_user_id }}"
-  become: yes
-
 - name: core-05.Deploy laravel installation
   command: "{{ LARAVEL_BIN }} new laravel"
   args:

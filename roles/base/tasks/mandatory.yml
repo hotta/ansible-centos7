@@ -22,3 +22,10 @@
     - python2-pip
     - kernel-devel
   become: yes
+
+- name: Prepar directory for WWW_BASE
+  file:
+    path:     "{{ WWW_BASE }}"
+    state:    directory
+    owner:    "{{ ansible_user_id }}"
+  become: yes
