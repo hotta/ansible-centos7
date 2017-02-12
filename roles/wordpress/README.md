@@ -1,6 +1,6 @@
 # はじめに
 
-CentOS 7.3 に WordPress-4.7.2（2017/02/12現在）+ ワンタイムパスワード(OTP)用プラグインを導入するための Ansible Playbook です。
+CentOS 7.3 に WordPress-4.7.2（2017/02/12現在）+ ワンタイムパスワード(OTP)用プラグインを導入するための Ansible Playbook です。導入される php や nginx 等のコンポーネントのバージョンについては、リポジトリのトップページ[https://github.com/hotta/ansible-centos7](https://github.com/hotta/ansible-centos7)を参照してください。
 
 # ベース構築手順（ローカル環境）
 

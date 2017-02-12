@@ -42,7 +42,7 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
 
 ## Building WordPress environment especially customized for Japanese use
 
-- See [https://github.com/hotta/ansible-centos7/tree/wp/roles/wordpress](https://github.com/hotta/ansible-centos7/tree/wp/roles/wordpress) for details.
+- See [/roles/wordpress](https://github.com/hotta/ansible-centos7/tree/master/roles/wordpress) for details.
 
 You may want to take a look at /etc/ansible/jobs to see what jobs are
 available.
