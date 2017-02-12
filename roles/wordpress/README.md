@@ -44,10 +44,10 @@ $ sudo rm -r /etc/ansible
 $ sudo mv ansible-centos7 /etc/ansible
 $ cd /etc/ansible/
 $ cp hosts.example hosts
-$ vi hosts (You may want to make some changes.)
+$ vi hosts (後述)
 $ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
-$ vi localhost.yml  (You may want to make some changes.)
+$ vi localhost.yml (後述)
 $ cd
 $ ansible-playbook /etc/ansible/jobs/wordpress.yml
 ```
