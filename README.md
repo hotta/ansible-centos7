@@ -18,7 +18,7 @@ sudo yum -y install git epel-release
 sudo yum -y install ansible
 ```
 
-## Quick start
+## Prepare for running playbooks
 
 ```bash
 $ git clone https://github.com/hotta/ansible-centos7.git
@@ -31,9 +31,18 @@ $ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
 $ vi localhost.yml  (You may want to make some changes.)
 $ cd
-# to deploy laravel base environment for example
+```
+
+## Building Laravel environment 
+
+```bash
+# to build Laravel env.
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
+
+## Building WordPress environment especially customized for Japanese use
+
+- See [https://github.com/hotta/ansible-centos7/tree/wp/roles/wordpress](https://github.com/hotta/ansible-centos7/tree/wp/roles/wordpress) for details.
 
 You may want to take a look at /etc/ansible/jobs to see what jobs are
 available.
@@ -45,6 +54,7 @@ available.
 - Laravel-5.4.7
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
+- WordPress 4.7.2
 
 ## Dependencies in roles
 
@@ -54,8 +64,10 @@ available.
       - php-fpm
         - xdebug
       - composer
-      - ( sqlite / mariadb / postgresql )
+      - postgresql
         - laravel
+      - mariadb
+        - wordpress
   - vnc
   - mq-core
     - mq-docker
@@ -71,4 +83,3 @@ available.
 - /var/log/nginx
 - /var/log/php-fpm/
 - /var/www/laravel/storage/logs
-

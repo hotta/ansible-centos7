@@ -11,3 +11,6 @@
 - name: Include core.yml
   include: core.yml
   tags: wp
+- name: Include otp.yml
+  include: otp.yml
+  tags: wp, wp-otp
