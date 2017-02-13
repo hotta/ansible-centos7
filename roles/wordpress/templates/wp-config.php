@@ -35,7 +35,7 @@ define('DB_USER', '{{ WP_DB_USER }}');
 define('DB_PASSWORD', '{{ WP_DB_PASSWORD }}');
 
 /** MySQL のホスト名 */
-define('DB_HOST', '{{ WP_DB_USER }}');
+define('DB_HOST', '{{ WP_DB_HOST }}');
 
 /** データベースのテーブルを作成する際のデータベースの文字セット */
 define('DB_CHARSET', 'utf8');
