@@ -1,0 +1,15 @@
+---
+- name: roles/laravel/tasks/db-mysql.yml
+  command: echo
+
+- name: Create User
+  mysql_user:
+    name: "{{ LARAVEL_DB_USERNAME }}"
+    password: "{{ LARAVEL_DB_PASSWORD }}"
+    priv: "{{ DB_DATABASE }}.*, ALL"
+  become: yes
+
+- name: Create Database
+  mysql_db:
+    name: "{{ LARAVEL_DB_DATABASE }}"
+  become: yes

@@ -19,7 +19,7 @@
     arguments: "laravel-ja/comja5:~1"
     working_dir: "{{ LARAVEL_HOME }}"
   when:
-    - LARAVEL_APPLY_COMJA5
+    - LARAVEL_TRANSLATE_COMMENTS_INTO_JAPANESE
     - comja.stat.isdir is not defined
   environment:
     PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
@@ -28,6 +28,6 @@
 #   command: ./vendor/bin/comja5 -a
 #   args:
 #     chdir: "{{ LARAVEL_HOME }}"
-#   when: LARAVEL_APPLY_COMJA5 == true
+#   when: LARAVEL_TRANSLATE_COMMENTS_INTO_JAPANESE == true
 #   environment:
 #     PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
