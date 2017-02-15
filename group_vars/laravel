@@ -1,16 +1,5 @@
 # group_vars/laravel
 ---
-LARAVEL_BIN:   "{{ COMPOSER_GLOBAL_BIN }}/laravel"
-LARAVEL_HOME:   "{{ WWW_BASE }}/laravel"
-DOCUMENT_ROOT:  "{{ LARAVEL_HOME }}"
-LARAVEL_SERVER_NAME: laravel.local
-LARAVEL_VERSION: 5.4.9
-# referred from roles/laravel/templates/env.default
-APP_ENV:        local
-APP_DEBUG:      true
-LARAVEL_DB_CONNECTION:  pgsql
-LARAVEL_DB_HOST:        localhost
-LARAVEL_DB_DATABASE:    laravel
-LARAVEL_DB_USERNAME:    "{{ ansible_user_id }}"
-LARAVEL_DB_PASSWORD:
-LARAVEL_MAIL_DRIVER:    log
+LARAVEL_BIN:      "{{ COMPOSER_GLOBAL_BIN }}/laravel"
+LARAVEL_HOME:     "{{ WWW_BASE }}/laravel"
+DOCUMENT_ROOT:    "{{ LARAVEL_HOME }}"

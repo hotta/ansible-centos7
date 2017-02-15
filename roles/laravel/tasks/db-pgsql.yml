@@ -1,0 +1,15 @@
+---
+- name: roles/laravel/tasks/db-pgsql.yml
+  command: echo
+
+- name: Create User
+  postgresql_user:
+    name: "{{ LARAVEL_DB_DATABASE }}"
+    role_attr_flags: SUPERUSER
+  when: LARAVEL_DB_CONNECTION == "pgsql"
+
+- name: Create Database
+  postgresql_db:
+    name: "{{ LARAVEL_DB_DATABASE }}"
+  when: LARAVEL_DB_CONNECTION == "pgsql"
+  ignore_errors: yes

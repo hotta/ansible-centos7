@@ -5,7 +5,12 @@
   tags: laravel
 - include: env.yml
 - include: localize.yml
-- include: db.yml
+- include: db-pgsql.yml
+  when: LARAVEL_DB_CONNECTION == "pgsql"
+- include: db-mysql.yml
+  when: LARAVEL_DB_CONNECTION == "mysql"
+- include: db-sqlite.yml
+  when: LARAVEL_DB_CONNECTION == "sqlite"
 - include: whoops.yml
 # - include: debugbar.yml
 - include: aws.yml

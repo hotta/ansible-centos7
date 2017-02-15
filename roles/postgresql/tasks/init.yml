@@ -2,19 +2,27 @@
 - name: roles/postgresql/tasks/init.yml
   command: echo
 - name: Initialize database instance
-  shell: "{{PG_INITDB}}"
+  shell: PGSETUP_INITDB_OPTIONS={{ PGSETUP_INITDB_OPTIONS }} {{ PG_INITDB }}
   become: yes
   ignore_errors: yes
 - name: Check for grant access from localhost
-  shell: grep -v trust$ {{PG_DATADIR}}/pg_hba.conf >& /dev/null
+  shell: grep -v trust$ {{ PG_DATADIR }}/pg_hba.conf >& /dev/null
   register: trust_not_found
   become: yes
   ignore_errors: yes
 - name: Grant access from localhost
-  copy: src=pg_hba.conf dest={{PG_DATADIR}}
-    owner=postgres group=postgres mode=600 force=yes
+  copy: 
+    src:    pg_hba.conf
+    dest:   "{{ PG_DATADIR }}"
+    owner:  postgres
+    group:  postgres
+    mode:   0600
+    force:  yes
   when: trust_not_found.rc == 0
   become: yes
 - name: Enable postgresql service
-  service: name={{PG_SERVICE}} enabled=yes state=restarted
+  service:
+    name: "{{ PG_SERVICE }}"
+    enabled:  yes
+    state:  restarted
   become: yes

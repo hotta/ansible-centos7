@@ -1,0 +1,9 @@
+---
+- name: roles/laravel/tasks/db-sqlite.yml
+  command: echo
+
+- name: Create database file 
+  file:
+    path:   "{{ LARAVEL_HOME }}/storage/database.sqlite"
+    mode:   0666
+    state:  touch

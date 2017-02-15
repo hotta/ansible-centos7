@@ -2,6 +2,14 @@
 - name: roles/laravel/tasks/whoops.yml
   command: echo
 
+- name: Check for the Laravel version
+  command: /usr/bin/php artisan -V
+  args:
+    chdir: "{{ LARAVEL_HOME }}"
+  register: laravel_version
+
+- debug: var=laravel_version
+
 - name: 1.Check for instance of Whoops
   stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops
   register: whoops
@@ -13,11 +21,11 @@
     working_dir: "{{ LARAVEL_HOME }}"
   when: 
     - whoops.stat.exists == false
-    - LARAVEL_VERSION|string < '5.2.0'
+    - laravel_version.stdout < '5.2.0'
 
 - name: 3.Enable Whoops
   patch:
     dest: "{{ LARAVEL_HOME }}/app/Exceptions/Handler.php"
     src:  "{{ LARAVEL_VERSION }}-Handler.php.patch"
   ignore_errors: true
-  when: LARAVEL_VERSION|string < '5.2.0'
+  when: laravel_version.stdout < '5.2.0'
