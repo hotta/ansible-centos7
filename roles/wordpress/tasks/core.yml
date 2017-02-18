@@ -67,7 +67,7 @@
 - name: Change owner and permission of the directory tree
   file:
     path: "{{ WP_HOME }}"
-    owner: vagrant
+    owner: "{{ ansible_user }}"
     group: nginx
     mode: g+rw
     recurse: yes
