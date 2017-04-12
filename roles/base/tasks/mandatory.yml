@@ -29,3 +29,9 @@
     state:    directory
     owner:    "{{ ansible_user_id }}"
   become: yes
+
+- name: Python のデフォルト言語設定
+  copy:
+    src: sitecustomize.py
+    dest: /usr/lib64/python2.7/
+  become: yes

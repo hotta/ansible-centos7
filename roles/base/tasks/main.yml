@@ -9,11 +9,7 @@
   register: cloud
 # - debug: var=cloud
 #   failed_when: true
-- name: Check if roles/base has applied
-  stat: path=/etc/profile.d/{{ PROMPT_FILE }}
-  register: prompt
 - include: batch.yml
-  when: prompt.stat.exists != true
 - include: ec2.yml
   when:
     - cloud.stat.exists == true
