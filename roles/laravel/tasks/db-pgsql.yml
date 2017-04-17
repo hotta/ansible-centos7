@@ -4,7 +4,7 @@
 
 - name: Create User
   postgresql_user:
-    name: "{{ LARAVEL_DB_DATABASE }}"
+    name: "{{ LARAVEL_DB_USERNAME }}"
     role_attr_flags: SUPERUSER
   when: LARAVEL_DB_CONNECTION == "pgsql"
 
