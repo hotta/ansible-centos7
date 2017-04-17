@@ -32,9 +32,9 @@
     state: present
   become: yes
 - name: Set xinetd for listener
-  copy:
-    dest: /etc/xinetd.d
+  template:
     src:  mqseries-stream
+    dest: /etc/xinetd.d
   become: yes
 - name: Enable xinetd
   service:

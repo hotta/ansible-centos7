@@ -8,6 +8,6 @@ service ibm-mqseries
     user            = mqm
     group           = mqm
     server          = /opt/mqm/bin/amqcrsta
-    port            = 1414
+    port            = {{ MQ_CLIENT_PORT }}
     flags           = IPv4
 }
