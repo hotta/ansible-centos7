@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook php-ext.yml
+---
+- hosts: localhost
+  roles:
+    - php-ext

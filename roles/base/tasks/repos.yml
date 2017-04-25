@@ -35,6 +35,6 @@
     gpgcheck: yes
   become: yes
 #   - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-- name: yum update. It takes time...
+- name: yum update. It will take a while...
   yum: name=* state=latest
   become: yes

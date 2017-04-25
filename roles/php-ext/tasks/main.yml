@@ -1,0 +1,8 @@
+---
+- name: roles/php-ext/tasks/main.yml
+  command: echo
+- name: Install packages required for building php extension
+  yum: name={{ item }} state=present
+  with_items:
+    - libxml2-devel
+  become: yes
