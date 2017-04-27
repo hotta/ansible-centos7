@@ -2,7 +2,7 @@
 ---
 - name: Check if not Ubuntu (not supported)
   command: echo
-  failed_when: ansible_lsb.exists is defined
+  failed_when: ansible_os_family != 'RedHat'
 - name: Check if EC2
   stat:
     path: /etc/cloud/cloud.cfg
