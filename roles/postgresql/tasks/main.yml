@@ -5,7 +5,6 @@
   stat: path=/etc/yum.repos.d/{{PG_REPO_FILE}}
   register: pgdg
 - include: package.yml
-  when: pgdg.stat.exists == false
 - include: init.yml
   ignore_errors: yes
   tags: init
