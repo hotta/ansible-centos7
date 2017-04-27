@@ -7,7 +7,7 @@
     state: absent
   become: yes
   tags: wp
-  when: "{{ WP_FORCE_REINSTALL }} == true"
+  when: WP_FORCE_REINSTALL == true
 - name: Include core.yml
   include: core.yml
   tags: wp

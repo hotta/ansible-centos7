@@ -67,7 +67,7 @@
 - name: Change owner and permission of the directory tree
   file:
     path: "{{ WP_HOME }}"
-    owner: "{{ ansible_user }}"
+    owner: "{{ ansible_user_id }}"
     group: nginx
     mode: g+rw
     recurse: yes
