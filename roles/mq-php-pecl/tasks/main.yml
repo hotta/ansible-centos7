@@ -8,7 +8,7 @@
   yum:
     name: "{{ item }}"
   with_items:
-    - "{{ PHP_VERSION }}-php-devel"
+    - php-devel
     - re2c
   become: yes
 - name: Get mqseries pecl module
