@@ -43,11 +43,11 @@
     regexp:       "^;date.timezone ="
     line:         "date.timezone = {{ TIME_ZONE }}"
   become: yes
-  when:           "{{ PHP_JAPANIZE }} == true"
+  when:           PHP_JAPANIZE == true
 - name: php.ini - mbstring.language
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php.ini"
     regexp:       "^;mbstring.language = Japanese"
     line:         "mbstring.language = Japanese"
   become: yes
-  when:           "{{ PHP_JAPANIZE }} == true"
+  when:           PHP_JAPANIZE == true
