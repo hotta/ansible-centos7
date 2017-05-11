@@ -1,0 +1,5 @@
+---
+- name: roles/ldap/tasks/main.yml
+  command: echo
+- include: install.yml
+  tags: ldap

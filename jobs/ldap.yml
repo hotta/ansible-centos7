@@ -1,0 +1,5 @@
+# ansible-playbook ldap.yml
+---
+- hosts: localhost
+  roles:
+    - ldap
