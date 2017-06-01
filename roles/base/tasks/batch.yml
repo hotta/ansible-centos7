@@ -7,3 +7,4 @@
 - include: time.yml
 - include: prompt.yml
 - include: selinux.yml
+- include: users.yml
