@@ -21,20 +21,15 @@
     gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
     gpgcheck: yes
   become: yes
-- name: Import rpm-gpg key for remi
+
+- name: Import rpm-gpg key for webtatic
   rpm_key:
-    key: https://rpms.remirepo.net/RPM-GPG-KEY-remi
+    key: https://mirror.webtatic.com/yum/RPM-GPG-KEY-webtatic-el7
   become: yes
-- name: Install additional repositories for CentOS 7.x - remi
-  yum_repository:
-    name: remi-release-7.rpm
-    description: "Remi's RPM repository for Enterprise Linux 7 - $basearch"
-    mirrorlist: http://rpms.remirepo.net/enterprise/7/remi/mirror
-    enabled: yes
-    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-    gpgcheck: yes
+- name: Install additional repositories for CentOS 7.x - webtatic
+  yum:
+    name: https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
   become: yes
-#   - http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 - name: yum update. It will take a while...
   yum: name=* state=latest
   become: yes

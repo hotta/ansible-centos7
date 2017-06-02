@@ -14,7 +14,6 @@
   when: 
     - laravel_installer.stat.exists is defined
     - laravel_installer.stat.exists == false
-  become: yes
   environment:
     PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
 

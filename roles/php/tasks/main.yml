@@ -1,41 +1,18 @@
 ---
 - name: roles/php/tasks/main.yml
   command: echo
-- name: Install additional repositories for CentOS 7.x - remi-php71
-  yum_repository:
-    name: remi-php71
-    description: Remi's PHP 7.1 RPM repository for Enterprise Linux 7 - $basearch
-    mirrorlist: http://rpms.remirepo.net/enterprise/7/php71/mirror
-    enabled: yes
-    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi
-  become: yes
 
-- name: Install PHP stuff from remi repository
+- name: Install PHP stuff from webtatic repository
   yum:
     name: "{{ item }}"
     state: present
   with_items:
-    - php-mbstring
-    - php-cli
-    - php-xml
-    - php-pdo
-    - php-pgsql
-    - php-pecl-zip
-  become: yes
-- name: add php executables dir to $PATH
-  template:
-    src:  php.sh
-    dest: /etc/profile.d
-  become: yes
-- name: make patch for php.ini
-  template:
-    src:  php.ini.patch
-    dest: /tmp
-- name: Customize php.ini for remi
-  patch:
-    src:  /tmp/php.ini.patch
-    dest: "{{ PHP_INI_DIR }}/php.ini"
-    remote_src: yes
+    - "{{ PHP_PKG_PREFIX }}-mbstring"
+    - "{{ PHP_PKG_PREFIX }}-cli"
+    - "{{ PHP_PKG_PREFIX }}-xml"
+    - "{{ PHP_PKG_PREFIX }}-pdo"
+    - "{{ PHP_PKG_PREFIX }}-pgsql"
+    - "{{ PHP_PKG_PREFIX }}-pecl-zip"
   become: yes
 - name: php.ini - date.timezone
   lineinfile:

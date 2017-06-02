@@ -1,12 +1,12 @@
 ---
 - name: roles/php-fpm/tasks/main.yml
   command: echo
-- name: Install package from remi repository
+- name: Install package from webtatic repository
   yum:
     name: "{{ item }}"
     state:  present
   with_items:
-    - "{{ PHP_FPM }}"
+    - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
 - name: php-fpm.conf - Use epoll instead of poll
   patch:
@@ -23,7 +23,7 @@
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
     remote_src: yes
   become: yes
-  notify: start {{ PHP_FPM }}
+  notify: start php-fpm
 - name: Check for Japanese settings in www.conf
   shell: "grep Japanese {{ PHP_INI_DIR }}/php-fpm.d/www.conf >& /dev/null"
   register: Japanese_exists

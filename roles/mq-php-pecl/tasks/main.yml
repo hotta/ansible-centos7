@@ -25,13 +25,13 @@
     chdir: /tmp/pecl-networking-mqseries
 - name: Copy module
   copy:
-    dest: /opt/remi/php70/root/lib64/php/modules
+    dest: "{{ PHP_MODULE_DIR }}"
     remote_src: yes
     src: /tmp/pecl-networking-mqseries/modules/mqseries.so
   become: yes
 - name: Copy ini file
   copy:
-    dest: /etc/opt/remi/php70/php.d/
+    dest: "{{ PHP_INI_DIR }}/php.d/"
     src: 40-mqseries.ini
   become: yes
-  notify: restart {{ PHP_FPM }}
+  notify: restart php-fpm

@@ -16,6 +16,11 @@
   with_items:
     - postgresql96-server
     - postgresql96-devel
-    - php-pgsql
+    - "{{ PHP_PKG_PREFIX }}-pgsql"
     - python-psycopg2
+  become: yes
+- name: Add /usr/pgsql-9.6/bin to $PATH
+  template:
+    src: pgsql.sh
+    dest: /etc/profile.d
   become: yes
