@@ -1,10 +1,10 @@
 ---
 - name: roles/nginx/tasks/main.yml
   command: echo
-- name: Install nginx from epel repository
+- name: Install nginx from webtatic repository
   yum: name={{ item }} state=present
   with_items:
-    - nginx
+    - nginx1w
   become: yes
 - name: nginx - Change log setting
   lineinfile:
@@ -17,6 +17,6 @@
     dest: /etc/nginx/conf.d/
     src:  http_common.conf
   become: yes
-- name: Enable eninx
+- name: Enable nginx
   command: echo
   notify: restart nginx

@@ -3,7 +3,7 @@ This set of ansible playbooks deploy various environment such as laravel / IBM M
 ## Prerequisite(Test Environment)
 
 - Vagrant + VirtualBox VM running CentOS 7.3 with git and ansible 2.x.
-- typical installation process could be :
+- typical installation process could be as follows:
 
 ```bash
 mkdir XXXX
@@ -34,8 +34,6 @@ Vagrant.configure("2") do |config|
   SHELL
 end
 ```
-
-Note that Vagrant-1.9.1 has a bug that causes private_network won't be activated.  You'd better use the previous version.
 
 ## Prerequisite(Production Environment - AWS EC2 for example)
 
@@ -75,9 +73,9 @@ available.
 
 ## Component's versions ( as of 2017/02/01 ).
 
-- php-7.1.1
+- php-7.1.5
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
-- Laravel-5.4.7
+- Laravel-5.4.24
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 - WordPress 4.7.2
@@ -103,9 +101,3 @@ available.
     - mq-php-pecl
       - mq-laravel
   - mfa
-
-## Log directories
-
-- /var/log/nginx
-- /var/log/php-fpm/
-- /var/www/laravel/storage/logs
