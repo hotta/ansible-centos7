@@ -71,7 +71,7 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
 You may want to take a look at /etc/ansible/jobs to see what jobs are
 available.
 
-## Component's versions ( as of 2017/02/01 ).
+## Component's versions ( as of 2017/06/02 ).
 
 - php-7.1.5
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
