@@ -4,3 +4,5 @@
 
 - include: core.yml
   tags: vuedo
+- include: db.yml
+  tags: vuedo

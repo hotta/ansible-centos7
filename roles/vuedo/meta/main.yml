@@ -1,5 +1,4 @@
 dependencies:
-  - { role: php-fpm,    tags: before_laravel}
-  - { role: composer,   tags: before_laravel}
-  - { role: mariadb,    tags: before_laravel, 
-                        when: LARAVEL_DB_CONNECTION == "mysql" }
+  - { role: php-fpm }
+  - { role: composer }
+  - { role: mariadb }

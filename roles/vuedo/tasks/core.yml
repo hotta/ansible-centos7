@@ -36,16 +36,24 @@
     path: "{{ ansible_user_dir }}/vuedo"
     state: link
 
+- name: Put dotenv file
+  template:
+    src: dotenv
+    dest: "{{ ansible_user_dir }}/vuedo/.env"
+    force: no
+
 - name: Composer install
   composer: 
     command: install
     working_dir: "{{ VUEDO_HOME }}"
 
-- name: Install gulp
+- name: Install gulp-cli
   npm:
-    name: gulp
+    name: gulp-cli
+    global: true
     path: "{{ VUEDO_HOME }}/node_modules"
     state: present
+  become: yes
 
 - name: Npm install
   npm: 

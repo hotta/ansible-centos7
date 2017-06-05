@@ -1,0 +1,14 @@
+---
+- name: roles/vuedo/tasks/db.yml
+  command: echo
+
+- name: Create User
+  mysql_user:
+    name: "{{ DB_USERNAME }}"
+    password: "{{ DB_PASSWORD }}"
+    priv: '*.*:ALL,GRANT'
+  become: yes
+
+- name: Create Database
+  mysql_db:
+    name: "{{ DB_DATABASE }}"

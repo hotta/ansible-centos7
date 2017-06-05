@@ -1,1 +1,5 @@
 VUEDO_HOME: /var/www/vuedo
+APP_URL: http://vuedo.local
+DB_DATABASE: vuedo
+DB_USERNAME: "{{ ansible_user_id }}"
+DB_PASSWORD: 
