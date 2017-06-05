@@ -9,12 +9,6 @@
     - npm
   become: true
 
-- name: Install gulp
-  npm:
-    name: gulp
-    path: "{{ ansible_user_dir }}/node_modules"
-    state: present
-
 - name: Check if the symbolic link exists
   stat: 
     path: "{{ ansible_user_dir }}/vuedo"
@@ -39,12 +33,23 @@
 - name: Create symbolic link
   file:
     src: "{{ VUEDO_HOME }}"
-    path: "{{ ansible_user_dir }}"
+    path: "{{ ansible_user_dir }}/vuedo"
+    state: link
 
 - name: Composer install
   composer: 
     command: install
     working_dir: "{{ VUEDO_HOME }}"
+
+- name: Install gulp
+  npm:
+    name: gulp
+    path: "{{ VUEDO_HOME }}/node_modules"
+    state: present
+
+- name: Npm install
+  npm: 
+    path: "{{ VUEDO_HOME }}/node_modules"
 
 - name: Put vuedo.conf for nginx
   template:
