@@ -6,7 +6,7 @@
   with_items:
     - mariadb-server
     - mariadb
-    - php-mysqlnd
+    - "{{ PHP_PKG_PREFIX }}-mysqlnd"
     - mysql-connector-python
     - MySQL-python
   become: yes
