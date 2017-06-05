@@ -1,0 +1,55 @@
+---
+- name: roles/vuedo/tasks/main.yml
+  command: echo
+
+- name: Install dependencies
+  yum:
+    name: "{{ item }}"
+  with_items:
+    - npm
+  become: true
+
+- name: Install gulp
+  npm:
+    name: gulp
+    path: "{{ ansible_user_dir }}/node_modules"
+    state: present
+
+- name: Check if the symbolic link exists
+  stat: 
+    path: "{{ ansible_user_dir }}/vuedo"
+  register: vuedo_repo
+
+- name: Get vuedo repository
+  git:
+    repo: https://github.com/Vuedo/vuedo.git
+    dest: "{{ ansible_user_dir }}/vuedo"
+  when: vuedo_repo.stat.exists == false
+
+- name: Check if the target dir exists
+  stat: 
+    path: "{{ VUEDO_HOME }}"
+  register: vuedo
+
+- name: Settle them at /var/www
+  command: mv {{ ansible_user_dir }}/vuedo /var/www
+  when: vuedo.stat.exists == false
+  become: yes
+
+- name: Create symbolic link
+  file:
+    src: "{{ VUEDO_HOME }}"
+    path: "{{ ansible_user_dir }}"
+
+- name: Composer install
+  composer: 
+    command: install
+    working_dir: "{{ VUEDO_HOME }}"
+
+- name: Put vuedo.conf for nginx
+  template:
+    src: vuedo.conf
+    dest: /etc/nginx/conf.d
+  become: yes
+  notify: nginx reload
+  tags: vuedo

@@ -1,0 +1,6 @@
+---
+- name: roles/vuedo/tasks/main.yml
+  command: echo
+
+- include: core.yml
+  tags: vuedo
