@@ -1,0 +1,14 @@
+---
+- name: roles/sphinx/tasks/main.yml
+  command: echo
+
+- name: Install sphinx
+  pip:
+    name: sphinx
+  become: yes
+
+- name: Install phpdomain
+  easy_install:
+    name: sphinxcontrib-phpdomain
+  become: yes
+

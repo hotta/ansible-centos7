@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook sphinx.yml
+---
+- hosts: localhost
+  roles:
+    - sphinx
