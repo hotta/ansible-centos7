@@ -12,3 +12,8 @@
     name: sphinxcontrib-phpdomain
   become: yes
 
+- name: Install Read the Docs theme for Sphinx
+  pip:
+    name: sphinx_rtd_theme
+  become: yes
+
