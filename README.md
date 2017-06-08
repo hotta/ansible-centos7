@@ -90,8 +90,10 @@ available.
       - composer
       - postgresql
         - laravel
+          - supervisor
       - mariadb
         - wordpress
+        - vuedo
   - vnc
   - mq-core
     - mq-docker
@@ -101,3 +103,8 @@ available.
     - mq-php-pecl
       - mq-laravel
   - mfa
+  - ldap
+  - lessmd
+  - php-ext
+  - sphinx
+  - vnc
