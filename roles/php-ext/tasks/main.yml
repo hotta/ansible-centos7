@@ -8,4 +8,5 @@
     - autoconf
     - automake
     - re2c
+    - gdb
   become: yes

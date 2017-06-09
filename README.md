@@ -1,4 +1,4 @@
-This set of ansible playbooks deploy various environment such as laravel / IBM MQ / VNC / Radius / WordPress etc. on CentOS7.x.
+This set of ansible playbooks deploy various environment such as laravel / IBM MQ / Radius / WordPress etc. on CentOS7.x.
 
 ## Prerequisite(Test Environment)
 
@@ -58,18 +58,19 @@ $ vi localhost.yml  (You may want to make some changes.)
 $ cd
 ```
 
-## Building Laravel environment 
+## Building environment 
+
+```bash
+$ ansible-playbook /etc/ansible/jobs/JOB-NAME-YOU-WANT-TO-DEPLOY.yml
+```
+
+- for example, if you want to deploy laravel environment, run:
 
 ```bash
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
 
-## Building WordPress environment especially customized for Japanese use
-
-- See [/roles/wordpress](https://github.com/hotta/ansible-centos7/tree/master/roles/wordpress) for details.
-
-You may want to take a look at /etc/ansible/jobs to see what jobs are
-available.
+- You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
 ## Component's versions ( as of 2017/06/02 ).
 
@@ -78,7 +79,8 @@ available.
 - Laravel-5.4.24
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
-- WordPress 4.7.2
+- WordPress 4.7.5
+- Sphinx 1.6.2
 
 ## Dependencies in roles
 
@@ -90,8 +92,10 @@ available.
       - composer
       - postgresql
         - laravel
+          - supervisor
       - mariadb
         - wordpress
+        - vuedo
   - vnc
   - mq-core
     - mq-docker
@@ -101,3 +105,8 @@ available.
     - mq-php-pecl
       - mq-laravel
   - mfa
+  - ldap
+  - lessmd
+  - php-ext
+  - sphinx
+  - vnc
