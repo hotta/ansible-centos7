@@ -54,7 +54,7 @@ $ cp hosts.example hosts
 $ vi hosts (You may want to make some changes.)
 $ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
-$ vi localhost.yml  (You may want to make some changes.)
+$ vi localhost.yml (Please change 'MY_IP_ADDRESS' at least.)
 $ cd
 ```
 
@@ -64,13 +64,13 @@ $ cd
 $ ansible-playbook /etc/ansible/jobs/JOB-NAME-YOU-WANT-TO-DEPLOY.yml
 ```
 
-- for example, if you want to deploy laravel environment, run:
+for example, if you want to deploy laravel environment, run:
 
 ```bash
 $ ansible-playbook /etc/ansible/jobs/laravel.yml
 ```
 
-- You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
+You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
 ## Component's versions ( as of 2017/06/02 ).
 
