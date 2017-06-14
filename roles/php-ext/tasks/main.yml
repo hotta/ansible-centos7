@@ -5,6 +5,8 @@
   yum: name={{ item }} state=present
   with_items:
     - libxml2-devel
+    - openssl-devel
+    - readline-devel
     - autoconf
     - automake
     - re2c
