@@ -54,7 +54,7 @@ $ cp hosts.example hosts
 $ vi hosts (You may want to make some changes.)
 $ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
-$ vi localhost.yml  (You may want to make some changes.)
+$ vi localhost.yml (Please change 'MY_IP_ADDRESS' at least.)
 $ cd
 ```
 
