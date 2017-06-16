@@ -7,6 +7,11 @@
     name: sphinx
   become: yes
 
+- name: Install sphinx-autobuild
+  pip:
+    name: sphinx-autobuild
+  become: yes
+
 - name: Install phpdomain
   easy_install:
     name: sphinxcontrib-phpdomain
