@@ -6,10 +6,16 @@
 - name: Check for access to the Internet
   wait_for: host=www.yahoo.co.jp port=80 timeout=5
 
+- name: Check existence of RPM-GPG-KEY-EPEL-7
+  stat:
+    path: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+  register: epel7_key
+
 - name: Import rpm-gpg key for epel
   rpm_key:
     key: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-7
   become: yes
+  when: epel7_key.stat.exists == false
 
 - name: Install additional repositories for CentOS 7.x - epel
   yum_repository:
