@@ -15,3 +15,8 @@
     state: directory
 - name: enable vnc access without a password
   shell: echo | vncpasswd -f > {{ ansible_user_dir }}/.vnc/passwd 
+- name: Copy vnc.sh to /etc/profile.d
+  copy:
+    src: vnc.sh
+    dest: /etc/profile.d
+  become: yes
