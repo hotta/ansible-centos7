@@ -1,10 +1,6 @@
 ---
 - name: roles/postgresql/tasks/package.yml
   command: echo
-- name: Remove default postgresql library if exists
-  yum: name=postgresql-libs state=absent
-  become: yes
-  ignore_errors: yes
 - name: Remove old postgresql data
   file: path=/var/lib/pgsql/data state=absent
   become: yes

@@ -35,3 +35,15 @@
     src: sitecustomize.py
     dest: /usr/lib64/python2.7/
   become: yes
+
+- name: Check if postgresql-libs is installed
+  shell: rpm -qa | grep postgresql-libs | sed -E 's/libs-.*$/libs/' warn=no
+  register: default_pkg
+
+- name: Remove default postgresql library if exists
+  yum:
+    name:   postgresql-libs
+    state:  absent
+  become: yes
+  when: default_pkg.stdout == 'postgresql-libs'
+  ignore_errors: yes
