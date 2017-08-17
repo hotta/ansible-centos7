@@ -23,15 +23,27 @@
     - kernel-devel
   become: yes
 
-- name: Prepar directory for WWW_BASE
+- name: Prepare directory for WWW_BASE
   file:
     path:     "{{ WWW_BASE }}"
     state:    directory
     owner:    "{{ ansible_user_id }}"
   become: yes
 
-- name: Python のデフォルト言語設定
+- name: Set default language for python
   copy:
     src: sitecustomize.py
     dest: /usr/lib64/python2.7/
   become: yes
+
+- name: Check if postgresql-libs is installed
+  shell: rpm -qa | grep postgresql-libs | sed -E 's/libs-.*$/libs/' warn=no
+  register: default_pkg
+
+- name: Remove default postgresql library if exists
+  yum:
+    name:   postgresql-libs
+    state:  absent
+  become: yes
+  when: default_pkg.stdout == 'postgresql-libs'
+  ignore_errors: yes
