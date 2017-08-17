@@ -3,3 +3,4 @@
 .env
 host_vars/localhost.yml
 hosts
+*.rpmnew
