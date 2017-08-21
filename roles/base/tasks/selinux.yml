@@ -1,8 +1,14 @@
 ---
 - name: roles/base/tasks/selinux.yml
   command: echo
+- name: Install tools required for disabling selinux
+  yum: 
+    name: libselinux-python
+    state: present
+  become: yes
 - name: Disable selinux 
   selinux: state=disabled
+  when: ansible_distribution_major_version == '6'
   become: yes
 - name: Check if firewalld exists
   command: systemctl status firewalld
