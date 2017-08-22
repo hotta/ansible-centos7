@@ -9,18 +9,10 @@
 - name: Disable selinux 
   selinux: state=disabled
   become: yes
-- name: Check if firewalld exists
-  command: systemctl status firewalld
-  ignore_errors: yes
-  changed_when: false
-  register: check_firewalld_service
-  when: ansible_distribution_major_version == '7'
 - name: Disable firewalld
   service:
     name: firewalld
     state: stopped
     enabled: no
   become: yes
-  when: 
-    - ansible_distribution_major_version == '7'
-    - check_firewalld_service | succeeded
+  when: ansible_distribution_major_version == '7'
