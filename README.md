@@ -1,8 +1,9 @@
-This set of ansible playbooks deploy various environment such as laravel / IBM MQ / Radius / WordPress etc. on CentOS7.x.
+This set of ansible playbooks deploy various environment such as laravel / IBM MQ / Radius / WordPress etc. on CentOS 7.x / 6.x.
 
 ## Prerequisite(Test Environment)
 
 - Vagrant + VirtualBox VM running CentOS 7.3 with git and ansible 2.x.
+- ( If you prefer to use CentOS 6.x, read 7.3 as 6.9 instead. )
 - typical installation process could be as follows:
 
 ```bash
@@ -73,11 +74,11 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
 
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
-## Component's versions ( as of 2017/06/02 ).
+## Component's versions ( as of 2017/08/22 ).
 
-- php-7.1.5
+- php-7.1.8
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
-- Laravel-5.4.24
+- Laravel-5.4.33
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 - WordPress 4.7.5
