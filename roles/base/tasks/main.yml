@@ -1,22 +1,24 @@
 # Basic Congiguration Control
 ---
-- name: Check if not Ubuntu (not supported)
+- name: Check if not CentOS (not supported)
   command: echo
-  failed_when: ansible_os_family != 'RedHat'
+  failed_when: ansible_distribution != 'CentOS'
 - name: Check if EC2
   stat:
     path: /etc/cloud/cloud.cfg
   register: cloud
 # - debug: var=cloud
 #   failed_when: true
-- include: batch.yml
 - include: ec2.yml
   when:
     - cloud.stat.exists == true
-    - ansible_distribution == 'CentOS'
     - ansible_distribution_major_version == '7'
-- include: dumpall.yml
-  tags:
-    - dumpall
-  when:
-    - through | default('false')
+- include: repos6.yml
+  when: ansible_distribution_major_version == '6'
+- include: repos7.yml
+  when: ansible_distribution_major_version == '7'
+- include: selinux.yml
+- include: mandatory.yml
+- include: time.yml
+- include: prompt.yml
+- include: users.yml

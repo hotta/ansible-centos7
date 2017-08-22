@@ -9,6 +9,7 @@
   get_url: url=https://getcomposer.org/composer.phar 
     dest=/usr/bin/composer mode=755 force=no
   become: yes
+  tags: composer
 - name: Prepare $COMPOSER_HOME directory
   file:
     path: "{{ COMPOSER_HOME }}"

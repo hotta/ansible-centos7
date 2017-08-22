@@ -2,6 +2,7 @@
 ---
 - name: roles/base/tasks/time.yml
   command: echo
-- name: Set time zone
-  shell: timedatectl set-timezone {{ TIME_ZONE }}
+- name: Set time zone (ansible 2.2 or later)
+  timezone:
+    name: "{{ TIME_ZONE }}"
   become: yes

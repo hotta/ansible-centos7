@@ -1,0 +1,41 @@
+# Install additional repositories
+---
+- name: roles/base/tasks/repos.yml
+  command: echo
+
+- name: Check for access to the Internet
+  wait_for: host=www.yahoo.co.jp port=80 timeout=5
+
+- name: Check existence of RPM-GPG-KEY-EPEL-6
+  stat:
+    path: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+  register: epel6_key
+
+- name: Import rpm-gpg key for epel
+  rpm_key:
+    key: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-6
+  become: yes
+  when: epel6_key.stat.exists == false
+
+- name: Install additional repositories for CentOS 6.x - epel
+  yum_repository:
+    name: epel-release
+    description: Extra Packages for Enterprise Linux 6 - $basearch
+    mirrorlist: https://mirrors.fedoraproject.org/metalink?repo=epel-6&arch=$basearch
+    failovermethod: priority
+    enabled: yes
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-6
+    gpgcheck: yes
+  become: yes
+
+- name: Import rpm-gpg key for webtatic
+  rpm_key:
+    key: https://mirror.webtatic.com/yum/RPM-GPG-KEY-webtatic-el6
+  become: yes
+- name: Install additional repositories for CentOS 6.x - webtatic
+  yum:
+    name: https://mirror.webtatic.com/yum/el6/latest.rpm
+  become: yes
+- name: yum update. It will take a while...
+  yum: name=* state=latest
+  become: yes

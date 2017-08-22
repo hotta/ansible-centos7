@@ -22,6 +22,31 @@
     - python2-pip
     - kernel-devel
   become: yes
+  when: ansible_distribution_major_version == '7'
+
+- name: Install tools required for CentOS 6.x
+  yum: name={{item}} state=present
+  with_items:
+    - chrony
+    - glibc-devel
+    - gcc-c++
+    - python-passlib
+    - git
+    - elinks
+    - patch
+    - rsync
+    - vim-enhanced
+    - nkf
+    - bind-utils
+    - unzip
+    - bzip2
+    - wget
+    - w3m
+    - python-pip
+    - libselinux-python
+    - kernel-devel
+  become: yes
+  when: ansible_distribution_major_version == '6'
 
 - name: Prepare directory for WWW_BASE
   file:
@@ -36,14 +61,18 @@
     dest: /usr/lib64/python2.7/
   become: yes
 
-- name: Check if postgresql-libs is installed
-  shell: rpm -qa | grep postgresql-libs | sed -E 's/libs-.*$/libs/' warn=no
-  register: default_pkg
-
-- name: Remove default postgresql library if exists
-  yum:
-    name:   postgresql-libs
-    state:  absent
-  become: yes
-  when: default_pkg.stdout == 'postgresql-libs'
-  ignore_errors: yes
+#
+# TODO: postgresql-libs will automatically install 
+#   with dependency of php71w-pgsql
+#
+# - name: Check if postgresql-libs is installed
+#   shell: rpm -qa | grep postgresql-libs | sed -E 's/libs-.*$/libs/' warn=no
+#   register: default_pkg
+# 
+# - name: Remove default postgresql library if exists
+#   yum:
+#     name:   postgresql-libs
+#     state:  absent
+#   become: yes
+#   when: default_pkg.stdout == 'postgresql-libs'
+#   ignore_errors: yes
