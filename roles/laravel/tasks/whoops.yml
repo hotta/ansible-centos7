@@ -8,7 +8,7 @@
     chdir: "{{ LARAVEL_HOME }}"
   register: laravel_version
 
-- debug: var=laravel_version
+# - debug: var=laravel_version
 
 - name: 1.Check for instance of Whoops
   stat: path={{ LARAVEL_HOME }}/vendor/filp/whoops

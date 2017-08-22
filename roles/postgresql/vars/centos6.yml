@@ -1,0 +1,3 @@
+# centos6.yml
+---
+PG_REPO_URI: http://yum.postgresql.org/{{ PG_VERSION }}/redhat/rhel-6.9-x86_64/{{ PG_REPO }}

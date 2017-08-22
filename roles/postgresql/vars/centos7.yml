@@ -1,0 +1,4 @@
+# centos7.yml
+---
+PG_REPO_URI: http://yum.postgresql.org/{{ PG_VERSION }}/redhat/rhel-7-x86_64/{{ PG_REPO }}
+

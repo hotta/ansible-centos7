@@ -1,10 +1,18 @@
 ---
 - name: roles/postgresql/tasks/init.yml
   command: echo
-- name: Initialize database instance
-  shell: PGSETUP_INITDB_OPTIONS={{ PGSETUP_INITDB_OPTIONS }} {{ PG_INITDB }}
+- name: Check if database exists
+  stat:
+    path: "{{ PG_DATADIR }}/PG_VERSION"
+  register: pg_data
   become: yes
-  ignore_errors: yes
+  become_user: postgres
+# - debug: var=pg_data
+- name: Initialize database instance
+  shell: "{{ PG_INITDB }}"
+  become: yes
+  become_user: postgres
+  when: pg_data.stat.exists == false
 - name: Check for grant access from localhost
   shell: grep -v trust$ {{ PG_DATADIR }}/pg_hba.conf >& /dev/null
   register: trust_not_found

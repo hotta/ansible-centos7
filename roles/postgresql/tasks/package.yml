@@ -1,6 +1,6 @@
 ---
 - name: roles/postgresql/tasks/package.yml
-  command: echo
+  include_vars: vars/centos{{ ansible_distribution_major_version }}.yml
 - name: Remove old postgresql data
   file: path=/var/lib/pgsql/data state=absent
   become: yes
@@ -15,7 +15,7 @@
     - "{{ PHP_PKG_PREFIX }}-pgsql"
     - python-psycopg2
   become: yes
-- name: Add /usr/pgsql-9.6/bin to $PATH
+- name: Add {{ PG_BIN_DIR }} to $PATH
   template:
     src: pgsql.sh
     dest: /etc/profile.d
