@@ -10,3 +10,5 @@ PROMPT_FILE: bash_prompt.sh
 WP_CLI_ARCHIVE: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 WP_ARCHIVE_FILE: latest-ja.tar.gz
 WP_ARCHIVE_URL: https://ja.wordpress.org/{{ WP_ARCHIVE_FILE }}
+NGINX_PKG: nginx
+# NGINX_PKG: nginx1w

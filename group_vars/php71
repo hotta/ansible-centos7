@@ -5,4 +5,3 @@ PHP_VAR_DIR:  /var
 PHP_LOG_DIR:  /var/log
 PHP_BIN_DIR:  /usr/bin
 PHP_MODULE_DIR: /usr/lib64/php/modules
-PHP_PKG_PREFIX: php71w

@@ -28,14 +28,11 @@
     gpgcheck: yes
   become: yes
 
-- name: Import rpm-gpg key for webtatic
-  rpm_key:
-    key: https://mirror.webtatic.com/yum/RPM-GPG-KEY-webtatic-el6
-  become: yes
-- name: Install additional repositories for CentOS 6.x - webtatic
+- name: Install additional repositories for CentOS 6.x - {{ PHP_REPO }}
   yum:
-    name: https://mirror.webtatic.com/yum/el6/latest.rpm
+    name: "{{ PHP_REPO_PKG }}"
   become: yes
+
 - name: yum update. It will take a while...
   yum: name=* state=latest
   become: yes

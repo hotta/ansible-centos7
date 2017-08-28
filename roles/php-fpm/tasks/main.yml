@@ -1,7 +1,7 @@
 ---
 - name: roles/php-fpm/tasks/main.yml
   command: echo
-- name: Install package from webtatic repository
+- name: Install package from additional repository
   yum:
     name: "{{ item }}"
     state:  present

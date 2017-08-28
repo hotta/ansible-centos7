@@ -1,16 +1,16 @@
 ---
 - name: roles/nginx/tasks/main.yml
   command: echo
-- name: Install nginx1w from webtatic repository for CentOS 7.x
+- name: Install nginx1w from additional repository for CentOS 7.x
   yum: name={{ item }} state=present
   with_items:
-    - nginx1w
+    - NGINX_PKG
   become: yes
   when: ansible_distribution_major_version == '7'
 - name: Install nginx from standard repository for CentOS 6.x
   yum: name={{ item }} state=present
   with_items:
-    - nginx
+    - NGINX_PKG
   become: yes
   when: ansible_distribution_major_version == '6'
 - name: nginx - Change log setting

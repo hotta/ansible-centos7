@@ -2,7 +2,7 @@
 - name: roles/php/tasks/main.yml
   command: echo
 
-- name: Install PHP stuff from webtatic repository
+- name: Install PHP stuff from additional repository
   yum:
     name: "{{ item }}"
     state: present

@@ -1,0 +1,6 @@
+# roles/base/tasks/remi.yml
+---
+PHP_PKG_PREFIX: php71
+NGINX_PKG:      nginx
+PHP_REPO_PKG:   http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+PHP_REPO_FILE:  remi.repo
