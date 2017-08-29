@@ -1,14 +1,23 @@
 # Basic Congiguration Control
 ---
-- name: Check if not CentOS (not supported)
+- name: Check if hosts exists
+  stat: 
+    path: /etc/ansible/hosts
+  register: etc_ansible_hosts
+- name: Check if localhost.yml exists
+  stat: 
+    path: /etc/ansible/host_vars/localhost.yml
+  register: etc_ansible_host_vars_localhost_yml
+- name: Check minimum requirement
   command: echo
-  failed_when: ansible_distribution != 'CentOS'
+  failed_when: |
+    etc_ansible_hosts.stat.exists != true                    or
+    etc_ansible_host_vars_localhost_yml.stat.exists != true  or
+    ansible_distribution != 'CentOS' 
 - name: Check if EC2
   stat:
     path: /etc/cloud/cloud.cfg
   register: cloud
-# - debug: var=cloud
-#   failed_when: true
 - include: ec2.yml
   when:
     - cloud.stat.exists == true

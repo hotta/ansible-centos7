@@ -4,4 +4,5 @@ PHP_INI_DIR:  /etc
 PHP_VAR_DIR:  /var
 PHP_LOG_DIR:  /var/log
 PHP_BIN_DIR:  /usr/bin
-PHP_MODULE_DIR: /usr/lib64/php/modules
+PHP_LIB_DIR:  /usr/lib64/php
+PHP_MODULE_DIR: "{{ PHP_LIB_DIR }}/modules"
