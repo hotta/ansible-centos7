@@ -19,10 +19,9 @@
     path: /etc/cloud/cloud.cfg
   register: cloud
 - include: ec2.yml
-  when:
+  when: 
     - cloud.stat.exists == true
-    - ansible_distribution_major_version == '7'
-- include_vars: "{{ PHP_REPO }}.yml"
+    - "{{ _V }} == '7'"
 - include: repos.yml
 - include: selinux.yml
 - include: mandatory.yml

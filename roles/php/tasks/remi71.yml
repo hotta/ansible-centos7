@@ -1,5 +1,5 @@
 ---
-- name: roles/php/tasks/remi.yml
+- name: roles/php/tasks/remi71.yml
   command: echo
 
 - name: Install PHP stuff from additional repository

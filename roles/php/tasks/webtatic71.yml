@@ -1,5 +1,5 @@
 ---
-- name: roles/php/tasks/webtatic.yml
+- name: roles/php/tasks/webtatic71.yml
   command: echo
 
 - name: Install PHP stuff from additional repository

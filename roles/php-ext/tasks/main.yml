@@ -23,4 +23,4 @@
     regexp: '^enabled=0$'
     replace: 'enabled=1'
   become: yes
-  when: "{{ PHP_REPO_FILE }} == remi.repo"
+  when: "{{ PHP_REPO }} == remi71"
