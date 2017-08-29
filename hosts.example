@@ -42,7 +42,7 @@
 
 ## db-[99:101]-node.example.com
 
-[rebtatic71]
+[webtatic71]
 localhost ansible_connection=local
 
 # [remi71]

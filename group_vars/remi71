@@ -1,4 +1,6 @@
+# Use remi's php-71 packages
 PHP_PKG_PREFIX: php71-php
 NGINX_PKG:      nginx
 PHP_REPO_PKG:   http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 PHP_REPO_FILE:  remi.repo
+PHP_FPM_SERVICE: php71-php-fpm  

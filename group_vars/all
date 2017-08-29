@@ -2,6 +2,7 @@
 ---
 WWW_BASE:       /var/www
 WEBSERVER_USER: nginx
+WEBSERVER_GROUP: nginx
 # Composer
 COMPOSER_HOME:  "{{ ansible_user_dir }}/.composer"
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"

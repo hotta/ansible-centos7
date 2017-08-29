@@ -1,5 +1,7 @@
+# Use webtatics's php-71 packages
 PHP_PKG_PREFIX: php71w
 PHP_PKG_PREFIX: php71w
 NGINX_PKG:      nginx1w
 PHP_REPO_PKG:   https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
 PHP_REPO_FILE:  webtatic.repo
+PHP_FPM_SERVICE: php-fpm  

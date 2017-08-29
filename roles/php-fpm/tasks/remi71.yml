@@ -1,0 +1,49 @@
+---
+- name: roles/php-fpm/tasks/remi71.yml
+  command: echo
+
+- name: Symlink to {{ PHP_INI_DIR }}/php-fpm.conf
+  file:
+    path: "{{ PHP_INI_DIR }}/php-fpm.conf"
+    src:  /etc/opt/remi/php71/php-fpm.conf
+    state: link
+  become: yes
+
+- name: Symlink to {{ PHP_INI_DIR }}/php-fpm.d
+  file:
+    path: "{{ PHP_INI_DIR }}/php-fpm.d"
+    src:  /etc/opt/remi/php71/php-fpm.d/
+    state: link
+  become: yes
+
+- name: Symlink to /etc/sysconfig/php-fpm
+  file:
+    path: /etc/sysconfig/php-fpm
+    src:  /etc/opt/remi/php71/sysconfig/php-fpm
+    state: link
+  become: yes
+
+- name: Symlink to /usr/sbin/php-fpm
+  file:
+    path: /usr/sbin/php-fpm
+    src:  /opt/remi/php71/root/usr/sbin/php-fpm
+    state: link
+  become: yes
+
+- name: Symlink to /var/lib/php
+  file:
+    path: /var/lib/php
+    src:  /var/opt/remi/php71/lib/php
+    state: link
+  become: yes
+
+- name: Symlink to /var/*/php-fpm
+  file:
+    path: /var/{{ item }}/php-fpm
+    src:  /var/opt/remi/php71/{{ item }}/php-fpm
+    state: link
+  become: yes
+  with_items:
+    - log
+    - run
+

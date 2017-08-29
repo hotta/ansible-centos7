@@ -8,40 +8,58 @@
   with_items:
     - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
+
+- include: "{{ PHP_REPO }}.yml"
+
 - name: php-fpm.conf - Use epoll instead of poll
-  patch:
+  lineinfile:
     dest: "{{ PHP_INI_DIR }}/php-fpm.conf"
-    src:  php-fpm.conf.patch
+    regexp:  ^;events.mechanism = epoll
+    line: events.mechanism = epoll
   become: yes
-- name: make patch file for www.conf
-  template:
-    src:  www.conf.patch
-    dest: /tmp
-- name: www.conf - Use Unix Socket and change user to nginx
-  patch:
-    src:  /tmp/www.conf.patch
+
+- name: php-fpm.d/www.conf - change user
+  lineinfile:
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    remote_src: yes
+    regexp:  ^user = apache
+    line: user = {{ WEBSERVER_USER }}
   become: yes
-  notify: start php-fpm
-- name: Check for Japanese settings in www.conf
-  shell: "grep Japanese {{ PHP_INI_DIR }}/php-fpm.d/www.conf >& /dev/null"
-  register: Japanese_exists
-  ignore_errors: yes
-- name: make additional patch for www.conf
-  template:
-    src:  www.conf.append
-    dest: /tmp
-  when: Japanese_exists.rc != 0
-- name: Change directory owner to $WEBSERVER_USER
-  file: 
-    path: "{{ PHP_LOG_DIR }}"
-    owner: "{{ WEBSERVER_USER }}"
-    recurse: yes
-    state: directory
+
+- name: php-fpm.d/www.conf - change group
+  lineinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:  ^group = apache
+    line: group = {{ WEBSERVER_GROUP }}
   become: yes
-- name: Append Japanese settings to www.conf
-  shell: "cat /tmp/www.conf.append >> {{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-  when: Japanese_exists.rc != 0
+
+- name: php-fpm.d/www.conf - change listen method
+  lineinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:  ^listen = 127.0.0.1:9000
+    line: /var/run/php-fpm/php-fpm.sock
   become: yes
-  notify: restart php-fpm
+
+- name: php-fpm.d/www.conf - change listen owner
+  lineinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:  ^;listen.owner = nobody
+    line: listen.owner = nginx
+  become: yes
+
+- name: php-fpm.d/www.conf - change listen group
+  lineinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:  ^;listen.group = nobody
+    line: listen.group = nginx
+  become: yes
+
+- name: php-fpm.d/www.conf - add setting for use in Japan
+  blockinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    insertafter:  '^;php_value[opcache.file_cache]'
+    block: |
+      ; Default values for use in Japan.
+      php_value[date.timezone] = {{ TIME_ZONE }}
+      php_value[mbstring.language] = Japanese
+  become: yes
+  notify: restart {{ PHP_FPM_SERVICE }}
