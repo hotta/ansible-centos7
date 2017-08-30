@@ -34,4 +34,4 @@
     dest: "{{ PHP_INI_DIR }}/php.d/"
     src: 40-mqseries.ini
   become: yes
-  notify: restart php-fpm
+  notify: restart {{ PHP_FPM_SERVICE }}
