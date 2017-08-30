@@ -47,7 +47,7 @@
     --admin_user={{ WP_ADMIN_USER }} --admin_password={{ WP_ADMINPASS }} 
     --admin_email={{ WP_ADMIN_EMAIL }}"
   become: yes
-  notify: reload php-fpm
+  notify: reload {{ PHP_FPM_SERVICE }}
 
 - name: Put nginx config file
   template:

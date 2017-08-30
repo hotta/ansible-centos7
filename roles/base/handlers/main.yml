@@ -10,15 +10,6 @@
 - name: reload chronyd
   service: name=chronyd state=restarted enabled=yes
   become: yes
-- name: start php-fpm
-  service: name=php-fpm state=started enabled=yes
-  become: yes
-- name: reload php-fpm
-  service: name=php-fpm state=reloaded enabled=yes
-  become: yes
-- name: restart php-fpm
-  service: name=php-fpm state=restarted enabled=yes
-  become: yes
 - name: start nginx
   service: name=nginx state=started enabled=yes
   become: yes

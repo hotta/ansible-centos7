@@ -1,0 +1,49 @@
+# Install additional repositories
+---
+- name: roles/base/tasks/repos.yml
+  command: echo
+
+- name: Check for access to the Internet
+  wait_for: host=www.yahoo.co.jp port=80 timeout=5
+
+- name: Check existence of RPM-GPG-KEY-EPEL-{{ _V }}
+  stat:
+    path: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ _V }}
+  register: epel_key
+
+- name: Import rpm-gpg key for epel
+  rpm_key:
+    key: http://dl.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-{{ _V }}
+  become: yes
+  when: epel_key.stat.exists == false
+
+- name: Install additional repositories for CentOS {{ _V }}.x - epel
+  yum_repository:
+    name: epel-release
+    description: Extra Packages for Enterprise Linux {{ _V }} - $basearch
+    mirrorlist: "https://mirrors.fedoraproject.org/metalink?repo=epel-{{ _V }}&arch=$basearch"
+    failovermethod: priority
+    enabled: yes
+    gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ _V }}
+    gpgcheck: yes
+  become: yes
+
+- name: Install additional repositories for CentOS {{ _V }}.x - {{ PHP_REPO }}
+  yum:
+    name: "{{ PHP_REPO_PKG }}"
+  become: yes
+
+- name: Enable remi-php71
+  yum_repository:
+    name: remi-php71
+    mirrorlist: http://rpms.remirepo.net/enterprise/{{ _V }}/php71/mirror
+    description: "Remi's PHP 7.1 RPM repository for Enterprise Linux {{ _V }} - $basearch"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi"
+  become: yes
+  when: PHP_REPO == 'remi'
+
+- name: yum update. It will take a while...
+  yum: name=* state=latest
+  become: yes

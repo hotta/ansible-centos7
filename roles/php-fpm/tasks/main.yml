@@ -1,47 +1,24 @@
 ---
 - name: roles/php-fpm/tasks/main.yml
   command: echo
-- name: Install package from webtatic repository
+- name: Install package from additional repository
   yum:
     name: "{{ item }}"
     state:  present
   with_items:
     - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
+
+- include: "{{ PHP_REPO }}.yml"
+
 - name: php-fpm.conf - Use epoll instead of poll
-  patch:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.conf"
-    src:  php-fpm.conf.patch
+  lineinfile:
+    dest:         "{{ PHP_INI_DIR }}/php-fpm.conf"
+    regexp:       ^events.mechanism = epoll
+    line:         events.mechanism = epoll
+    insertafter:  ^;events.mechanism = epoll
   become: yes
-- name: make patch file for www.conf
-  template:
-    src:  www.conf.patch
-    dest: /tmp
-- name: www.conf - Use Unix Socket and change user to nginx
-  patch:
-    src:  /tmp/www.conf.patch
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    remote_src: yes
+
+- name: apply changes
+  notify: restart {{ PHP_FPM_SERVICE }}
   become: yes
-  notify: start php-fpm
-- name: Check for Japanese settings in www.conf
-  shell: "grep Japanese {{ PHP_INI_DIR }}/php-fpm.d/www.conf >& /dev/null"
-  register: Japanese_exists
-  ignore_errors: yes
-- name: make additional patch for www.conf
-  template:
-    src:  www.conf.append
-    dest: /tmp
-  when: Japanese_exists.rc != 0
-- name: Change directory owner to $WEBSERVER_USER
-  file: 
-    path: "{{ PHP_LOG_DIR }}"
-    owner: "{{ WEBSERVER_USER }}"
-    recurse: yes
-    state: directory
-  become: yes
-- name: Append Japanese settings to www.conf
-  shell: "cat /tmp/www.conf.append >> {{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-  when: Japanese_exists.rc != 0
-  become: yes
-  notify: restart php-fpm

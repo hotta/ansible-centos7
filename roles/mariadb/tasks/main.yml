@@ -10,7 +10,7 @@
     - mysql-connector-python
     - MySQL-python
   become: yes
-  notify: reload php-fpm
+  notify: reload {{ PHP_FPM_SERVICE }}
 - name: Enable mariadb
   service: name=mariadb state=started enabled=yes
   become: yes

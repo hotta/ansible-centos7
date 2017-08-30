@@ -56,7 +56,7 @@
     mode:     "a+w" 
     recurse:  yes
   become: yes
-  notify: restart php-fpm
+  notify: restart {{ PHP_FPM_SERVICE }}
 
 - name: Put laravel.sh for adding PATH
   copy:

@@ -1,0 +1,17 @@
+---
+- name: roles/php/tasks/webtatic71.yml
+  command: echo
+
+- name: Install PHP stuff from additional repository
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ PHP_PKG_PREFIX }}-mbstring"
+    - "{{ PHP_PKG_PREFIX }}-cli"
+    - "{{ PHP_PKG_PREFIX }}-xml"
+    - "{{ PHP_PKG_PREFIX }}-pdo"
+    - "{{ PHP_PKG_PREFIX }}-pgsql"
+    - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+    - "{{ PHP_PKG_PREFIX }}-phpdbg"
+  become: yes

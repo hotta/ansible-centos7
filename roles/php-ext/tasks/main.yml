@@ -16,9 +16,11 @@
     - rpm-build
     - "{{ PHP_PKG_PREFIX }}-devel"
   become: yes
+
 - name: Enable source package repo for php
   replace:
-    path: /etc/yum.repos.d/webtatic.repo
+    path: "{{ PHP_REPO_FILE }}"
     regexp: '^enabled=0$'
     replace: 'enabled=1'
   become: yes
+  when: "{{ PHP_REPO }} == remi71"

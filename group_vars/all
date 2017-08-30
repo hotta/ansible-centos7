@@ -2,11 +2,16 @@
 ---
 WWW_BASE:       /var/www
 WEBSERVER_USER: nginx
+WEBSERVER_GROUP: nginx
 # Composer
 COMPOSER_HOME:  "{{ ansible_user_dir }}/.composer"
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
 # Bash
 PROMPT_FILE: bash_prompt.sh
-WP_CLI_ARCHIVE: https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-WP_ARCHIVE_FILE: latest-ja.tar.gz
-WP_ARCHIVE_URL: https://ja.wordpress.org/{{ WP_ARCHIVE_FILE }}
+_V: "{{ ansible_distribution_major_version }}"
+PHP_INI_DIR:  /etc
+PHP_VAR_DIR:  /var
+PHP_LOG_DIR:  /var/log
+PHP_BIN_DIR:  /usr/bin
+PHP_LIB_DIR:  /usr/lib64/php
+PHP_MODULE_DIR: "{{ PHP_LIB_DIR }}/modules"
