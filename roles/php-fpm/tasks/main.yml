@@ -61,5 +61,6 @@
       ; Default values for use in Japan.
       php_value[date.timezone] = {{ TIME_ZONE }}
       php_value[mbstring.language] = Japanese
+    marker: "; {mark} ANSIBLE MANAGED BLOCK"
   become: yes
   notify: restart {{ PHP_FPM_SERVICE }}
