@@ -47,3 +47,60 @@
     - log
     - run
 
+- name: php-fpm.conf - Use epoll instead of poll
+  lineinfile:
+    dest:         "{{ PHP_INI_DIR }}/php-fpm.conf"
+    regexp:       ^events.mechanism = epoll
+    line:         events.mechanism = epoll
+    insertafter:  ^;events.mechanism = epoll
+  become: yes
+
+- name: php-fpm.d/www.conf - change user
+  lineinfile:
+    dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:       ^user = {{ WEBSERVER_USER }}
+    line:         user = {{ WEBSERVER_USER }}
+    insertafter:  ^user = apache
+  become: yes
+
+- name: php-fpm.d/www.conf - change group
+  lineinfile:
+    dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:       ^group = {{ WEBSERVER_GROUP }}
+    line:         group = {{ WEBSERVER_GROUP }}
+    insertafter:  ^group = apache
+  become: yes
+
+- name: php-fpm.d/www.conf - change listen method
+  lineinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:       ^listen = /var/run/php-fpm/php-fpm.sock
+    line:         listen = /var/run/php-fpm/php-fpm.sock
+    insertafter:  ^listen = 127.0.0.1:9000
+  become: yes
+
+- name: php-fpm.d/www.conf - change listen owner
+  lineinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:       ^;listen.owner = nobody
+    line:         listen.owner = nginx
+    insertafter:  ^;listen.owner = nobody
+  become: yes
+
+- name: php-fpm.d/www.conf - change listen group
+  lineinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp:  ^;listen.group = nobody
+    line: listen.group = nginx
+  become: yes
+
+- name: php-fpm.d/www.conf - add setting for use in Japan
+  blockinfile:
+    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    insertafter:  '^;php_value[opcache.file_cache]'
+    block: |
+      ; Default values for use in Japan.
+      php_value[date.timezone] = {{ TIME_ZONE }}
+      php_value[mbstring.language] = Japanese
+    marker: "; {mark} ANSIBLE MANAGED BLOCK"
+  become: yes
