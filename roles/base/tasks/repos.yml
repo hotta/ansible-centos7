@@ -34,9 +34,9 @@
   become: yes
   when: PHP_REPO == 'remi71'
 
-- name: Enable webtatic71 for CentOS 7.x
+- name: Enable webtatic71 for CentOS {{ _V }}.x
   yum:
-    name: https://mirror.webtatic.com/yum/el7/webtatic-release.rpm
+    name: https://mirror.webtatic.com/yum/el{{ _V }}/webtatic-release.rpm
   become: yes
   when: PHP_REPO == 'webtatic71'
 
