@@ -115,8 +115,8 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 
 ## Combination Patterns
 
-- CentOS 6.9 + webtatic71 + nginx1w + PostgreSQL - Tesing
-- CentOS 6.9 + remi71 + nginx + PostgreSQL
+- CentOS 6.9 + webtatic71 + nginx1w + PostgreSQL - OK
+- CentOS 6.9 + remi71 + nginx + PostgreSQL - Tesing
 - CentOS 7.3 + webtatic71 + nginx1w + PostgreSQL
 - CentOS 7.3 + remi71 + nginx + PostgreSQL
 
