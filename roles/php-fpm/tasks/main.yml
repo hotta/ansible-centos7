@@ -20,5 +20,5 @@
   become: yes
 
 - name: apply changes
+  command: echo
   notify: restart {{ PHP_FPM_SERVICE }}
-  become: yes
