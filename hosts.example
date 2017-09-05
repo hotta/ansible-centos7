@@ -42,16 +42,6 @@
 
 ## db-[99:101]-node.example.com
 
-[webtatic71]
-localhost ansible_connection=local
-
-# [remi71]
-# localhost ansible_connection=local
-
-[laravel]
-localhost ansible_connection=local
-
-[wordpress]
 localhost ansible_connection=local
 
 [windows]

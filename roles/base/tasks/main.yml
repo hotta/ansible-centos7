@@ -4,24 +4,43 @@
   stat: 
     path: /etc/ansible/hosts
   register: etc_ansible_hosts
+
 - name: Check if localhost.yml exists
   stat: 
     path: /etc/ansible/host_vars/localhost.yml
   register: etc_ansible_host_vars_localhost_yml
+
 - name: Check minimum requirement
   command: echo
   failed_when: |
     etc_ansible_hosts.stat.exists != true                    or
     etc_ansible_host_vars_localhost_yml.stat.exists != true  or
     ansible_distribution != 'CentOS' 
+
+- name: Check if PHP_REPO variable is either 'webtatic71' or 'remi71'
+  command: echo
+  failed_when:
+    - PHP_REPO != 'webtatic71'
+    - PHP_REPO != 'remi71'
+
 - name: Check if EC2
   stat:
     path: /etc/cloud/cloud.cfg
   register: cloud
+
 - include: ec2.yml
   when: 
     - cloud.stat.exists == true
     - "{{ _V }} == '7'"
+
+- include_vars:
+    file: env_webtatic71.yml
+  when: PHP_REPO == 'webtatic71'
+
+- include_vars:
+    file: env_remi71.yml
+  when: PHP_REPO == 'remi71'
+
 - include: repos.yml
 - include: selinux.yml
 - include: mandatory.yml

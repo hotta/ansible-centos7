@@ -3,12 +3,6 @@
 - name: roles/base/tasks/repos.yml
   command: echo
 
-- name: Check if PHP_REPO variable is either 'webtatic71' or 'remi71'
-  command: echo 
-  failed_when:
-    - PHP_REPO != 'webtatic71'
-    - PHP_REPO != 'remi71'
-
 - name: Check for access to the Internet
   wait_for: host=www.yahoo.co.jp port=80 timeout=5
 
