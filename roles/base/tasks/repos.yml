@@ -38,6 +38,7 @@
   yum:
     name: "{{ PHP_REPO_PKG }}"
   become: yes
+  when: PHP_REPO == 'remi71'
 
 - name: Enable webtatic71 for CentOS 7.x
   yum:
@@ -54,7 +55,7 @@
     gpgcheck: yes
     gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi"
   become: yes
-  when: PHP_REPO == 'remi'
+  when: PHP_REPO == 'remi71'
 
 - name: yum update. It will take a while...
   yum: name=* state=latest
