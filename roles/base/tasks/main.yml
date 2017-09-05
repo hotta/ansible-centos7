@@ -31,19 +31,19 @@
 - include: ec2.yml
   when: 
     - cloud.stat.exists == true
-    - "{{ _V }} == '7'"
+    - _V == '7'
 
 - include_vars:
     file: env_webtatic71.yml
   when: 
     - PHP_REPO == 'webtatic71'
-    - "{{ _V }} == '7'"
+    - _V == '7'
 
 - include_vars:
     file: env_webtatic71_cent6.yml
   when: 
     - PHP_REPO == 'webtatic71'
-    - "{{ _V }} == '6'"
+    - _V == '6'
 
 - include_vars:
     file: env_remi71.yml
