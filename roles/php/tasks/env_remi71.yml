@@ -1,0 +1,9 @@
+---
+vars:
+  PHP_PACKAGES:
+    - "{{ PHP_PKG_PREFIX }}-mbstring"
+    - "{{ PHP_PKG_PREFIX }}-cli"
+    - "{{ PHP_PKG_PREFIX }}-xml"
+    - "{{ PHP_PKG_PREFIX }}-pdo"
+    - "{{ PHP_PKG_PREFIX }}-pgsql"
+    - "{{ PHP_PKG_PREFIX }}-pecl-zip"
