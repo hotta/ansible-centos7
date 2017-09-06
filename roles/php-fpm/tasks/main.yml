@@ -9,7 +9,7 @@
     - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
 
-- include: "{{ PHP_REPO }}.yml"
+# - include: "{{ PHP_REPO }}.yml"
 
 - name: php-fpm.conf - Use epoll instead of poll
   lineinfile:
