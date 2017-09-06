@@ -39,6 +39,17 @@
     name: "{{ PHP_REPO_PKG }}"
   become: yes
 
+- name: Enable remi
+  yum_repository:
+    name: remi
+    mirrorlist: http://rpms.remirepo.net/enterprise/{{ _V }}/remi/mirror
+    description: "Remi's RPM repository for Enterprise Linux {{ _V }} - $basearch"
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-remi"
+  become: yes
+  when: PHP_REPO == 'remi71'
+
 - name: Enable remi-php71
   yum_repository:
     name: remi-php71

@@ -2,15 +2,16 @@
 - name: roles/php/tasks/main.yml
   command: echo
 
-- include: env_{{ PHP_REPO }}.yml
+- include_vars: env_{{ PHP_REPO }}.yml
 
 - name: Install PHP dependencies
   yum:
     name: "{{ item }}"
   with_items: "{{ PHP_PACKAGES }}"
+  become: yes
 
-- include: synlink.yml
-  when: PHP_REPO == 'remi71'
+# - include: symlink.yml
+#   when: PHP_REPO == 'remi71'
 
 - name: php.ini - date.timezone
   lineinfile:
