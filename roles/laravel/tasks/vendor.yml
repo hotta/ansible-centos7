@@ -3,7 +3,7 @@
   command: echo
 
 - name: 1.artisan vendor:publish
-  command: php artisan vendor:publish
+  command: php artisan vendor:publish --all
   args:
     chdir: "{{ LARAVEL_HOME }}"
   environment:

@@ -17,3 +17,10 @@
 - name: Add $COMPOSER_GLOBAL_BIN to $PATH
   template: src=composer.sh dest=/etc/profile.d/
   become: yes
+
+- name: Use https://packagist.jp instead
+  composer: 
+    command: config
+    arguments: -g repos.packagist composer https://packagist.jp
+    working_dir: "{{ COMPOSER_HOME }}"
+  become: yes

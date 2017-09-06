@@ -78,7 +78,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 
 - php-7.1.8
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
-- Laravel-5.4.33
+- Laravel-5.5.2
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 - WordPress 4.7.5
@@ -112,3 +112,11 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
   - php-ext
   - sphinx
   - vnc
+
+## Combination Patterns
+
+- CentOS 6.9 + webtatic71 + nginx1w + PostgreSQL - OK
+- CentOS 6.9 + remi71 + nginx + PostgreSQL - Tesing
+- CentOS 7.3 + webtatic71 + nginx1w + PostgreSQL
+- CentOS 7.3 + remi71 + nginx + PostgreSQL
+
