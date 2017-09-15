@@ -30,3 +30,10 @@
     line:         "mbstring.language = Japanese"
   become: yes
   when:           PHP_JAPANIZE == true
+
+- name: Reset owner for WWW_BASE
+  file:
+    path: "{{ WWW_BASE }}"
+    state:    directory
+    owner:    "{{ ansible_user_id }}"
+  become: yes
