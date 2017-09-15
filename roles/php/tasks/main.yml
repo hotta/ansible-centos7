@@ -2,16 +2,18 @@
 - name: roles/php/tasks/main.yml
   command: echo
 
-- include_vars: env_{{ PHP_REPO }}.yml
-
 - name: Install PHP dependencies
   yum:
     name: "{{ item }}"
-  with_items: "{{ PHP_PACKAGES }}"
+  with_items:
+    - "{{ PHP_PKG_PREFIX }}"
+    - "{{ PHP_PKG_PREFIX }}-mbstring"
+    - "{{ PHP_PKG_PREFIX }}-cli"
+    - "{{ PHP_PKG_PREFIX }}-xml"
+    - "{{ PHP_PKG_PREFIX }}-pdo"
+    - "{{ PHP_PKG_PREFIX }}-pgsql"
+    - "{{ PHP_PKG_PREFIX }}-pecl-zip"
   become: yes
-
-# - include: symlink.yml
-#   when: PHP_REPO == 'remi71'
 
 - name: php.ini - date.timezone
   lineinfile:
@@ -20,6 +22,7 @@
     line:         "date.timezone = {{ TIME_ZONE }}"
   become: yes
   when:           PHP_JAPANIZE == true
+
 - name: php.ini - mbstring.language
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php.ini"
