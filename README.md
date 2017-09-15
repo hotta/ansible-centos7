@@ -57,6 +57,7 @@ $ vi hosts (You may want to make some changes.)
 $ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
 $ vi localhost.yml (Please change 'MY_IP_ADDRESS' at least.)
+(You can select PHP repository either webtatic71(default) or remi71.)
 $ cd
 ```
 
@@ -74,15 +75,15 @@ $ ansible-playbook /etc/ansible/jobs/laravel.yml
 
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
-## Component's versions ( as of 2017/08/22 ).
+## Component's versions ( as of 2017/09/15 ).
 
-- php-7.1.8
+- php-7.1.9
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
-- Laravel-5.5.2
+- Laravel-5.5.4
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 - WordPress 4.7.5
-- Sphinx 1.6.2
+- Sphinx 1.6.3
 
 ## Dependencies in roles
 
@@ -112,11 +113,3 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
   - php-ext
   - sphinx
   - vnc
-
-## Combination Patterns
-
-- CentOS 6.9 + webtatic71 + nginx1w + PostgreSQL - OK
-- CentOS 6.9 + remi71 + nginx + PostgreSQL - Tesing
-- CentOS 7.3 + webtatic71 + nginx1w + PostgreSQL
-- CentOS 7.3 + remi71 + nginx + PostgreSQL
-
