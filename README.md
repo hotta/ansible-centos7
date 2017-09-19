@@ -2,15 +2,15 @@ This set of ansible playbooks deploy various environment such as laravel / IBM M
 
 ## Prerequisite(Test Environment)
 
-- Vagrant + VirtualBox VM running CentOS 7.3 with git and ansible 2.x.
-- ( If you prefer to use CentOS 6.x, read 7.3 as 6.9 instead. )
+- Vagrant + VirtualBox VM running CentOS 7.4 with git and ansible 2.x.
+- ( If you prefer to use CentOS 6.x, read 7.4 as 6.9 instead. )
 - typical installation process could be as follows:
 
 ```bash
 mkdir XXXX
 cd XXXXX
-vagrant box add bento/centos-7.3 --provider virtualbox
-vagrant init bento/centos-7.3 
+vagrant box add bento/centos-7.4 --provider virtualbox
+vagrant init bento/centos-7.4
 vi Vagrantfile (See below.)
 vagrant up
 ```
@@ -23,7 +23,7 @@ And then log in to the VM as user "vagrant".
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/centos-7.3"
+  config.vm.box = "bento/centos-7.4"
   config.vm.network "private_network", ip: "192.168.56.2"
   config.vm.hostname = "example.local"
   config.vm.provider "virtualbox" do |vb|

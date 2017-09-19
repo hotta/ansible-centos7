@@ -1,0 +1,22 @@
+---
+- name: roles/docker/tasks/main.yml
+  command: echo
+
+- name: Install docker for CentOS {{ _V }}.x
+  yum:
+    name: docker
+  become: yes
+
+- name: Start Docker Service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+
+- name: add into root group
+  user:
+    name: "{{ ansible_user_id }}"
+    append: yes
+    groups: root
+  become: yes
