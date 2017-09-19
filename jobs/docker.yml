@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook docker.yml
+---
+- hosts: localhost
+  roles:
+    - docker
