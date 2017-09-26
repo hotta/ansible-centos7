@@ -25,11 +25,19 @@
   become: yes
   notify: reload nginx
 
-- name: core-05.Deploy laravel installation
+- name: core-04.Deploy laravel installation
   command: "{{ LARAVEL_BIN }} new laravel"
   args:
     creates: "{{ WWW_BASE }}/laravel"
     chdir: "{{ WWW_BASE }}"
+  environment:
+    PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
+
+- name: core-05.Install aws-sdk-php-laravel
+  composer:
+    command: require
+    arguments: "aws/aws-sdk-php-laravel:~3.0"
+    working_dir: "{{ LARAVEL_HOME }}"
   environment:
     PATH: "/usr/bin:{{ PHP_BIN_DIR }}:{{ COMPOSER_GLOBAL_BIN }}"
 
