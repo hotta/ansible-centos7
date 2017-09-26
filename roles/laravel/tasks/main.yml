@@ -14,5 +14,5 @@
   when: LARAVEL_DB_CONNECTION == "sqlite"
 - include: whoops.yml
 # - include: debugbar.yml
-- include: aws.yml
+# - include: aws.yml
 - include: vendor.yml
