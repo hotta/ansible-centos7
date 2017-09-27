@@ -24,3 +24,10 @@
     arguments: -g repos.packagist composer https://packagist.jp
     working_dir: "{{ COMPOSER_HOME }}"
   tags: packagist
+
+- name: Use prestissimo - composer parallel install plugin
+  composer: 
+    command: require
+    arguments: hirak/prestissimo
+    working_dir: "{{ COMPOSER_HOME }}"
+  tags: packagist
