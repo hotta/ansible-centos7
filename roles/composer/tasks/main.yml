@@ -23,4 +23,4 @@
     command: config
     arguments: -g repos.packagist composer https://packagist.jp
     working_dir: "{{ COMPOSER_HOME }}"
-  become: yes
+  tags: packagist
