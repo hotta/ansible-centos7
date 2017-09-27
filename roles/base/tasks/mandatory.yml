@@ -21,6 +21,8 @@
     - w3m
     - python2-pip
     - kernel-devel
+    - man
+    - npm
   become: yes
   when: ansible_distribution_major_version == '7'
 
@@ -45,6 +47,8 @@
     - python-pip
     - libselinux-python
     - kernel-devel
+    - man
+    - npm
   become: yes
   when: ansible_distribution_major_version == '6'
 
@@ -62,17 +66,5 @@
   become: yes
 
 #
-# TODO: postgresql-libs will automatically install 
+# TODO: postgresql-libs will automatically be installed
 #   with dependency of php71w-pgsql
-#
-# - name: Check if postgresql-libs is installed
-#   shell: rpm -qa | grep postgresql-libs | sed -E 's/libs-.*$/libs/' warn=no
-#   register: default_pkg
-# 
-# - name: Remove default postgresql library if exists
-#   yum:
-#     name:   postgresql-libs
-#     state:  absent
-#   become: yes
-#   when: default_pkg.stdout == 'postgresql-libs'
-#   ignore_errors: yes
