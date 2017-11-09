@@ -36,8 +36,9 @@
   become: yes
 
 - name: Start GitBucket Service
-  service:
+  systemd:
     name: gitbucket
+    daemon_reload: yes
     state: started
     enabled:  yes
   become: yes

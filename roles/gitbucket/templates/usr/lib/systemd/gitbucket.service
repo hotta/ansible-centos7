@@ -5,7 +5,8 @@ After=network.target
 
 [Service]
 Type=simple
-EnvironmentFile=-/etc/sysconfig/gitbucket
+EnvironmentFile=/etc/sysconfig/gitbucket
+PidFile={{ GITBUCKET_PID_FILE }}
 ExecStart=/usr/bin/java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE >> $GITBUCKET_LOG_FILE 2>&1
 StandardOutput=syslog
 StandardError=syslog

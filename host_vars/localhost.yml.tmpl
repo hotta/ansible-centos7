@@ -38,3 +38,13 @@ WP_ADMIN_USER:        wp-admin
 WP_ADMINPASS:         _adm1np@ss
 WP_ADMIN_EMAIL:       admin@example.com
 WP_FORCE_REINSTALL:   false
+# GitBucket
+GITBUCKET_VERSION:    4.18.0
+GITBUCKET_WAR_DIR:    /opt/gitbucket/lib
+GITBUCKET_WAR_FILE:   "{{ GITBUCKET_WAR_DIR }}/gitbucket.war"
+GITBICKET_LOG_DIR:    /var/log/gitbucket
+GITBUCKET_HOME:       /var/lib/gitbucket
+GITBUCKET_PORT:       8888
+GITBUCKET_USER:       gitbucket
+GITBUCKET_LOG_FILE:   "{{ GITBICKET_LOG_DIR }}/run.log"
+GITBUCKET_PID_FILE:   /var/run/gitbucket.pid
