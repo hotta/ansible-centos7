@@ -1,0 +1,14 @@
+[Unit]
+Description=GitBucket Service
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/sysconfig/gitbucket
+ExecStart=/usr/bin/java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE >> $GITBUCKET_LOG_FILE 2>&1
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

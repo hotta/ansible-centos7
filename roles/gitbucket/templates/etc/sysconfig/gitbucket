@@ -1,0 +1,23 @@
+# Bind host
+GITBUCKET_HOST=0.0.0.0
+
+# Server port
+GITBUCKET_PORT={{ GITBUCKET_PORT }}
+
+# Java process runner
+GITBUCKET_USER={{ GITBUCKET_USER }}
+
+# Data directory (GITBUCKET_HOME/gitbucket)
+GITBUCKET_HOME={{ GITBUCKET_HOME }}
+
+# Path to the WAR file
+GITBUCKET_WAR_FILE={{ GITBUCKET_WAR_FILE }}
+
+# URL prefix for the GitBucket page (http://<host>:<port>/<prefix>/)
+GITBUCKET_PREFIX=
+
+# Other Java option
+GITBUCKET_JVM_OPTS="-XX:PermSize=128m -XX:MaxPermSize=128m -Xms256m -Xmx256m -XX:NewRatio=2 -XX:SurvivorRatio=8"
+
+GITBUCKET_LOG_FILE={{ GITBUCKET_LOG_FILE }}
+GITBUCKET_PID_FILE={{ GITBUCKET_PID_FILE }}

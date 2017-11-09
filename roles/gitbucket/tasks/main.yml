@@ -1,0 +1,43 @@
+# GitBucket
+---
+- name: roles/gitbucket/tasks/main.yml
+  command: echo
+
+- name: Create effective user
+  user:
+    name: "{{ GITBUCKET_USER }}"
+    append: yes
+    home: "{{ GITBUCKET_HOME }}"
+    system: yes
+  become: yes
+
+- name: Prepare directory
+  file:
+    state:  directory
+    path:   "{{ GITBUCKET_WAR_DIR }}"
+  become: yes
+
+- name: Get archive file
+  get_url:
+    url: https://github.com/gitbucket/gitbucket/releases/download/{{ GITBUCKET_VERSION }}/gitbucket.war
+    dest: "{{ GITBUCKET_WAR_FILE }}"
+  become: yes
+
+- name: Put an environment file
+  template:
+    src:  etc/sysconfig/gitbucket
+    dest: /etc/sysconfig/
+  become: yes
+
+- name: Make it a service
+  template:
+    src: usr/lib/systemd/gitbucket.service
+    dest: /usr/lib/systemd/system/
+  become: yes
+
+- name: Start GitBucket Service
+  service:
+    name: gitbucket
+    state: started
+    enabled:  yes
+  become: yes
