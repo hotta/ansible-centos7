@@ -6,10 +6,15 @@ After=network.target
 [Service]
 Type=simple
 EnvironmentFile=/etc/sysconfig/gitbucket
-PidFile={{ GITBUCKET_PID_FILE }}
-ExecStart=/usr/bin/java $GITBUCKET_JVM_OPTS -jar $GITBUCKET_WAR_FILE >> $GITBUCKET_LOG_FILE 2>&1
-StandardOutput=syslog
-StandardError=syslog
+PIDFile={{ GITBUCKET_PID_FILE }}
+ExecStart=/usr/bin/java \
+  $GITBUCKET_JVM_OPTS \
+  -jar $GITBUCKET_WAR_FILE \
+  --port={{ GITBUCKET_PORT }} \
+  --gitbucket.home={{ GITBUCKET_HOME }} \
+  >> $GITBUCKET_LOG_FILE 2>&1
+User={{ GITBUCKET_USER }}
+Group={{ GITBUCKET_USER }}
 
 [Install]
 WantedBy=multi-user.target

@@ -11,10 +11,17 @@
     system: yes
   become: yes
 
-- name: Prepare directory
+- name: Prepare directory for war file
   file:
     state:  directory
     path:   "{{ GITBUCKET_WAR_DIR }}"
+  become: yes
+
+- name: Prepare directory for log file
+  file:
+    state:  directory
+    path:   "{{ GITBICKET_LOG_DIR }}"
+    owner:  "{{ GITBUCKET_USER }}"
   become: yes
 
 - name: Get archive file
@@ -35,10 +42,14 @@
     dest: /usr/lib/systemd/system/
   become: yes
 
+- name: Reload systemd
+  systemd:
+    daemon_reload: yes
+  become: yes
+
 - name: Start GitBucket Service
   systemd:
     name: gitbucket
-    daemon_reload: yes
     state: started
     enabled:  yes
   become: yes
