@@ -8,9 +8,9 @@
   become: yes
   tags: wp
   when: WP_FORCE_REINSTALL == true
-- name: Include core.yml
-  include: core.yml
+- name: import_tasks core.yml
+  import_tasks: core.yml
   tags: wp
-- name: Include otp.yml
-  include: otp.yml
+- name: import_tasks otp.yml
+  import_tasks: otp.yml
   tags: wp, wp-otp

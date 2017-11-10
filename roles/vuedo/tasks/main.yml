@@ -2,7 +2,7 @@
 - name: roles/vuedo/tasks/main.yml
   command: echo
 
-- include: core.yml
+- import_tasks: core.yml
   tags: vuedo
-- include: db.yml
+- import_tasks: db.yml
   tags: vuedo

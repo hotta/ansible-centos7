@@ -1,8 +1,8 @@
 ---
 - name: roles/postgresql/tasks/main.yml
   command: echo
-- include: package.yml
+- import_tasks: package.yml
   tags: pg-package
-- include: init.yml
+- import_tasks: init.yml
   ignore_errors: yes
   tags: pg-init

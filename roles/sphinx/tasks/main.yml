@@ -2,5 +2,5 @@
 - name: roles/sphinx/tasks/main.yml
   command: echo
 
-- include: core.yml
+- import_tasks: core.yml
   tags: sphinx

@@ -1,18 +1,18 @@
 ---
 - name: roles/laravel/tasks/main.yml
   command: echo
-- include: core.yml
+- import_tasks: core.yml
   tags: laravel
-- include: env.yml
-- include: localize.yml
-- include: db-pgsql.yml
+- import_tasks: env.yml
+- import_tasks: localize.yml
+- import_tasks: db-pgsql.yml
   when: LARAVEL_DB_CONNECTION == "pgsql"
   tags: laravel-pgsql
-- include: db-mysql.yml
+- import_tasks: db-mysql.yml
   when: LARAVEL_DB_CONNECTION == "mysql"
-- include: db-sqlite.yml
+- import_tasks: db-sqlite.yml
   when: LARAVEL_DB_CONNECTION == "sqlite"
-- include: whoops.yml
-# - include: debugbar.yml
-# - include: aws.yml
-- include: vendor.yml
+- import_tasks: whoops.yml
+# - import_tasks: debugbar.yml
+# - import_tasks: aws.yml
+- import_tasks: vendor.yml

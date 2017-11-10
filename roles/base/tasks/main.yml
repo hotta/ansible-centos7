@@ -29,7 +29,7 @@
   register: cloud
 
 - name: Do ec2 specific tasks
-  include: ec2.yml
+  import_tasks: ec2.yml
   when: 
     - cloud.stat.exists == true
     - _V == '7'
@@ -53,9 +53,9 @@
     file: env_remi71.yml
   when: PHP_REPO == 'remi71'
 
-- include: repos.yml
-- include: selinux.yml
-- include: mandatory.yml
-- include: time.yml
-- include: prompt.yml
-- include: users.yml
+- import_tasks: repos.yml
+- import_tasks: selinux.yml
+- import_tasks: mandatory.yml
+- import_tasks: time.yml
+- import_tasks: prompt.yml
+- import_tasks: users.yml
