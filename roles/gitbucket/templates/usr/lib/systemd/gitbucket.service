@@ -12,6 +12,7 @@ ExecStart=/usr/bin/java \
   -jar $GITBUCKET_WAR_FILE \
   --port={{ GITBUCKET_PORT }} \
   --gitbucket.home={{ GITBUCKET_HOME }} \
+  --validate_password=false \
   >> $GITBUCKET_LOG_FILE 2>&1
 User={{ GITBUCKET_USER }}
 Group={{ GITBUCKET_USER }}
