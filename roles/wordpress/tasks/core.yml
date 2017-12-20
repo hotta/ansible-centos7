@@ -56,14 +56,6 @@
   become: yes
   notify: reload nginx
 
-- name: Add WP_SERVER_NAME entry to /etc/hosts
-  lineinfile:
-    dest:   /etc/hosts
-    line:   "{{ MY_IP_ADDRESS }} {{ WP_SERVER_NAME }}"
-    regexp: "^{{ MY_IP_ADDRESS }} +{{ WP_SERVER_NAME }}"
-    insertafter:  EOF
-  become: yes
-
 - name: Change owner and permission of the directory tree
   file:
     path: "{{ WP_HOME }}"
