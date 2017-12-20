@@ -50,14 +50,10 @@ end
 ```bash
 $ git clone https://github.com/hotta/ansible-centos7.git
 $ sudo rm -r /etc/ansible
-$ sudo mv ansible-centos7 /etc/ansible
-$ cd /etc/ansible/
+$ sudo ln -fs $PWD /etc/ansible
 $ cp hosts.example hosts
-$ vi hosts (You may want to make some changes.)
 $ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
-$ vi localhost.yml (Please change 'MY_IP_ADDRESS' at least.)
-(You can select PHP repository either webtatic71(default) or remi71.)
 $ cd
 ```
 
