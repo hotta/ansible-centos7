@@ -50,6 +50,7 @@ end
 ```bash
 $ git clone https://github.com/hotta/ansible-centos7.git
 $ sudo rm -r /etc/ansible
+$ cd ansible-centos7
 $ sudo ln -fs $PWD /etc/ansible
 $ cp hosts.example hosts
 $ cd host_vars
