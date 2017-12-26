@@ -1,0 +1,27 @@
+---
+- name: roles/laravel/tasks/dusk.yml
+  command: echo
+
+- name: get laravel/dusk
+  composer:
+    command: require
+    no_dev: false
+    arguments: laravel/dusk --dev
+    working_dir: "{{ LARAVEL_HOME }}"
+
+- name: install laravel/dusk
+  command: php artisan dusk:install
+  args:
+    chdir: "{{ LARAVEL_HOME }}"
+
+- name: Register entry to AppServiceProvider.php
+  patch:
+    dest: "{{ LARAVEL_HOME }}/app/Providers/AppServiceProvider.php"
+    src:  AppServiceProvider.php.patch
+
+- name: Add entry to hosts
+  lineinfile:
+    dest: /etc/hosts
+    regexp: "^127.0.0.1 {{ LARAVEL_SERVER_NAME }}"
+    line: 127.0.0.1 {{ LARAVEL_SERVER_NAME }}
+  become: yes

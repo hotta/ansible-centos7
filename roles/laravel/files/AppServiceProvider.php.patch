@@ -1,0 +1,12 @@
+--- AppServiceProvider.php.orig	2017-12-26 16:49:54.346065016 +0900
++++ AppServiceProvider.php	2017-12-26 16:50:25.634890761 +0900
+@@ -23,6 +23,8 @@
+      */
+     public function register()
+     {
+-        //
++        if ($this->app->environment('local', 'testing')) {
++            $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
++        }
+     }
+ }
