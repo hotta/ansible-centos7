@@ -2,6 +2,14 @@
 - name: roles/laravel/tasks/dusk.yml
   command: echo
 
+- name: Install Dependencies
+  yum:
+    name: "{{ item }}"
+  become: yes
+  with_items:
+    - chromium
+    - chromium-headless
+
 - name: get laravel/dusk
   composer:
     command: require
