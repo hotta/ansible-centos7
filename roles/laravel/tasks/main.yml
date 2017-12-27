@@ -16,5 +16,3 @@
 # - import_tasks: debugbar.yml
 # - import_tasks: aws.yml
 - import_tasks: vendor.yml
-- import_tasks: dusk.yml
-  tags: laravel-dusk
