@@ -8,6 +8,7 @@
   become: yes
   with_items:
     - chromium
+    - chromium-headless
 
 - name: get laravel/dusk
   composer:

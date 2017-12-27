@@ -1,8 +1,9 @@
 ### make use of laravel/dusk
 
 ```
-$ sudo yum -y install libX11 GConf2 fontconfig chromium chromium-headless
-$ wget http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar
-$ php artisan serve --port 9515
+$ ln -s /var/www/laravel .
+$ cd laravel
 $ php artisan dusk
 ```
+
+You need not invoke X to run dusk.
