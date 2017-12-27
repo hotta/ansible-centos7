@@ -7,7 +7,7 @@
     name: "{{ item }}"
   become: yes
   with_items:
-    - chromium-headless
+    - chromium
 
 - name: get laravel/dusk
   composer:
