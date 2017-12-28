@@ -52,36 +52,33 @@ $ git clone https://github.com/hotta/ansible-centos7.git
 $ sudo rm -r /etc/ansible
 $ cd ansible-centos7
 $ sudo ln -fs $PWD /etc/ansible
-$ cp hosts.example hosts
-$ cd host_vars
-$ cp localhost.yml.tmpl localhost.yml
-$ cd
 ```
 
 ## Building environment 
 
 ```bash
-$ ansible-playbook /etc/ansible/jobs/JOB-NAME-YOU-WANT-TO-DEPLOY.yml
+$ ansible-playbook jobs/JOB-NAME-YOU-WANT-TO-DEPLOY.yml
 ```
 
 for example, if you want to deploy laravel environment, run:
 
 ```bash
-$ ansible-playbook /etc/ansible/jobs/laravel.yml
+$ ansible-playbook jobs/laravel.yml
 ```
 
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
-## Component's versions ( as of 2017/11/13 ).
+## Component's versions ( as of 2017/12/28 ).
 
-- php-7.1.9
+- php-7.1.11
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
-- Laravel-5.5.4
+- Laravel-5.5.28
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 - WordPress 4.7.5
 - Sphinx 1.6.3
 - GitBucket 4.18.0
+- chromium 61.0.3163.100
 
 ## Dependencies in roles
 
@@ -94,6 +91,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
       - postgresql
         - laravel
           - supervisor
+          - laravel-dusk
       - mariadb
         - wordpress
         - vuedo
