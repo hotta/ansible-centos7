@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# mdv - A markdown viewer.
+---
+- hosts: localhost
+  roles:
+    - mdv

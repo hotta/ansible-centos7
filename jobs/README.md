@@ -3,9 +3,10 @@
 | base.yml    | Basic Configuration |
 | composer.yml  | Dependency manager for PHP   |
 | laravel.yml   | PHP web development framework w/ nginx + php-fpm + DB |
-| lessmd.yml    | a CUI Markdown viewer    |
+| laravel-dusk.yml | Laravel with dusk(Browser test using chromedriver) |
 | mariadb.yml   | Database server compatible with MySQL |
 | mfa.yml       | Radius server with pam_google_authenticator enabled |
+| mdv.yml       | A markdown viewer |
 | mq-client.yml | IBM MQ (Client Only)  |
 | mq-core.yml   | IBM MQ (Core packages)  |
 | mq-docker.yml | A lightweight linux container with IBM MQ  |

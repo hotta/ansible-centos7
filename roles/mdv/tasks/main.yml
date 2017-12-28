@@ -1,0 +1,14 @@
+---
+- name: roles/mdv/main.yml
+  command: echo
+
+- name: Upgrade pip
+  pip:
+    name: pip
+    extra_args: --upgrade
+  become: yes
+
+- name: Install mdv
+  pip:
+    name: mdv
+  become: yes
