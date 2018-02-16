@@ -65,3 +65,5 @@ $ diff database.conf.orig database.conf
 $ exit
 $ sudo systemctl start gitbucket
 ```
+
+If you want to upgrade existing H2 database, See "Data migration" and "PostgreSQL" in https://github.com/gitbucket/gitbucket/wiki/External-database-configuration .
