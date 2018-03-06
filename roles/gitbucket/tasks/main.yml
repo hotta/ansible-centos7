@@ -24,6 +24,19 @@
     owner:  "{{ GITBUCKET_USER }}"
   become: yes
 
+- name: Stop GitBucket Service
+  systemd:
+    name: gitbucket
+    state: stopped
+    enabled:  yes
+  become: yes
+
+- name: Delete old war file
+  file:
+    path: "{{ GITBUCKET_WAR_FILE }}"
+    state: absent
+  become: yes
+
 - name: Get archive file
   get_url:
     url: https://github.com/gitbucket/gitbucket/releases/download/{{ GITBUCKET_VERSION }}/gitbucket.war
