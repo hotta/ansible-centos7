@@ -77,7 +77,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 - FreeRadius 3.0.4
 - WordPress 4.7.5
 - Sphinx 1.6.3
-- GitBucket 4.21.2
+- GitBucket 4.22.0
 - chromium 61.0.3163.100
 
 ## Dependencies in roles

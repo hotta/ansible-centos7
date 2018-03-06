@@ -37,7 +37,7 @@ WP_ADMINPASS:         _adm1np@ss
 WP_ADMIN_EMAIL:       admin@example.com
 WP_FORCE_REINSTALL:   false
 # GitBucket
-GITBUCKET_VERSION:    4.21.2
+GITBUCKET_VERSION:    4.22.0
 GITBUCKET_WAR_DIR:    /opt/gitbucket/lib
 GITBUCKET_WAR_FILE:   "{{ GITBUCKET_WAR_DIR }}/gitbucket.war"
 GITBICKET_LOG_DIR:    /var/log/gitbucket
