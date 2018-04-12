@@ -52,6 +52,12 @@
   become: yes
   when: ansible_distribution_major_version == '6'
 
+- name: Upgrade pip
+  pip:
+    name: pip
+    state: latest
+  become: yes
+
 - name: Prepare directory for WWW_BASE
   file:
     path:     "{{ WWW_BASE }}"
