@@ -70,7 +70,3 @@
     src: sitecustomize.py
     dest: /usr/lib64/python2.7/
   become: yes
-
-#
-# TODO: postgresql-libs will automatically be installed
-#   with dependency of php71w-pgsql
