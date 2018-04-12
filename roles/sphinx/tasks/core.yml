@@ -17,13 +17,6 @@
     name: sphinxcontrib-phpdomain
   become: yes
 
-- name: Apply patch to phpdomain
-  lineinfile:
-    dest: /usr/lib/python2.7/site-packages/sphinxcontrib_phpdomain-0.2.5-py2.7.egg/sphinxcontrib/phpdomain.py
-    regexp: 'import Directive'
-    line: 'from docutils.parsers.rst import Directive'
-  become: yes
-
 - name: Install Read the Docs theme for Sphinx
   pip:
     name: sphinx_rtd_theme
