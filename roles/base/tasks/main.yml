@@ -17,12 +17,6 @@
     etc_ansible_host_vars_localhost_yml.stat.exists != true  or
     ansible_distribution != 'CentOS' 
 
-- name: Check if PHP_REPO variable is either 'webtatic71' or 'remi71'
-  command: echo
-  failed_when:
-    - PHP_REPO != 'webtatic71'
-    - PHP_REPO != 'remi71'
-
 - name: Check if EC2
   stat:
     path: /etc/cloud/cloud.cfg
@@ -34,28 +28,10 @@
     - cloud.stat.exists == true
     - _V == '7'
 
-- name: Inlcude vars specific to webtatic w/ CentOS7
-  include_vars:
-    file: env_webtatic71.yml
-  when: 
-    - PHP_REPO == 'webtatic71'
-    - _V == '7'
-
-- name: Inlcude vars specific to webtatic w/ CentOS6
-  include_vars:
-    file: env_webtatic71_cent6.yml
-  when: 
-    - PHP_REPO == 'webtatic71'
-    - _V == '6'
-
-- name: Inlcude vars specific to remi w/ CentOS 6/7
-  include_vars:
-    file: env_remi71.yml
-  when: PHP_REPO == 'remi71'
-
-- import_tasks: repos.yml
-- import_tasks: selinux.yml
 - import_tasks: mandatory.yml
 - import_tasks: time.yml
 - import_tasks: prompt.yml
 - import_tasks: users.yml
+- import_tasks: selinux.yml
+- import_tasks: locale.yml
+  when: SYSTEM_LOCALE == 'ja'
