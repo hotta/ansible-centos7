@@ -15,3 +15,5 @@ PHP_LOG_DIR:  /var/log
 PHP_BIN_DIR:  /usr/bin
 PHP_LIB_DIR:  /usr/lib64/php
 PHP_MODULE_DIR: "{{ PHP_LIB_DIR }}/modules"
+# Python3
+PYTHON3_BIN: /opt/python36/bin

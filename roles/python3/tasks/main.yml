@@ -1,0 +1,13 @@
+# roles/pyhton3/tasks/main
+---
+- name: roles/python3/tasks/main.yml
+  command: echo
+
+- name: Install python36
+  yum:
+    name: python36
+  become: yes
+
+- name: Install virtualenv
+  command: easy_install virtualenv
+  become: yes
