@@ -1,5 +1,6 @@
 # host_vars/localhost.yml - Host specific variables
 ---
+SYSTEM_LOCALE:        ja
 # Your Terminal's IP Address for Remote Debugging
 XDEBUG_REMOTE_HOST:   192.168.56.1
 # application key to be used in remote debugging
