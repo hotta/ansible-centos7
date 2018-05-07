@@ -11,3 +11,13 @@
 - name: Install virtualenv
   command: easy_install virtualenv
   become: yes
+
+- name: Set python36 to the default python binary
+  template:
+    src: python3.sh
+    dest: /etc/profile.d/
+  become: yes
+
+- name: Enable python36 always in my env
+  command: virtualenv -p /usr/bin/python36 {{ PYTHON3_DIR }}
+  become: yes
