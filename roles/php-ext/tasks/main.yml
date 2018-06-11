@@ -2,6 +2,7 @@
 ---
 - name: roles/php-ext/tasks/main.yml
   command: echo
+
 - name: Install packages required for building php extension
   yum: name={{ item }} state=present
   with_items:
@@ -16,11 +17,3 @@
     - rpm-build
     - "{{ PHP_PKG_PREFIX }}-devel"
   become: yes
-
-- name: Enable source package repo for php
-  replace:
-    path: "{{ PHP_REPO_FILE }}"
-    regexp: '^enabled=0$'
-    replace: 'enabled=1'
-  become: yes
-  when: "{{ PHP_REPO }} == remi71"
