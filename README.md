@@ -77,14 +77,14 @@ $ ansible-playbook jobs/laravel.yml
 
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
-## Component's versions ( as of 2018/06/10 ).
+## Component's versions ( as of 2018/06/12 ).
 
 - php-7.2.5
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
 - Laravel-5.5.28
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
-- WordPress 4.7.5
+- WordPress 4.9.6
 - Sphinx 1.6.3
 - GitBucket 4.22.0
 - chromium 61.0.3163.100
