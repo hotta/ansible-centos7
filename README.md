@@ -54,6 +54,15 @@ $ cd ansible-centos7
 $ sudo ln -fs $PWD /etc/ansible
 ```
 
+## Customize localhost.yml if nessesary
+
+```bash
+$ cd host_vars
+$ cp localhost.yml.tmpl localhost.yml
+$ vi localhost.yml                    # if nessesary
+$ cd ..
+```
+
 ## Building environment 
 
 ```bash

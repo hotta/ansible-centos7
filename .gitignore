@@ -2,3 +2,4 @@
 *.swp
 .env
 *.rpmnew
+host_vars/localhost.yml
