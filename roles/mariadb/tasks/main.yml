@@ -16,14 +16,14 @@
     enablerepo: remi,remi-php72
     name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
-  notify: reload {{ PHP_FPM_SERVICE }}
+  notify: reload php-fpm
   when: PHP_REPO == "remi72"
 
 - name: Install mariadb bindings from webtatic
   yum:
     name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
-  notify: reload {{ PHP_FPM_SERVICE }}
+  notify: reload php-fpm
   when: PHP_REPO == "webtatic71"
 
 - name: Enable mariadb

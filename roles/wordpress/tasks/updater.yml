@@ -1,0 +1,8 @@
+---
+- name: roles/wordpress/tasks/updater.yml
+  command: echo
+
+- name: Install Companion Auto Update plugin
+  shell: "{{ WP_CLI }} plugin install companion-auto-update --activate"
+  args:
+    chdir: "{{ WP_HOME }}"

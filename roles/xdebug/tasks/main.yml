@@ -11,7 +11,7 @@
     src:  16-xdebug.ini
     dest: "{{ PHP_INI_DIR }}/php.d/"
   become: yes
-  notify: restart {{ PHP_FPM_SERVICE }}
+  notify: restart php-fpm
 - name: |
     NOTE: Please change xdebug.remote_host value in {{ PHP_INI_DIR }}/php.d/16-xdebug.ini to the IP address of your machine runs xdebug/netbeans.
   command: echo

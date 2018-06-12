@@ -81,4 +81,4 @@
 
 - name: apply changes
   command: echo
-  notify: restart {{ PHP_FPM_SERVICE }}
+  notify: restart php-fpm

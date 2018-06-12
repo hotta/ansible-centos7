@@ -3,4 +3,3 @@ PHP_PKG_PREFIX: php
 NGINX_PKG:      nginx
 PHP_REPO_PKG:   http://rpms.famillecollet.com/enterprise/remi-release-{{ _V }}.rpm
 PHP_REPO_FILE:  remi.repo
-PHP_FPM_SERVICE: php-fpm  
