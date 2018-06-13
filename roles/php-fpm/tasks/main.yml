@@ -32,25 +32,22 @@
 - name: php-fpm.d/www.conf - change user
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^user = {{ WEBSERVER_USER }}
+    regexp:       ^user = apache
     line:         user = {{ WEBSERVER_USER }}
-    insertafter:  ^user = apache
   become: yes
 
 - name: php-fpm.d/www.conf - change group
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^group = {{ WEBSERVER_GROUP }}
+    regexp:       ^group = apache
     line:         group = {{ WEBSERVER_GROUP }}
-    insertafter:  ^group = apache
   become: yes
 
 - name: php-fpm.d/www.conf - change listen method
   lineinfile:
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^listen = /var/run/php-fpm/php-fpm.sock
+    regexp:       ^listen = 127.0.0.1:9000
     line:         listen = /var/run/php-fpm/php-fpm.sock
-    insertafter:  ^listen = 127.0.0.1:9000
   become: yes
 
 - name: php-fpm.d/www.conf - change listen owner
@@ -58,7 +55,6 @@
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
     regexp:       ^;listen.owner = nobody
     line:         listen.owner = nginx
-    insertafter:  ^;listen.owner = nobody
   become: yes
 
 - name: php-fpm.d/www.conf - change listen group
@@ -68,7 +64,7 @@
     line: listen.group = nginx
   become: yes
 
-- name: php-fpm.d/www.conf - add setting for use in Japan
+- name: php-fpm.d/www.conf - add settings for use in Japan
   blockinfile:
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
     insertafter:  '^;php_value[opcache.file_cache]'
@@ -76,6 +72,9 @@
       ; Default values for use in Japan.
       php_value[date.timezone] = {{ TIME_ZONE }}
       php_value[mbstring.language] = Japanese
+      ; relax limits
+      php_value[post_max_size] = {{ WP_POST_MAX_SIZE }}
+      php_value[upload_max_filesize] = {{ WP_POST_MAX_SIZE }}
     marker: "; {mark} ANSIBLE MANAGED BLOCK"
   become: yes
 
