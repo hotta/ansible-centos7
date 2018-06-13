@@ -14,6 +14,7 @@
     - "{{ PHP_PKG_PREFIX }}-pdo"
     - "{{ PHP_PKG_PREFIX }}-pgsql"
     - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+    - "{{ PHP_PKG_PREFIX }}-gd"
   become: yes
   when: PHP_REPO == "remi72"
 
