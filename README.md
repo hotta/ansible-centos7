@@ -1,16 +1,13 @@
-This set of ansible playbooks deploy various environment such as laravel / IBM MQ / Radius / WordPress etc. on CentOS 7.x / 6.x. It is intended to run at each host to provision the (local)host itself. Provisioning remote hosts are not tested.
+This set of ansible playbooks deploy various environment such as laravel / IBM MQ / Radius / WordPress etc. on CentOS 7.x. It is intended to run at each host to provision the (local)host itself. Provisioning remote hosts are not tested.
 
 ## Prerequisite(Test Environment)
 
-- Vagrant + VirtualBox VM running CentOS 7.4 with git and ansible 2.x.
-- ( If you prefer to use CentOS 6.x, read 7.4 as 6.9 instead. )
+- Vagrant + VirtualBox VM running CentOS 7.5 with git and ansible 2.5.x.
 - typical installation process could be as follows:
 
 ```bash
 mkdir XXXX
 cd XXXXX
-vagrant box add bento/centos-7.4 --provider virtualbox
-vagrant init bento/centos-7.4
 vi Vagrantfile (See below.)
 vagrant up
 ```
@@ -23,7 +20,7 @@ And then log in to the VM as user "vagrant".
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/centos-7.4"
+  config.vm.box = "centos/7"
   config.vm.network "private_network", ip: "192.168.56.2"
   config.vm.hostname = "example.local"
   config.vm.provider "virtualbox" do |vb|
