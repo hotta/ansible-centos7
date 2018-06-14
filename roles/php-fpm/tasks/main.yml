@@ -21,6 +21,15 @@
   become: yes
   when: PHP_REPO == "webtatic71"
 
+- name: Change owner of log directory
+  file:
+    path: /var/log/php-fpm
+    owner: {{ WEBSERVER_USER }}
+    group: {{ WEBSERVER_GROUP }}
+    state: directory
+    recurse: yes
+  become: yes
+
 - name: php-fpm.conf - Use epoll instead of poll
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php-fpm.conf"
@@ -54,14 +63,14 @@
   lineinfile:
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
     regexp:       ^;listen.owner = nobody
-    line:         listen.owner = nginx
+    line:         listen.owner = {{ WEBSERVER_USER }}
   become: yes
 
 - name: php-fpm.d/www.conf - change listen group
   lineinfile:
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
     regexp:  ^;listen.group = nobody
-    line: listen.group = nginx
+    line: listen.group = {{ WEBSERVER_GROUP }}
   become: yes
 
 - name: php-fpm.d/www.conf - add settings for use in Japan
