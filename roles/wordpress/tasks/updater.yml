@@ -6,3 +6,8 @@
   shell: "{{ WP_CLI }} plugin install companion-auto-update --activate"
   args:
     chdir: "{{ WP_HOME }}"
+
+- name: Install SSH SFTP Updater Support plugin
+  shell: "{{ WP_CLI }} plugin install ssh-sftp-updater-support --activate"
+  args:
+    chdir: "{{ WP_HOME }}"
