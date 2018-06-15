@@ -28,6 +28,13 @@
     dest: "{{ WP_HOME }}"
   become: yes
 
+- name: Remove previous database
+  mysql_db:
+    login_user: root
+    name: "{{ WP_DB_NAME }}"
+    state: absent
+  when: WP_REMOVE_PREVIOUS_DB == true
+  
 - name: Create Database
   mysql_db:
     login_user: root
@@ -47,7 +54,7 @@
     --admin_user={{ WP_ADMIN_USER }} --admin_password={{ WP_ADMINPASS }} 
     --admin_email={{ WP_ADMIN_EMAIL }}"
   become: yes
-  notify: reload {{ PHP_FPM_SERVICE }}
+  notify: reload php-fpm
 
 - name: Put nginx config file
   template:

@@ -5,6 +5,7 @@
   shell: "{{ WP_CLI }} plugin install wp-otp --activate"
   args:
     chdir: "{{ WP_HOME }}"
+
 - name: Install translated language files
   copy:
     src: "{{ item }}"
@@ -12,3 +13,8 @@
   with_items:
     - wp-otp-ja.mo
     - wp-otp-ja.po
+
+- name: Apply patch to supress warning
+  patch:
+    src: wp-otp-warning.patch
+    dest: "{{ WP_HOME }}/wp-content/plugins/wp-otp/includes/class-wp-otp-user-meta.php"

@@ -1,0 +1,19 @@
+diff -Nur /var/www/wordpress/wp-content/plugins/ssh-sftp-updater-support/class-wp-filesystem-ssh2.php wordpress/wp-content/plugins/ssh-sftp-updater-support/class-wp-filesystem-ssh2.php
+--- /var/www/wordpress/wp-content/plugins/ssh-sftp-updater-support/class-wp-filesystem-ssh2.php	2018-06-15 09:02:00.249054286 +0900
++++ wordpress/wp-content/plugins/ssh-sftp-updater-support/class-wp-filesystem-ssh2.php	2018-06-15 10:20:32.621426621 +0900
+@@ -29,7 +29,7 @@
+ 	var $errors = array();
+ 	var $options = array();
+ 
+-	function WP_Filesystem_SSH2($opt='') {
++	function __construct($opt='') {
+ 		$this->method = 'ssh2';
+ 		$this->errors = new WP_Error();
+ 
+@@ -347,4 +347,4 @@
+ 		}
+ 		return $ret;
+ 	}
+-}
+\ No newline at end of file
++}

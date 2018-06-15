@@ -1,5 +1,5 @@
 ---
-- name: roles/base/tasks/selinux.yml
+- name: roles/base/tasks/security.yml
   command: echo
 
 - name: Install tools required for disabling selinux
@@ -14,9 +14,10 @@
   become: yes
 
 - name: Disable firewalld
-  service:
+  systemd:
     name: firewalld
     state: stopped
     enabled: no
   become: yes
   when: ansible_distribution_major_version == '7'
+  ignore_errors: yes

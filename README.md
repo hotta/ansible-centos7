@@ -1,16 +1,13 @@
-This set of ansible playbooks deploy various environment such as laravel / IBM MQ / Radius / WordPress etc. on CentOS 7.x / 6.x. It is intended to run at each host to provision the (local)host itself. Provisioning remote hosts are not tested.
+This set of ansible playbooks deploy various environment such as laravel / IBM MQ / Radius / WordPress etc. on CentOS 7.x. It is intended to run at each host to provision the (local)host itself. Provisioning remote hosts are not tested.
 
 ## Prerequisite(Test Environment)
 
-- Vagrant + VirtualBox VM running CentOS 7.4 with git and ansible 2.x.
-- ( If you prefer to use CentOS 6.x, read 7.4 as 6.9 instead. )
+- Vagrant + VirtualBox VM running CentOS 7.5 with git and ansible 2.5.x.
 - typical installation process could be as follows:
 
 ```bash
 mkdir XXXX
 cd XXXXX
-vagrant box add bento/centos-7.4 --provider virtualbox
-vagrant init bento/centos-7.4
 vi Vagrantfile (See below.)
 vagrant up
 ```
@@ -23,7 +20,7 @@ And then log in to the VM as user "vagrant".
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "bento/centos-7.4"
+  config.vm.box = "centos/7"
   config.vm.network "private_network", ip: "192.168.56.2"
   config.vm.hostname = "example.local"
   config.vm.provider "virtualbox" do |vb|
@@ -54,6 +51,15 @@ $ cd ansible-centos7
 $ sudo ln -fs $PWD /etc/ansible
 ```
 
+## Customize localhost.yml if nessesary
+
+```bash
+$ cd host_vars
+$ cp localhost.yml.tmpl localhost.yml
+$ vi localhost.yml                    # if nessesary
+$ cd ..
+```
+
 ## Building environment 
 
 ```bash
@@ -68,14 +74,14 @@ $ ansible-playbook jobs/laravel.yml
 
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
-## Component's versions ( as of 2017/12/28 ).
+## Component's versions ( as of 2018/06/12 ).
 
-- php-7.1.11
+- php-7.2.5
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
 - Laravel-5.5.28
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
-- WordPress 4.7.5
+- WordPress 4.9.6
 - Sphinx 1.6.3
 - GitBucket 4.22.0
 - chromium 61.0.3163.100

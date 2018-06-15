@@ -1,64 +1,78 @@
 ---
 - name: roles/php-fpm/tasks/main.yml
   command: echo
-- name: Install package from additional repository
+
+- name: Install additional package from remi
+  yum:
+    enablerepo: remi,remi-php72
+    name: "{{ item }}"
+    state:  present
+  with_items:
+    - "{{ PHP_PKG_PREFIX }}-fpm"
+  become: yes
+  when: PHP_REPO == "remi72"
+
+- name: Install additional package from webtatic
   yum:
     name: "{{ item }}"
     state:  present
   with_items:
     - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
+  when: PHP_REPO == "webtatic71"
 
-# - import_tasks: "{{ PHP_REPO }}.yml"
+- name: Change owner of log directory
+  file:
+    path: /var/log/php-fpm
+    owner: "{{ WEBSERVER_USER }}"
+    group: "{{ WEBSERVER_GROUP }}"
+    state: directory
+    recurse: yes
+  become: yes
 
 - name: php-fpm.conf - Use epoll instead of poll
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php-fpm.conf"
     regexp:       ^events.mechanism = epoll
     line:         events.mechanism = epoll
-    insertafter:  ^;events.mechanism = epoll
   become: yes
 
 - name: php-fpm.d/www.conf - change user
   lineinfile:
-    dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^user = {{ WEBSERVER_USER }}
-    line:         user = {{ WEBSERVER_USER }}
-    insertafter:  ^user = apache
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^user = apache
+    line:   user = "{{ WEBSERVER_USER }}"
   become: yes
 
 - name: php-fpm.d/www.conf - change group
   lineinfile:
-    dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^group = {{ WEBSERVER_GROUP }}
-    line:         group = {{ WEBSERVER_GROUP }}
-    insertafter:  ^group = apache
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^group = apache
+    line:   group = "{{ WEBSERVER_GROUP }}"
   become: yes
 
 - name: php-fpm.d/www.conf - change listen method
   lineinfile:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^listen = /var/run/php-fpm/php-fpm.sock
-    line:         listen = /var/run/php-fpm/php-fpm.sock
-    insertafter:  ^listen = 127.0.0.1:9000
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^listen = 127.0.0.1:9000
+    line:   listen = /var/run/php-fpm/php-fpm.sock
   become: yes
 
 - name: php-fpm.d/www.conf - change listen owner
   lineinfile:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^;listen.owner = nobody
-    line:         listen.owner = nginx
-    insertafter:  ^;listen.owner = nobody
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^;listen.owner = nobody
+    line:   listen.owner = "{{ WEBSERVER_USER }}"
   become: yes
 
 - name: php-fpm.d/www.conf - change listen group
   lineinfile:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:  ^;listen.group = nobody
-    line: listen.group = nginx
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^;listen.group = nobody
+    line:   listen.group = "{{ WEBSERVER_GROUP }}"
   become: yes
 
-- name: php-fpm.d/www.conf - add setting for use in Japan
+- name: php-fpm.d/www.conf - add settings for use in Japan
   blockinfile:
     dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
     insertafter:  '^;php_value[opcache.file_cache]'
@@ -66,9 +80,12 @@
       ; Default values for use in Japan.
       php_value[date.timezone] = {{ TIME_ZONE }}
       php_value[mbstring.language] = Japanese
+      ; relax limits
+      php_value[post_max_size] = {{ WP_POST_MAX_SIZE }}
+      php_value[upload_max_filesize] = {{ WP_POST_MAX_SIZE }}
     marker: "; {mark} ANSIBLE MANAGED BLOCK"
   become: yes
 
 - name: apply changes
   command: echo
-  notify: restart {{ PHP_FPM_SERVICE }}
+  notify: restart php-fpm

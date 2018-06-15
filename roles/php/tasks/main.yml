@@ -2,35 +2,25 @@
 - name: roles/php/tasks/main.yml
   command: echo
 
-- name: Check if PHP_REPO variable is either 'webtatic71' or 'remi71'
-  command: echo
-  failed_when:
-    - PHP_REPO != 'webtatic71'
-    - PHP_REPO != 'remi71'
-
-- name: Inlcude vars specific to webtatic w/ CentOS7
-  include_vars:
-    file: env_webtatic71.yml
-  when: 
-    - PHP_REPO == 'webtatic71'
-    - _V == '7'
-
-- name: Inlcude vars specific to webtatic w/ CentOS6
-  include_vars:
-    file: env_webtatic71_cent6.yml
-  when: 
-    - PHP_REPO == 'webtatic71'
-    - _V == '6'
-
-- name: Inlcude vars specific to remi w/ CentOS 6/7
-  include_vars:
-    file: env_remi71.yml
-  when: PHP_REPO == 'remi71'
-
-- import_tasks: repos.yml
-
-- name: Install PHP dependencies
+- name: Install PHP dependencies from remi
   yum:
+    enablerepo: remi,remi-php72
+    name: "{{ item }}"
+  with_items:
+    - "{{ PHP_PKG_PREFIX }}"
+    - "{{ PHP_PKG_PREFIX }}-mbstring"
+    - "{{ PHP_PKG_PREFIX }}-cli"
+    - "{{ PHP_PKG_PREFIX }}-xml"
+    - "{{ PHP_PKG_PREFIX }}-pdo"
+    - "{{ PHP_PKG_PREFIX }}-pgsql"
+    - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+    - "{{ PHP_PKG_PREFIX }}-gd"
+  become: yes
+  when: PHP_REPO == "remi72"
+
+- name: Install PHP dependencies from webtatic
+  yum:
+    enablerepo: "{{ PHP_REPO }}"
     name: "{{ item }}"
   with_items:
     - "{{ PHP_PKG_PREFIX }}"
@@ -41,6 +31,7 @@
     - "{{ PHP_PKG_PREFIX }}-pgsql"
     - "{{ PHP_PKG_PREFIX }}-pecl-zip"
   become: yes
+  when: PHP_REPO == "webtatic71"
 
 - name: php.ini - date.timezone
   lineinfile:
