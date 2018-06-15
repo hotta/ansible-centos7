@@ -11,3 +11,8 @@
   shell: "{{ WP_CLI }} plugin install ssh-sftp-updater-support --activate"
   args:
     chdir: "{{ WP_HOME }}"
+
+- name: Apply patch to supress warning
+  patch:
+    src: ssh-sftp-updater-support.patch
+    dest: "{{ WP_HOME }}/wp-content/plugins/ssh-sftp-updater-support/class-wp-filesystem-ssh2.php"

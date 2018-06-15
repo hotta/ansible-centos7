@@ -24,8 +24,8 @@
 - name: Change owner of log directory
   file:
     path: /var/log/php-fpm
-    owner: {{ WEBSERVER_USER }}
-    group: {{ WEBSERVER_GROUP }}
+    owner: "{{ WEBSERVER_USER }}"
+    group: "{{ WEBSERVER_GROUP }}"
     state: directory
     recurse: yes
   become: yes
@@ -35,42 +35,41 @@
     dest:         "{{ PHP_INI_DIR }}/php-fpm.conf"
     regexp:       ^events.mechanism = epoll
     line:         events.mechanism = epoll
-    insertafter:  ^;events.mechanism = epoll
   become: yes
 
 - name: php-fpm.d/www.conf - change user
   lineinfile:
-    dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^user = apache
-    line:         user = {{ WEBSERVER_USER }}
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^user = apache
+    line:   user = "{{ WEBSERVER_USER }}"
   become: yes
 
 - name: php-fpm.d/www.conf - change group
   lineinfile:
-    dest:         "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^group = apache
-    line:         group = {{ WEBSERVER_GROUP }}
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^group = apache
+    line:   group = "{{ WEBSERVER_GROUP }}"
   become: yes
 
 - name: php-fpm.d/www.conf - change listen method
   lineinfile:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^listen = 127.0.0.1:9000
-    line:         listen = /var/run/php-fpm/php-fpm.sock
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^listen = 127.0.0.1:9000
+    line:   listen = /var/run/php-fpm/php-fpm.sock
   become: yes
 
 - name: php-fpm.d/www.conf - change listen owner
   lineinfile:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:       ^;listen.owner = nobody
-    line:         listen.owner = {{ WEBSERVER_USER }}
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^;listen.owner = nobody
+    line:   listen.owner = "{{ WEBSERVER_USER }}"
   become: yes
 
 - name: php-fpm.d/www.conf - change listen group
   lineinfile:
-    dest: "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
-    regexp:  ^;listen.group = nobody
-    line: listen.group = {{ WEBSERVER_GROUP }}
+    dest:   "{{ PHP_INI_DIR }}/php-fpm.d/www.conf"
+    regexp: ^;listen.group = nobody
+    line:   listen.group = "{{ WEBSERVER_GROUP }}"
   become: yes
 
 - name: php-fpm.d/www.conf - add settings for use in Japan
