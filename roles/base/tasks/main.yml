@@ -8,13 +8,13 @@
 - name: Check if localhost.yml exists
   stat: 
     path: /etc/ansible/host_vars/localhost.yml
-  register: etc_ansible_host_vars_localhost_yml
+  register: host_vars_localhost_yml
 
 - name: Check minimum requirement
   command: echo
   failed_when: |
-    etc_ansible_hosts.stat.exists != true                    or
-    etc_ansible_host_vars_localhost_yml.stat.exists != true  or
+    etc_ansible_hosts.stat.exists != true        or
+    host_vars_localhost_yml.stat.exists != true  or
     ansible_distribution != 'CentOS' 
 
 - name: Check if EC2
