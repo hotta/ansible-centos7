@@ -1,4 +1,5 @@
 dependencies:
+  - { role: nginx,      tags: before_laravel}
   - { role: php-fpm,    tags: before_laravel}
   - { role: composer,   tags: before_laravel}
   - { role: postgresql, tags: before_laravel, 
