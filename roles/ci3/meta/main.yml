@@ -1,0 +1,8 @@
+dependencies:
+  - { role: nginx,      tags: before_ci3}
+  - { role: php-fpm,    tags: before_ci3}
+  - { role: composer,   tags: before_ci3}
+  - { role: postgresql, tags: before_ci3, 
+                        when: CI3_DB_DRIVER == "pgsql" }
+  - { role: mariadb,    tags: before_ci3, 
+                        when: CI3_DB_DRIVER == "mysqli" }

@@ -1,0 +1,63 @@
+---
+- name: roles/ci3/tasks/main.yml
+  command: echo
+
+- name: Check for the target directory existence
+  stat:
+    path: "{{ CI3_BASE_DIR }}"
+  register: CI3_DIR_EXISTS
+
+# - debug:  var=CI3_DIR_EXISTS
+
+- name: Download the ci3 archive file 
+  get_url:
+    url: "{{ GI3_ARCHIVE_URL }}"
+    dest: "/tmp/{{ CI3_ARCHIVE_NAME }}"
+  when: CI3_DIR_EXISTS.stat.exists == false
+
+- name: Unarchive the ci3 archive file
+  unarchive:
+    remote_src: yes
+    src: "/tmp/{{ CI3_ARCHIVE_NAME }}"
+    dest: /tmp
+  when: CI3_DIR_EXISTS.stat.exists == false
+
+- name: Move directory tree to specified location
+  command: "mv /tmp/CodeIgniter-{{ CI3_VERSION }} {{ CI3_BASE_DIR }}"
+  become: yes
+  when: CI3_DIR_EXISTS.stat.exists == false
+
+- name: Create public directory for exposing index.php to the public
+  file:
+    path: "{{ CI3_DOCROOT }}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+  become: yes
+
+- name: Check for index.php existence
+  stat:
+    path: "{{ CI3_DOCROOT }}/index.php"
+  register: INDEX_PHP_MOVED
+
+- name: Move index.php to the public directory
+  command: "mv {{ CI3_BASE_DIR }}/index.php {{ CI3_DOCROOT }}"
+  become: yes
+  when: INDEX_PHP_MOVED.stat.exists == false
+
+- import_tasks: index.yml
+- import_tasks: config.yml
+
+# - name: dummy
+#   fail: msg="fail test"
+
+- name: Put nginx config
+  template:
+    src: ci3.conf
+    dest: /etc/nginx/conf.d/
+    force: yes
+  become: yes
+  notify: reload nginx
+
+- import_tasks: postgre.yml
+  when: CI3_DB_DRIVER == 'postgre'
+  tags: ci3-postgre

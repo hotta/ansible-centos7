@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook laravel.yml
+---
+- hosts: localhost
+  roles:
+    - ci3
