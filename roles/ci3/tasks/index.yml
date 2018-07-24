@@ -1,0 +1,23 @@
+---
+- name: roles/ci3/tasks/index.yml
+  command: echo
+
+- name: Customize index.php - $system_path
+  lineinfile:
+    path: "{{ CI3_DOCROOT }}/index.php"
+    regexp: "'system'"
+    line: "\t$system_path = '{{ CI3_SYSTEM_DIR }}';"
+    backrefs: yes
+
+- name: Customize index.php - $application_folder
+  lineinfile:
+    path: "{{ CI3_DOCROOT }}/index.php"
+    regexp: "'application'"
+    line: "\t$application_folder = '{{ CI3_APP_DIR }}';"
+    backrefs: yes
+
+- name: Change owner of index.php 
+  file:
+    path: "{{ CI3_DOCROOT }}/index.php"
+    owner: "{{ ansible_user_id }}"
+  become: yes

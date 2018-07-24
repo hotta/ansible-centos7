@@ -1,0 +1,31 @@
+---
+- name: roles/ci3/tasks/config.yml
+  command: echo
+
+- name: Customize config.php - base_url
+  lineinfile:
+    path: "{{ CI3_APP_DIR }}/config/config.php"
+    regexp: "config\\['base_url'\\]"
+    line: "$config['base_url'] = '{{ CI3_BASEURL }}';"
+    backrefs: yes
+
+- name: Customize config.php - language
+  lineinfile:
+    path: "{{ CI3_APP_DIR }}/config/config.php"
+    regexp: "config\\['language'\\]"
+    line: "$config['language'] = '{{ CI3_LANGUAGE }}';"
+    backrefs: yes
+
+- name: Customize config.php - composer_autoload
+  lineinfile:
+    path: "{{ CI3_APP_DIR }}/config/config.php"
+    regexp: "config\\['composer_autoload'\\]"
+    line: "$config['composer_autoload'] = {{ CI3_COMPOSER_AUTOLOAD }};"
+    backrefs: yes
+
+- name: Customize config.php - log_threshold
+  lineinfile:
+    path: "{{ CI3_APP_DIR }}/config/config.php"
+    regexp: "config\\['log_threshold'\\]"
+    line: "$config['log_threshold'] = '{{ CI3_LOG_THRESHOLD }}';"
+    backrefs: yes
