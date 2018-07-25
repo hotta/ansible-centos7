@@ -79,7 +79,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 - php-7.2.5
 - SQLite-3.7.17 / MariaDB-5.5.50 / PostgreSQL-9.6.3
 - Laravel-5.5.28
-- Codeigniter-3.1.0
+- Codeigniter-3.1.9
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
 - WordPress 4.9.6
