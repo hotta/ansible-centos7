@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "example.local"
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
   config.vm.provision "shell", inline: <<-SHELL
     sudo yum -y update
