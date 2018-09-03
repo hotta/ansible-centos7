@@ -2,24 +2,24 @@
 - name: roles/php-repo/tasks/main.yml
   command: echo
 
-- name: Check if PHP_REPO variable is either 'webtatic71' or 'remi72'
+- name: Check if PHP_REPO variable is either 'webtatic72' or 'remi72'
   command: echo
   failed_when:
-    - PHP_REPO != 'webtatic71'
+    - PHP_REPO != 'webtatic72'
     - PHP_REPO != 'remi72'
 
 - name: Inlcude vars specific to webtatic w/ CentOS7
   include_vars:
-    file: env_webtatic71.yml
+    file: env_webtatic72.yml
   when: 
-    - PHP_REPO == 'webtatic71'
+    - PHP_REPO == 'webtatic72'
     - _V == '7'
 
 - name: Inlcude vars specific to webtatic w/ CentOS6
   include_vars:
-    file: env_webtatic71_cent6.yml
+    file: env_webtatic72_cent6.yml
   when: 
-    - PHP_REPO == 'webtatic71'
+    - PHP_REPO == 'webtatic72'
     - _V == '6'
 
 - name: Inlcude vars specific to remi w/ CentOS 6/7

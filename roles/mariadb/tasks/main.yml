@@ -24,7 +24,7 @@
     name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
   notify: reload php-fpm
-  when: PHP_REPO == "webtatic71"
+  when: PHP_REPO == "webtatic72"
 
 - name: Enable mariadb
   service: name=mariadb state=started enabled=yes

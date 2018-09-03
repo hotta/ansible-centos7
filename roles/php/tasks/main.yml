@@ -31,7 +31,7 @@
     - "{{ PHP_PKG_PREFIX }}-pgsql"
     - "{{ PHP_PKG_PREFIX }}-pecl-zip"
   become: yes
-  when: PHP_REPO == "webtatic71"
+  when: PHP_REPO == "webtatic72"
 
 - name: php.ini - date.timezone
   lineinfile:
