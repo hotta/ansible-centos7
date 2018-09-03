@@ -32,8 +32,9 @@
 
 - name: php-fpm.conf - Use epoll instead of poll
   lineinfile:
+    backrefs:    yes
     dest:         "{{ PHP_INI_DIR }}/php-fpm.conf"
-    regexp:       ^events.mechanism = epoll
+    regexp:       ^;events.mechanism = epoll
     line:         events.mechanism = epoll
   become: yes
 

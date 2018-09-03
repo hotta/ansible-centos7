@@ -20,7 +20,6 @@
 
 - name: Install PHP dependencies from webtatic
   yum:
-    enablerepo: "{{ PHP_REPO }}"
     name: "{{ item }}"
   with_items:
     - "{{ PHP_PKG_PREFIX }}"
