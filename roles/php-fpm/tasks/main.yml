@@ -19,7 +19,7 @@
   with_items:
     - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
-  when: PHP_REPO == "webtatic71"
+  when: PHP_REPO == "webtatic72"
 
 - name: Change owner of log directory
   file:
@@ -32,8 +32,9 @@
 
 - name: php-fpm.conf - Use epoll instead of poll
   lineinfile:
+    backrefs:    yes
     dest:         "{{ PHP_INI_DIR }}/php-fpm.conf"
-    regexp:       ^events.mechanism = epoll
+    regexp:       ^;events.mechanism = epoll
     line:         events.mechanism = epoll
   become: yes
 
