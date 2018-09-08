@@ -1,0 +1,8 @@
+dependencies:
+  - { role: nginx }
+  - { role: php-fpm }
+  - { role: composer  }
+  - { role: postgresql,
+      when: CAKE3_DB_CONNECTION == "pgsql" }
+  - { role: mariadb,
+      when: CAKE3_DB_CONNECTION == "mysql" }

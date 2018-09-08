@@ -1,0 +1,53 @@
+---
+- name: roles/cakephp3/tasks/main.yml
+  command: echo
+
+- name: Check installation
+  stat:
+    path: "{{ CAKE3_HOME }}/composer.json"
+  register: cake3
+  tags: cakephp3
+
+- name: Prepare directory
+  file:
+    name: "{{ CAKE3_HOME }}"
+    state: directory
+    owner: "{{ ansible_user_id }}"
+  become: yes
+  tags: cakephp3
+
+- name: Create cakephp3 project
+  composer:
+    command: create-project
+    arguments: "cakephp/app {{ CAKE3_NAME }}"
+    working_dir: "{{ CAKE3_HOME }}"
+    prefer_dist: yes
+  when:
+    cake3.stat.exists == false
+  tags: cakephp3
+
+- name: Install debug_kit plugin
+  composer:
+    command: require
+    arguments: "cakephp/debug_kit"
+    working_dir: "{{ CAKE3_HOME }}"
+    prefer_dist: yes
+  when:
+    cake3.stat.exists == false
+  tags: cakephp3
+
+- name: Put nginx config
+  template:
+    src: cakephp3.conf
+    dest: /etc/nginx/conf.d
+  become: yes
+  tags: cakephp3
+
+- name: Add host entry to hosts
+  lineinfile:
+    path: /etc/hosts
+    backrefs: yes
+    line: "127.0.0.1    {{ CAKE3_SERVER_NAME }}"
+    regexp: "^127.0.0.1   {{ CAKE3_SERVER_NAME }}"
+  become: yes
+  tags: cakephp3
