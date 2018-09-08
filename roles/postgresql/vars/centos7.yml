@@ -1,4 +1,4 @@
 # centos7.yml
 ---
-PG_REPO_URI: http://yum.postgresql.org/{{ PG_VERSION }}/redhat/rhel-7-x86_64/{{ PG_REPO }}
+PG_REPO_URI: https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/pgdg-centos10-10-2.noarch.rpm
 
