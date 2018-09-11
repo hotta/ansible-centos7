@@ -1,0 +1,13 @@
+---
+- name: roles/cakephp3/tasks/db-pgsql.yml
+  command: echo
+
+- name: Create User
+  postgresql_user:
+    name: "{{ CAKE3_DB_USERNAME }}"
+    role_attr_flags: SUPERUSER
+
+- name: Create Database
+  postgresql_db:
+    name: "{{ CAKE3_DB_DATABASE }}"
+  ignore_errors: yes
