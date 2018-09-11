@@ -11,3 +11,9 @@
   postgresql_db:
     name: "{{ CAKE3_DB_DATABASE }}"
   ignore_errors: yes
+
+- name: Change config (Driver\Mysql)
+  replace:
+    path: "{{ CAKE3_HOME }}/config/app.php"
+    regexp: 'Driver\\Mysql'
+    replace: 'Driver\\Postgres'

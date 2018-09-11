@@ -58,3 +58,4 @@
 
 - import_tasks: db-pgsql.yml
   when: CAKE3_DB_CONNECTION == "pgsql"
+  tags: postgres
