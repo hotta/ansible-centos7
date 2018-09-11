@@ -26,6 +26,21 @@
   notify: reload php-fpm
   when: PHP_REPO == "webtatic72"
 
+# zoneinfo support - cf. https://github.com/mjanser/ansible-role-mysql
+# If check_mode is "no", the command module runs as "normal mode" 
+# even if ansible-playbook envoked with --check option.
+# https://docs.ansible.com/ansible/2.5/user_guide/playbooks_checkmode.html
+
+- name: Check zoneinfo presence
+  command: mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
+  register: mysql_timezones_count
+  changed_when: false
+  check_mode: no
+
+- name: ensure timezone data is imported
+  shell: "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql"
+  when: mysql_timezones_count.stdout|int < 1
+
 - name: Enable mariadb
   service: name=mariadb state=started enabled=yes
   become: yes
