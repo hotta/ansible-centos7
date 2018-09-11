@@ -54,8 +54,15 @@
 
 - import_tasks: db-mysql.yml
   when: CAKE3_DB_CONNECTION == "mysql"
-  tags: mariadb
+  tags: cakephp3, mariadb
 
 - import_tasks: db-pgsql.yml
   when: CAKE3_DB_CONNECTION == "pgsql"
-  tags: postgres
+  tags: cakephp3, postgres
+
+- name: Change timezone
+  replace:
+    path: "{{ CAKE3_HOME }}/config/app.php"
+    regexp: 'UTC'
+    replace: 'Asia/Tokyo'
+  tags: cakephp3
