@@ -29,3 +29,10 @@
 - name: Enable mariadb
   service: name=mariadb state=started enabled=yes
   become: yes
+
+- name: Create User
+  mysql_user:
+    name: "{{ ansible_user_id }}"
+    password: ''
+    priv: '*.*:ALL'
+  become: yes

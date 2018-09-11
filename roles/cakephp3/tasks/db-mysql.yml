@@ -1,0 +1,15 @@
+---
+- name: roles/cakephp3/tasks/db-mysql.yml
+  command: echo
+
+- name: Create Database
+  mysql_db:
+    name: "{{ CAKE3_DB_DATABASE }}"
+  become: yes
+
+- name: Create User
+  mysql_user:
+    name: "{{ CAKE3_DB_USERNAME }}"
+    password: "{{ CAKE3_DB_PASSWORD }}"
+    priv: '*.*:ALL'
+  become: yes

@@ -34,3 +34,8 @@
     enabled:  yes
     state:  restarted
   become: yes
+
+- name: Create User
+  postgresql_user:
+    name: "{{ ansible_user_id }}"
+    role_attr_flags: SUPERUSER

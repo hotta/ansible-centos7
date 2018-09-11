@@ -51,3 +51,11 @@
     regexp: "^127.0.0.1   {{ CAKE3_SERVER_NAME }}"
   become: yes
   tags: cakephp3
+
+- import_tasks: db-mysql.yml
+  when: CAKE3_DB_CONNECTION == "mysql"
+  tags: mariadb
+
+- import_tasks: db-pgsql.yml
+  when: CAKE3_DB_CONNECTION == "pgsql"
+  tags: postgres

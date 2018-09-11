@@ -16,7 +16,7 @@
     - "{{ PHP_PKG_PREFIX }}-pecl-zip"
     - "{{ PHP_PKG_PREFIX }}-gd"
     - "{{ PHP_PKG_PREFIX }}-intl"
-    - "{{ PHP_PKG_PREFIX }}-mysql"
+    - "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
   when: PHP_REPO == "remi72"
 
@@ -32,7 +32,7 @@
     - "{{ PHP_PKG_PREFIX }}-pgsql"
     - "{{ PHP_PKG_PREFIX }}-pecl-zip"
     - "{{ PHP_PKG_PREFIX }}-intl"
-    - "{{ PHP_PKG_PREFIX }}-mysql"
+    - "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
   when: PHP_REPO == "webtatic72"
 
