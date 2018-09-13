@@ -29,7 +29,7 @@
 - name: Install debug_kit plugin
   composer:
     command: require
-    arguments: "cakephp/debug_kit"
+    arguments: "--dev cakephp/debug_kit"
     working_dir: "{{ CAKE3_HOME }}"
     prefer_dist: yes
   when:
@@ -65,4 +65,7 @@
     path: "{{ CAKE3_HOME }}/config/app.php"
     regexp: 'UTC'
     replace: 'Asia/Tokyo'
+  tags: cakephp3
+
+- import_tasks: debug_kit.yml
   tags: cakephp3

@@ -1,0 +1,21 @@
+---
+- name: Set debug mode
+  lineinfile:
+    path: "{{ CAKE3_HOME }}/config/app.php"
+    regexp: "^ +'debug' => filter_var"
+    line: "    'debug' => true,"
+    backrefs: yes
+
+- name: Force enable DebugKit
+  blockinfile:
+    path: "{{ CAKE3_HOME }}/config/bootstrap.php"
+    block: |
+      if (Configure::read('debug')) {
+          Configure::write('DebugKit', [ 'forceEnable' => true ]);
+          Plugin::load('DebugKit', ['bootstrap' => true, 'routes' => true]);
+      }
+
+- name: Create symblic links for plugins
+  command: ./bin/cake plugin assets symlink
+  args:
+    chdir: "{{ CAKE3_HOME }}"
