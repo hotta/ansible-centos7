@@ -1,10 +1,18 @@
 ---
+- name: roles/cakephp3/tasks/debug_kit.yml
+  command: echo
+
 - name: Set debug mode
   lineinfile:
     path: "{{ CAKE3_HOME }}/config/app.php"
-    regexp: "^ +'debug' => filter_var"
     line: "    'debug' => true,"
-    backrefs: yes
+    insertafter: "^    'debug' => filter_var"
+
+- name: Comment out original debug entry
+  replace:
+    path: "{{ CAKE3_HOME }}/config/app.php"
+    regexp: "^    ('debug' => filter_var)"
+    replace:   '//  \1'
 
 - name: Force enable DebugKit
   blockinfile:
@@ -15,7 +23,7 @@
           Plugin::load('DebugKit', ['bootstrap' => true, 'routes' => true]);
       }
 
-- name: Create symblic links for plugins
+- name: Create symbolic links for plugins
   command: ./bin/cake plugin assets symlink
   args:
     chdir: "{{ CAKE3_HOME }}"
