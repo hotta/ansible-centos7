@@ -31,6 +31,15 @@
 # even if ansible-playbook envoked with --check option.
 # https://docs.ansible.com/ansible/2.5/user_guide/playbooks_checkmode.html
 
+- name: Set encoding for server
+  lineinfile:
+    path: /etc/my.cnf.d/server.cnf
+    line: character-set-server=utf8
+    regexp: ^character-set-server=utf8
+    insertafter: ^\[mysqld\]
+  become: yes
+  tags: mariadb
+
 - name: Enable mariadb
   service: name=mariadb state=started enabled=yes
   become: yes
