@@ -21,14 +21,18 @@
   become: yes
   when: PHP_REPO == "webtatic72"
 
-- name: Change owner of log directory
+- name: Change owner of directories
   file:
-    path: /var/log/php-fpm
+    path: "{{ item }}"
     owner: "{{ WEBSERVER_USER }}"
     group: "{{ WEBSERVER_GROUP }}"
     state: directory
     recurse: yes
   become: yes
+  with_items:
+    - /var/log/php-fpm
+    - /var/lib/php/session
+    - /var/lib/php/wsdlcache
 
 - name: php-fpm.conf - Use epoll instead of poll
   lineinfile:
