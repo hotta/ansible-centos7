@@ -1,0 +1,19 @@
+---
+- name: roles/mono/tasks/main.yml
+  command: echo
+
+- name: Import key for rpm repository
+  rpm_key:
+    key: https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF
+  become: yes
+
+- name: Set repository
+  get_url:
+    dest: /etc/yum.repos.d/mono-centos7-stable.repo
+    url: https://download.mono-project.com/repo/centos7-stable.repo
+  become: yes
+
+- name: Install mono
+  yum:
+    name: mono-devel
+  become: yes
