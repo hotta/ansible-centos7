@@ -4,11 +4,10 @@
 
 - name: Install Dependencies
   yum:
-    name: "{{ item }}"
+    name:
+      - chromium
+      - chromium-headless
   become: yes
-  with_items:
-    - chromium
-    - chromium-headless
 
 - name: get laravel/dusk
   composer:

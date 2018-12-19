@@ -5,34 +5,32 @@
 - name: Install PHP dependencies from remi
   yum:
     enablerepo: remi,remi-php72
-    name: "{{ item }}"
-  with_items:
-    - "{{ PHP_PKG_PREFIX }}"
-    - "{{ PHP_PKG_PREFIX }}-mbstring"
-    - "{{ PHP_PKG_PREFIX }}-cli"
-    - "{{ PHP_PKG_PREFIX }}-xml"
-    - "{{ PHP_PKG_PREFIX }}-pdo"
-    - "{{ PHP_PKG_PREFIX }}-pgsql"
-    - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-    - "{{ PHP_PKG_PREFIX }}-gd"
-    - "{{ PHP_PKG_PREFIX }}-intl"
-    - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+    name: 
+      - "{{ PHP_PKG_PREFIX }}"
+      - "{{ PHP_PKG_PREFIX }}-mbstring"
+      - "{{ PHP_PKG_PREFIX }}-cli"
+      - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-pdo"
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+      - "{{ PHP_PKG_PREFIX }}-gd"
+      - "{{ PHP_PKG_PREFIX }}-intl"
+      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
   when: PHP_REPO == "remi72"
 
 - name: Install PHP dependencies from webtatic
   yum:
-    name: "{{ item }}"
-  with_items:
-    - "{{ PHP_PKG_PREFIX }}"
-    - "{{ PHP_PKG_PREFIX }}-mbstring"
-    - "{{ PHP_PKG_PREFIX }}-cli"
-    - "{{ PHP_PKG_PREFIX }}-xml"
-    - "{{ PHP_PKG_PREFIX }}-pdo"
-    - "{{ PHP_PKG_PREFIX }}-pgsql"
-    - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-    - "{{ PHP_PKG_PREFIX }}-intl"
-    - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+    name:
+      - "{{ PHP_PKG_PREFIX }}"
+      - "{{ PHP_PKG_PREFIX }}-mbstring"
+      - "{{ PHP_PKG_PREFIX }}-cli"
+      - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-pdo"
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+      - "{{ PHP_PKG_PREFIX }}-intl"
+      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
   when: PHP_REPO == "webtatic72"
 

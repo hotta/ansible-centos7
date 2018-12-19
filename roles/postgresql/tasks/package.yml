@@ -8,12 +8,12 @@
   yum: name={{ PG_REPO_URI }} state=present
   become: yes
 - name: Install postgresql packages
-  yum: name={{item}} state=present
-  with_items:
-    - postgresql{{ PG_VERSION }}-server
-    - postgresql{{ PG_VERSION }}-devel
-    - "{{ PHP_PKG_PREFIX }}-pgsql"
-    - python-psycopg2
+  yum:
+    name:
+      - postgresql{{ PG_VERSION }}-server
+      - postgresql{{ PG_VERSION }}-devel
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - python-psycopg2
   become: yes
 - name: Add {{ PG_BIN_DIR }} to $PATH
   template:

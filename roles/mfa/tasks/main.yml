@@ -4,16 +4,15 @@
   command: echo
 - name: Install dependency
   yum:
-    name: "{{ item }}"
-  with_items:
-    - freeradius
-    - freeradius-utils
-    - pam-devel
-    - qrencode
-    - qrencode-devel
-    - autoconf
-    - automake
-    - libtool
+    name:
+      - freeradius
+      - freeradius-utils
+      - pam-devel
+      - qrencode
+      - qrencode-devel
+      - autoconf
+      - automake
+      - libtool
   become: yes
 - name: Chech if GAL PAM module exists
   stat:

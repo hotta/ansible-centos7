@@ -3,8 +3,7 @@
   command: echo
 - name: Install GNOME Desktop and VNC server
   yum: 
-    name: item
-    with_items:
+    name: 
       - "@^gnome-desktop-environment"
       - tigervnc-server
   state: present

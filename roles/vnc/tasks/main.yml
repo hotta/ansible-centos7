@@ -3,11 +3,9 @@
   command: echo
 - name: Install GNOME Desktop and VNC server
   yum: 
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - "@^gnome-desktop-environment"
-    - tigervnc-server
+    name:
+      - "@^gnome-desktop-environment"
+      - tigervnc-server
   become: yes
 - name: prepare the directory for vnc auth
   file:

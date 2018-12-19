@@ -22,9 +22,7 @@
   become: yes
 - name: Install MQ common components
   yum:
-    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ item }}{{ MQ_PACKAGE_SUFFIX }}"
-    state: present
-  with_items: "{{ MQ_CORE_PACKAGES }}"
+    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ MQ_CORE_PACKAGES }}{{ MQ_PACKAGE_SUFFIX }}"
   become: yes
 - name: Add {{ ansible_user_id }} to group mqm
   user:

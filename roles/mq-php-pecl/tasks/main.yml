@@ -6,10 +6,9 @@
   become: yes
 - name: Install dependency
   yum:
-    name: "{{ item }}"
-  with_items:
-    - php-devel
-    - re2c
+    name:
+      - php-devel
+      - re2c
   become: yes
 - name: Get mqseries pecl module
   git:

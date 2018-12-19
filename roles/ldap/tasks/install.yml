@@ -3,10 +3,9 @@
   command: echo
 - name: Install LDAP support packages
   yum: 
-    name: "{{ item }}"
-  with_items:
-    - openldap-servers
-    - openldap-clients
+    name:
+      - openldap-servers
+      - openldap-clients
   become: yes
 - name: Set DB_CONFIG
   copy:
