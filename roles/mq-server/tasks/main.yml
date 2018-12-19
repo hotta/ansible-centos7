@@ -3,10 +3,7 @@
   command: echo
 - name: Install MQ server components
   yum:
-    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ item }}{{ MQ_PACKAGE_SUFFIX }}"
-    state: present
-  with_items:
-    - "{{ MQ_SERVER_PACKAGES }}"
+    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ MQ_SERVER_PACKAGES }}{{ MQ_PACKAGE_SUFFIX }}"
   become: yes
 - name: Expand file-max kernel parameter
   sysctl:

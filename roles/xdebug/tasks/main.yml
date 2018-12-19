@@ -2,9 +2,9 @@
 - name: roles/xdebug/tasks/main.yml
   command: echo
 - name: Install php-xdebug
-  yum: name={{ item }} state=present
-  with_items:
-    - "{{ PHP_PKG_PREFIX }}-pecl-xdebug"
+  yum: 
+    name:
+      - "{{ PHP_PKG_PREFIX }}-pecl-xdebug"
   become: yes
 - name: Put additional settings file.
   template:

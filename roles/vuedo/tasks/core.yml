@@ -4,9 +4,8 @@
 
 - name: Install dependencies
   yum:
-    name: "{{ item }}"
-  with_items:
-    - npm
+    name:
+      - npm
   become: true
 
 - name: Check if the symbolic link exists

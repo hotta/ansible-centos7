@@ -4,16 +4,16 @@
   command: echo
 
 - name: Install packages required for building php extension
-  yum: name={{ item }} state=present
-  with_items:
-    - "{{ PHP_PKG_PREFIX }}-devel"
-    - libxml2-devel
-    - openssl-devel
-    - readline-devel
-    - autoconf
-    - automake
-    - re2c
-    - yum-utils
-    - rpm-build
-    - "{{ PHP_PKG_PREFIX }}-devel"
+  yum: 
+    name:
+      - "{{ PHP_PKG_PREFIX }}-devel"
+      - libxml2-devel
+      - openssl-devel
+      - readline-devel
+      - autoconf
+      - automake
+      - re2c
+      - yum-utils
+      - rpm-build
+      - "{{ PHP_PKG_PREFIX }}-devel"
   become: yes

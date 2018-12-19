@@ -3,12 +3,12 @@
   command: echo
 
 - name: Install mariadb packages
-  yum: name={{item}} state=present
-  with_items:
-    - mariadb-server
-    - mariadb
-    - mysql-connector-python
-    - MySQL-python
+  yum: 
+    name:
+      - mariadb-server
+      - mariadb
+      - mysql-connector-python
+      - MySQL-python
   become: yes
 
 - name: Install mariadb bindings from remi

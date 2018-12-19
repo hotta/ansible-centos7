@@ -3,17 +3,13 @@
   command: echo
 - name: Install MQ explorer components
   yum:
-    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ item }}{{ MQ_PACKAGE_SUFFIX }}"
-    state: present
-  with_items:
-    - "{{ MQ_EXPLORER_PACKAGES }}"
+    name: "{{ MQ_PACKAGE_BASE_DIR }}/MQServer/{{ MQ_EXPLORER_PACKAGES }}{{ MQ_PACKAGE_SUFFIX }}"
   become: yes
 - name: Install GNOME Desktop and VNC server
   yum: 
-    name: "{{ item }}"
-  with_items:
-    - "@^gnome-desktop-environment"
-    - tigervnc-server
+    name:
+      - "@^gnome-desktop-environment"
+      - tigervnc-server
   become: yes
 - name: prepare the directory for vnc auth
   file:

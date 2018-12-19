@@ -6,7 +6,7 @@
     path: "{{ PG_DATADIR }}/PG_VERSION"
   register: pg_data
   become: yes
-  become_user: postgres
+#  become_user: postgres
 # - debug: var=pg_data
 - name: Initialize database instance
   shell: "{{ PG_INITDB }}"

@@ -2,9 +2,9 @@
 - name: roles/supervisor/tasks/main.yml
   command: echo
 - name: Install supervisor
-  yum: name={{ item }} state=present
-  with_items:
-    - supervisor
+  yum: 
+    name:
+      - supervisor
   become: yes
 - name: Settle config file for supervisord
   template:

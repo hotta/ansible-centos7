@@ -2,9 +2,9 @@
 - name: roles/nginx/tasks/main.yml
   command: echo
 - name: Install nginx for CentOS {{ _V }}.x
-  yum: name={{ item }} state=present
-  with_items:
-    - "{{ NGINX_PKG }}"
+  yum: 
+    name:
+      - "{{ NGINX_PKG }}"
   become: yes
 
 - name: nginx - Change log setting

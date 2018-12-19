@@ -5,19 +5,15 @@
 - name: Install additional package from remi
   yum:
     enablerepo: remi,remi-php72
-    name: "{{ item }}"
-    state:  present
-  with_items:
-    - "{{ PHP_PKG_PREFIX }}-fpm"
+    name:
+      - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "remi72"
 
 - name: Install additional package from webtatic
   yum:
-    name: "{{ item }}"
-    state:  present
-  with_items:
-    - "{{ PHP_PKG_PREFIX }}-fpm"
+    name:
+      - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "webtatic72"
 
