@@ -1,0 +1,15 @@
+---
+- name: roles/pgpool/tasks/main.yml
+  command: echo
+  tags: pgpool
+
+- name: Install pgpool-II packages
+  yum:
+    name:
+      - pgpool-II-10
+      - pgpool-II-10-extensions
+  become: yes
+  tags: pgpool
+
+- import_tasks: config.yml
+  tags: pgpool
