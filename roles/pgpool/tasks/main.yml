@@ -12,5 +12,8 @@
   become: yes
   tags: pgpool
 
+- import_tasks: pgpool_recovery.yml
+  tags: pgpool
+
 - import_tasks: config.yml
   tags: pgpool
