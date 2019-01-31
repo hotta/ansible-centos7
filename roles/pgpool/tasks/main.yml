@@ -12,6 +12,12 @@
   become: yes
   tags: pgpool
 
+- name: Add {{ PGPOOL_BIN_DIR }} to $PATH
+  template:
+    src: pgpool.sh
+    dest: /etc/profile.d
+  become: yes
+
 - import_tasks: pgpool_recovery.yml
   tags: pgpool
 

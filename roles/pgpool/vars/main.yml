@@ -1,2 +1,5 @@
 # roles/pgpool/vars/main.yml
-PGPOOL_RECOVERY:  "{{ PG_SHARE_DIR }}/extension/pgpool-recovery.sql"
+PGPOOL_RECOVERY:    "{{ PG_SHARE_DIR }}/extension/pgpool-recovery.sql"
+PGPOOL_BIN_DIR:     /usr/pgpool-10/bin
+PGPOOL_LIB_DIR:     /usr/pgpool-10/lib
+PGPOOL_SHARE_DIR:   /usr/pgpool-10/share
