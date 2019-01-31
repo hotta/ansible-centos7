@@ -1,4 +1,6 @@
 # roles/pgpool/vars/main.yml
+PCP_USER:           "{{ ansible_user_id }}"
+PCP_PASSWD_RAW:     pcppass
 PGPOOL_RECOVERY:    "{{ PG_SHARE_DIR }}/extension/pgpool-recovery.sql"
 PGPOOL_BIN_DIR:     /usr/pgpool-10/bin
 PGPOOL_LIB_DIR:     /usr/pgpool-10/lib
