@@ -8,3 +8,4 @@ PGPOOL_SHARE_DIR:     /usr/pgpool-10/share
 PGPOOL_CONF_DIR:      /etc/pgpool-II-10
 PGPOOL_RUNSTATE_DIR:  /var/run/pgpool-II-10
 PGPOOL_LOG_DIR:       /var/log/pgpool-II-10
+PGPOOL_SERVICE:       pgpool-II-10
