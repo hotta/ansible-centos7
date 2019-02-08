@@ -1,0 +1,28 @@
+---
+# http://www.pgpool.net/docs/latest/ja/html/install-pgpool-recovery.html
+- name: roles/pgpool/tasks/pgpool_recovery.yml
+  command: echo
+
+- name: Make sure postgresql daemon started
+  systemd:
+    name: "{{ PG_SERVICE }}"
+    state: started
+  become: yes
+
+- name: Install pgpool_recovery
+  shell: "{{ PSQL }} -f {{ PGPOOL_RECOVERY }} template1"
+  become: yes
+  become_user: postgres
+
+- name: Add entry to postgresql.conf
+  lineinfile:
+    dest: "{{ PG_DATADIR }}/postgresql.conf"
+    regexp: "^pgpool.pg_ctl = '{{ PG_BIN_DIR }}/pg_ctl'"
+    line: "pgpool.pg_ctl = '{{ PG_BIN_DIR }}/pg_ctl'"
+  become: yes
+
+- name: Reload postgresql daemon 
+  systemd:
+    name: "{{ PG_SERVICE }}"
+    state: reloaded
+  become: yes

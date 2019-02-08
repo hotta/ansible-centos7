@@ -1,0 +1,25 @@
+---
+- name: roles/pgpool/tasks/config.yml
+  command: echo
+
+- name: Check for prerequisite
+  command: echo
+  failed_when:
+    - PCP_USER == ''
+    - PCP_PASSWD_RAW == ''
+
+- name: Generate password for pcp
+  shell: "/usr/bin/pg_md5 {{ PCP_PASSWD_RAW }}"
+  register: pcp_passwd
+  failed_when:
+    pcp_passwd == ''
+
+# - debug: var=pcp_passwd
+
+- name: Create pcp.conf for pcp command
+  template:
+    src: pcp.conf
+    dest: /etc/pgpool-II-10
+    force: yes
+  become: yes
+

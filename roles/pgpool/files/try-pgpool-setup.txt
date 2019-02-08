@@ -1,0 +1,6 @@
+cd ~
+mkdir temp
+cd temp
+rm -rf *
+source /path/to/try-pgpool-setup
+pgpool_setup -s

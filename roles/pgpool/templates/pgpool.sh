@@ -1,0 +1,1 @@
+export PATH={{ PGPOOL_BIN_DIR }}:$PATH

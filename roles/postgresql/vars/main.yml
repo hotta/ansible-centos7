@@ -2,9 +2,11 @@
 PG_VERSION:     10
 PG_VER_SHORT:   10
 PG_BIN_DIR:     /usr/pgsql-{{ PG_VERSION }}/bin
+PG_SHARE_DIR:   /usr/pgsql-{{ PG_VERSION }}/share
 PG_SERVICE:     postgresql-{{PG_VERSION}}
 PG_SETUP:       postgresql{{ PG_VER_SHORT }}-setup
 PG_DATADIR:     /var/lib/pgsql/{{ PG_VERSION }}/data
 PG_INITDB:      "{{ PG_BIN_DIR }}/initdb --locale=ja_JP.UTF-8 --pgdata={{ PG_DATADIR }}"
 PG_CONFIG:      "{{ PG_BIN_DIR }}/pg_config"
+PSQL:           "{{ PG_BIN_DIR }}/psql"
 PG_REPO:        pgdg-centos10-10-2.noarch.rpm

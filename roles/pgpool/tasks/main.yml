@@ -1,0 +1,31 @@
+---
+- name: roles/pgpool/tasks/main.yml
+  command: echo
+  tags: pgpool
+
+- name: Install pgpool-II packages
+  yum:
+    name:
+      - pgpool-II-10
+      - pgpool-II-10-extensions
+      - ed
+  become: yes
+  tags: pgpool
+
+- name: remove executable permission bit
+  file:
+    path: /usr/lib/systemd/system/pgpool-II-10.service
+    mode: 0644
+  become: yes
+
+- name: Add {{ PGPOOL_BIN_DIR }} to $PATH
+  template:
+    src: pgpool.sh
+    dest: /etc/profile.d
+  become: yes
+
+- import_tasks: pgpool_recovery.yml
+  tags: pgpool
+
+- import_tasks: config.yml
+  tags: pgpool

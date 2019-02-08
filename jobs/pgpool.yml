@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook jobs/pgpool.yml
+---
+- hosts: localhost
+  roles:
+    - pgpool
