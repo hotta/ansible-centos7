@@ -58,6 +58,11 @@
     state: latest
   become: yes
 
+- name: yum update
+  yum:
+    state: latest
+  become: yes
+
 - name: Prepare directory for WWW_BASE
   file:
     path:     "{{ WWW_BASE }}"
