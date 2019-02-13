@@ -1,0 +1,3 @@
+# ~/ansible-centos7/roles/pgpoolAdmin/vars/main.yml
+PPA_SERVER_NAME:  pool-db0.local
+PPA_HOME:         "{{ WWW_BASE }}/pgpoolAdmin"
