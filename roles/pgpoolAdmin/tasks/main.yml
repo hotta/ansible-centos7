@@ -68,6 +68,13 @@
   become: yes
   tags: pgpoolAdmin
 
+- name: set pgmgt.conf.php to default
+  copy:
+    src: "{{ PPA_HOME }}/conf/pgmgt.conf.php"
+    dest: "{{ PPA_HOME }}/install/defaultParameter.php"
+  become: yes
+  tags: pgpoolAdmin
+
 - name: deply config for nginx
   template:
     src: pgpoolAdmin.conf

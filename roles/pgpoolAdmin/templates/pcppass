@@ -1,2 +1,2 @@
 # hostname:port:username:password
-localhost:9999:{{ PCP_USER }}:{{ PCP_PASSWD_RAW }}
+*:*:*:{{ PCP_PASSWD_RAW }}
