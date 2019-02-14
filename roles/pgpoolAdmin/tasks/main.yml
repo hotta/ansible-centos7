@@ -2,10 +2,30 @@
 - name: ~/ansible-centos7/roles/pgpoolAdmin/tasks/main.yml
   command: echo
 
+- name: Install additional package from remi
+  yum:
+    enablerepo: remi,remi-php72
+    name:
+      - "{{ PHP_PKG_PREFIX }}-process"
+  become: yes
+  when: PHP_REPO == "remi72"
+
+- name: Install additional package from webtatic
+  yum:
+    name:
+      - "{{ PHP_PKG_PREFIX }}-process"
+  become: yes
+  when: PHP_REPO == "webtatic72"
+
+- name: apply changes of php-fpm
+  command: echo
+  notify: restart php-fpm
+
 - name: Get source tree
   git:
     repo: https://github.com/pgpool/pgpooladmin.git
     dest: "{{ PPA_HOME }}"
+    force: yes
   become: yes
   tags: pgpoolAdmin
 
@@ -29,8 +49,6 @@
 - name: Import vars involved with pgpool
   include_vars: '../../roles/pgpool/vars/main.yml'
 
-# according to these playbooks, pgpool.conf is not yet created for now
-
 - name: permit write access to configs for pgpool
   file:
     path: "{{ PGPOOL_CONF_DIR }}/{{ item }}"
@@ -38,15 +56,15 @@
     group: "{{ WEBSERVER_GROUP }}"
     mode: 0644
   with_items:
-#   - pgpool.conf
+    - pgpool.conf
     - pcp.conf
   become: yes
   tags: pgpoolAdmin
 
-- name: overwrite defaultParameter.php
+- name: overwrite pgmgt.conf.php
   template:
-    src: defaultParameter.php
-    dest: "{{ PPA_HOME }}/install/defaultParameter.php"
+    src: pgmgt.conf.php
+    dest: "{{ PPA_HOME }}/conf/pgmgt.conf.php"
   become: yes
   tags: pgpoolAdmin
 
@@ -59,3 +77,11 @@
   notify: reload nginx
   tags: pgpoolAdmin
 
+- name: deploy .pcppass at nginx's home directory
+  template:
+    src: pcppass
+    dest: /var/lib/nginx/.pcppass
+    owner: nginx
+    group: nginx
+    mode: 0600
+  become: yes

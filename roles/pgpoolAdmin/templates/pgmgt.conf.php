@@ -23,6 +23,8 @@
  * @version    CVS: $Id$
  */
 
+define('_PGPOOL2_LANG', 'ja');
+define('_PGPOOL2_VERSION', '4.0');
 define("_PGPOOL2_CONFIG_FILE", "{{ PGPOOL_CONF_DIR }}/pgpool.conf");
 define("_PGPOOL2_PASSWORD_FILE", "{{ PGPOOL_CONF_DIR }}/pcp.conf");
 define("_PGPOOL2_COMMAND", "{{ PGPOOL_BIN_DIR }}/pgpool");
@@ -32,7 +34,7 @@ define("_PGPOOL2_CMD_OPTION_D", "0");
 define("_PGPOOL2_CMD_OPTION_M", "s");
 define("_PGPOOL2_CMD_OPTION_N", "0");
 define("_PGPOOL2_CMD_OPTION_LARGE_C", "0");
-define("_PGPOOL2_LOG_FILE", "{{ PGPOOL_LOG_DIR }}/pgpool.log");
+define("_PGPOOL2_LOG_FILE", "/tmp/pgpool.log");
 define("_PGPOOL2_PCP_DIR", "{{ PGPOOL_BIN_DIR }}");
 define("_PGPOOL2_PCP_HOSTNAME", "localhost");
 define("_PGPOOL2_PCP_TIMEOUT", "10");
