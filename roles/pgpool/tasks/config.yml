@@ -19,7 +19,12 @@
 - name: Create pcp.conf for pcp command
   template:
     src: pcp.conf
-    dest: /etc/pgpool-II-10
+    dest: "{{ PGPOOL_CONF_DIR }}"
     force: yes
   become: yes
 
+- name: Create default pgpool.conf
+  template:
+    src: pgpool.conf.sample
+    dest: "{{ PGPOOL_CONF_DIR }}/pgpool.conf"
+  become: yes
