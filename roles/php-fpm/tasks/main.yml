@@ -10,7 +10,14 @@
   become: yes
   when: PHP_REPO == "remi72"
 
-- name: Install additional package from webtatic
+- name: Install additional package from webtatic56
+  yum:
+    name:
+      - "{{ PHP_PKG_PREFIX }}-fpm"
+  become: yes
+  when: PHP_REPO == "webtatic56"
+
+- name: Install additional package from webtatic72
   yum:
     name:
       - "{{ PHP_PKG_PREFIX }}-fpm"

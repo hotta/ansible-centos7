@@ -19,7 +19,28 @@
   become: yes
   when: PHP_REPO == "remi72"
 
-- name: Install PHP dependencies from webtatic
+# https://webtatic.com/packages/php56/
+
+- name: Install PHP dependencies from webtatic56
+  yum:
+    name:
+      - "{{ PHP_PKG_PREFIX }}"
+      - "{{ PHP_PKG_PREFIX }}-mbstring"
+      - "{{ PHP_PKG_PREFIX }}-cli"
+      - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-pdo"
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+      - "{{ PHP_PKG_PREFIX }}-intl"
+      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - "{{ PHP_PKG_PREFIX }}-mcrypt"
+      - "{{ PHP_PKG_PREFIX }}-snmp"
+      - "{{ PHP_PKG_PREFIX }}-xml"
+  become: yes
+  when: PHP_REPO == "webtatic56"
+
+- name: Install PHP dependencies from webtatic72
   yum:
     name:
       - "{{ PHP_PKG_PREFIX }}"
