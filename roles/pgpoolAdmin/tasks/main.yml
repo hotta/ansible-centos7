@@ -27,7 +27,6 @@
     dest: "{{ PPA_HOME }}"
     force: yes
   become: yes
-  tags: pgpoolAdmin
 
 - name: make templates_c directory
   file:
@@ -35,16 +34,6 @@
     state: directory
     mode: 0777
   become: yes
-  tags: pgpoolAdmin
-
-- name: permit write access to config
-  file:
-    path: "{{ PPA_HOME }}/conf/pgmgt.conf.php"
-    owner: "{{ WEBSERVER_USER }}"
-    group: "{{ WEBSERVER_GROUP }}"
-    mode: 0644
-  become: yes
-  tags: pgpoolAdmin
 
 - name: Import vars involved with pgpool
   include_vars: '../../roles/pgpool/vars/main.yml'
@@ -59,21 +48,21 @@
     - pgpool.conf
     - pcp.conf
   become: yes
-  tags: pgpoolAdmin
 
 - name: overwrite pgmgt.conf.php
   template:
     src: pgmgt.conf.php
     dest: "{{ PPA_HOME }}/conf/pgmgt.conf.php"
+    owner: "{{ WEBSERVER_USER }}"
+    group: "{{ WEBSERVER_GROUP }}"
+    mode: 0644
   become: yes
-  tags: pgpoolAdmin
 
 - name: set pgmgt.conf.php to default
   copy:
     src: "{{ PPA_HOME }}/conf/pgmgt.conf.php"
     dest: "{{ PPA_HOME }}/install/defaultParameter.php"
   become: yes
-  tags: pgpoolAdmin
 
 - name: deply config for nginx
   template:
@@ -82,13 +71,12 @@
     force: yes
   become: yes
   notify: reload nginx
-  tags: pgpoolAdmin
 
 - name: deploy .pcppass at nginx's home directory
   template:
     src: pcppass
     dest: /var/lib/nginx/.pcppass
-    owner: nginx
-    group: nginx
+    owner: "{{ WEBSERVER_USER }}"
+    group: "{{ WEBSERVER_GROUP }}"
     mode: 0600
   become: yes
