@@ -1,0 +1,2 @@
+# hostname:port:username:password
+localhost:9898:{{ ansible_user_id}}:{{ PCP_PASSWD_RAW }}

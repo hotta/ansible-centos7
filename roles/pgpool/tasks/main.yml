@@ -29,3 +29,9 @@
 
 - import_tasks: config.yml
   tags: pgpool
+
+- name: Start pgpool-II
+  systemd:
+    name: "{{ PGPOOL_SERVICE }}"
+    state: started
+  become: yes

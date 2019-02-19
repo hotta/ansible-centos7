@@ -1,0 +1,82 @@
+---
+- name: ~/ansible-centos7/roles/pgpoolAdmin/tasks/main.yml
+  command: echo
+
+- name: Install additional package from remi
+  yum:
+    enablerepo: remi,remi-php72
+    name:
+      - "{{ PHP_PKG_PREFIX }}-process"
+  become: yes
+  when: PHP_REPO == "remi72"
+
+- name: Install additional package from webtatic
+  yum:
+    name:
+      - "{{ PHP_PKG_PREFIX }}-process"
+  become: yes
+  when: PHP_REPO == "webtatic72"
+
+- name: apply changes of php-fpm
+  command: echo
+  notify: restart php-fpm
+
+- name: Get source tree
+  git:
+    repo: https://github.com/pgpool/pgpooladmin.git
+    dest: "{{ PPA_HOME }}"
+    force: yes
+  become: yes
+
+- name: make templates_c directory
+  file:
+    path: "{{ PPA_HOME }}/templates_c"
+    state: directory
+    mode: 0777
+  become: yes
+
+- name: Import vars involved with pgpool
+  include_vars: '../../roles/pgpool/vars/main.yml'
+
+- name: permit write access to configs for pgpool
+  file:
+    path: "{{ PGPOOL_CONF_DIR }}/{{ item }}"
+    owner: "{{ WEBSERVER_USER }}"
+    group: "{{ WEBSERVER_GROUP }}"
+    mode: 0644
+  with_items:
+    - pgpool.conf
+    - pcp.conf
+  become: yes
+
+- name: overwrite pgmgt.conf.php
+  template:
+    src: pgmgt.conf.php
+    dest: "{{ PPA_HOME }}/conf/pgmgt.conf.php"
+    owner: "{{ WEBSERVER_USER }}"
+    group: "{{ WEBSERVER_GROUP }}"
+    mode: 0644
+  become: yes
+
+- name: set pgmgt.conf.php to default
+  copy:
+    src: "{{ PPA_HOME }}/conf/pgmgt.conf.php"
+    dest: "{{ PPA_HOME }}/install/defaultParameter.php"
+  become: yes
+
+- name: deply config for nginx
+  template:
+    src: pgpoolAdmin.conf
+    dest: /etc/nginx/conf.d/pgpoolAdmin.conf
+    force: yes
+  become: yes
+  notify: reload nginx
+
+- name: deploy .pcppass at nginx's home directory
+  template:
+    src: pcppass
+    dest: /var/lib/nginx/.pcppass
+    owner: "{{ WEBSERVER_USER }}"
+    group: "{{ WEBSERVER_GROUP }}"
+    mode: 0600
+  become: yes
