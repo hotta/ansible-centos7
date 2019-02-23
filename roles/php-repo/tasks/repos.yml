@@ -37,4 +37,5 @@
 - name: Install PHP Repository for CentOS {{ _V }}.x
   yum:
     name: "{{ PHP_REPO_PKG }}"
+    validate_certs: no
   become: yes
