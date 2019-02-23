@@ -28,6 +28,7 @@
     - cloud.stat.exists == true
     - _V == '7'
 
+- import_tasks: phprepo.yml
 - import_tasks: mandatory.yml
 - import_tasks: time.yml
 - import_tasks: prompt.yml

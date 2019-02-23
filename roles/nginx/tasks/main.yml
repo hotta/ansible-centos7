@@ -4,7 +4,7 @@
 - name: Install nginx for CentOS {{ _V }}.x
   yum: 
     name:
-      - "{{ NGINX_PKG }}"
+      - "{{ PHP_NGINX_PKG }}"
   become: yes
 
 - name: nginx - Change log setting

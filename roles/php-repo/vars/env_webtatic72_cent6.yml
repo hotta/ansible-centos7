@@ -1,5 +1,0 @@
-# Use webtatics's php72 packages
-PHP_PKG_PREFIX: php72w
-NGINX_PKG:      nginx
-PHP_REPO_PKG:   https://mirror.webtatic.com/yum/el6/latest.rpm
-PHP_REPO_FILE:  webtatic.repo
