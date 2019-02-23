@@ -16,6 +16,7 @@
       - "{{ PHP_PKG_PREFIX }}-gd"
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-mcrypt"
   become: yes
   when: PHP_REPO == "remi56"
 

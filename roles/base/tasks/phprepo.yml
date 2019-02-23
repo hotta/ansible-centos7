@@ -11,7 +11,7 @@
     - PHP_REPO != 'remi72'
 
 - name: set vars for php repositories
-  include_vars: "{{ PHP_REPOP }}.yml"
+  include_vars: "{{ PHP_REPO }}.yml"
 
 - name: Check for access to the Internet
   wait_for: host=www.yahoo.co.jp port=80 timeout=5
