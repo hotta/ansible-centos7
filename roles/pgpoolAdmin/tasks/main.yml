@@ -2,13 +2,21 @@
 - name: ~/ansible-centos7/roles/pgpoolAdmin/tasks/main.yml
   command: echo
 
-- name: Install additional package from remi
+- name: Install additional package from remi72
   yum:
     enablerepo: remi,remi-php72
     name:
       - "{{ PHP_PKG_PREFIX }}-process"
   become: yes
   when: PHP_REPO == "remi72"
+
+- name: Install additional package from remi56
+  yum:
+    enablerepo: remi,remi-php56
+    name:
+      - "{{ PHP_PKG_PREFIX }}-process"
+  become: yes
+  when: PHP_REPO == "remi56"
 
 - name: Install additional package from webtatic
   yum:

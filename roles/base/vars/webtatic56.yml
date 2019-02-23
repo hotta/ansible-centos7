@@ -1,0 +1,6 @@
+# ~/ansible-centos7/roles/base/vars/remi72.yml
+---
+PHP_PKG_PREFIX: php56w
+PHP_NGINX_PKG:  nginx1w
+PHP_REPO_PKG:   {{ PHP_WEBTATIC_URL }/el7/webtatic-release.rpm
+PHP_REPO_FILE:  webtatic.repo

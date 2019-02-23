@@ -2,9 +2,26 @@
 - name: roles/php/tasks/main.yml
   command: echo
 
-- name: Install PHP dependencies from remi
+- name: Install PHP dependencies from remi56
   yum:
-    enablerepo: remi,remi-php72
+    enablerepo: "{{ PHP_ENABLEREPO }}"
+    name: 
+      - "{{ PHP_PKG_PREFIX }}"
+      - "{{ PHP_PKG_PREFIX }}-mbstring"
+      - "{{ PHP_PKG_PREFIX }}-cli"
+      - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-pdo"
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+      - "{{ PHP_PKG_PREFIX }}-gd"
+      - "{{ PHP_PKG_PREFIX }}-intl"
+      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+  become: yes
+  when: PHP_REPO == "remi56"
+
+- name: Install PHP dependencies from remi72
+  yum:
+    enablerepo: "{{ PHP_ENABLEREPO }}"
     name: 
       - "{{ PHP_PKG_PREFIX }}"
       - "{{ PHP_PKG_PREFIX }}-mbstring"
@@ -18,8 +35,6 @@
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
   become: yes
   when: PHP_REPO == "remi72"
-
-# https://webtatic.com/packages/php56/
 
 - name: Install PHP dependencies from webtatic56
   yum:

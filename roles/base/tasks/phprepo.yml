@@ -1,0 +1,34 @@
+---
+- name: ~/ansible-centos7/roles/base/tasks/phprepo.yml
+  command: echo
+
+- name: Validate PHP_REPO variable
+  command: echo
+  failed_when:
+    - PHP_REPO != 'webtatic56'
+    - PHP_REPO != 'webtatic72'
+    - PHP_REPO != 'remi56'
+    - PHP_REPO != 'remi72'
+
+- name: set vars for php repositories
+  include_vars: "{{ PHP_REPOP }}.yml"
+
+- name: Check for access to the Internet
+  wait_for: host=www.yahoo.co.jp port=80 timeout=5
+
+- name: Check existence of RPM-GPG-KEY-EPEL-{{ _V }}
+  stat:
+    path: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ _V }}
+  register: epel_key
+
+- name: Install webtatic repositories
+  yum:
+    name: "{{ PHP_REPO_PKG }}"
+  become: yes
+  when: PHP_REPO == 'webtatic56' or PHP_REPO == 'webtatic72'
+
+- name: Install remi repositories
+  yum:
+    name: "{{ PHP_REPO_PKG }}"
+  become: yes
+  when: PHP_REPO == 'remi56' or PHP_REPO == 'remi72'

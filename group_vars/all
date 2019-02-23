@@ -15,6 +15,8 @@ PHP_LOG_DIR:  /var/log
 PHP_BIN_DIR:  /usr/bin
 PHP_LIB_DIR:  /usr/lib64/php
 PHP_MODULE_DIR: "{{ PHP_LIB_DIR }}/modules"
+PHP_REMI_URL: http://rpms.famillecollet.com/enterprise/
+PHP_WEBTATIC_URL: http://mirror.webtatic.com/yum/
 # Python3
 PYTHON3_DIR: /opt/python36
 PYTHON3_BINDIR: /opt/python36/bin
