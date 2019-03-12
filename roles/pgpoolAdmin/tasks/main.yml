@@ -29,11 +29,20 @@
   command: echo
   notify: restart php-fpm
 
-- name: Get source tree
+- name: Make sure no target directory
+  file:
+    path: "{{ PPA_HOME }}"
+    state: absent
+    force: yes
+  become: yes
+
+- name: Get source tree to temporary directory
   git:
     repo: https://github.com/pgpool/pgpooladmin.git
-    dest: "{{ PPA_HOME }}"
-    force: yes
+    dest: /tmp/pgpoolAdmin
+
+- name: Move source tree to target directory
+  command: mv /tmp/pgpoolAdmin "{{ WWW_BASE }}"
   become: yes
 
 - name: make templates_c directory
