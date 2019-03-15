@@ -12,12 +12,12 @@
   become: yes
   tags: pgpool
 
-- name: remove executable permission bit
-  file:
-    path: /usr/lib/systemd/system/pgpool-II-10.service
-    mode: 0644
-  become: yes
-
+# - name: remove executable permission bit
+#   file:
+#     path: /usr/lib/systemd/system/pgpool-II-10.service
+#     mode: 0644
+#   become: yes
+# 
 - name: Add {{ PGPOOL_BIN_DIR }} to $PATH
   template:
     src: pgpool.sh
