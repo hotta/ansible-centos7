@@ -30,6 +30,7 @@
     state: stopped
     enabled:  yes
   become: yes
+  ignore_errors: yes
 
 - name: Delete old war file
   file:
