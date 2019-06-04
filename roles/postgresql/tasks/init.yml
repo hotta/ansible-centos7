@@ -6,8 +6,8 @@
   file:
     path: /var/lib/pgsql/.ansible/tmp
     mode: 0700
+    owner: postgres
   become: yes
-  become_user: postgres
 
 - name: Check if database exists
   stat:
