@@ -1,6 +1,15 @@
 ---
 - name: roles/postgresql/tasks/init.yml
   command: echo
+
+- name: Make remot_tmp direcotry to avoid WARNING
+  file:
+    path: /var/lib/pgsql/.ansible/tmp
+    state: directory
+    mode: 0700
+    owner: postgres
+  become: yes
+
 - name: Check if database exists
   stat:
     path: "{{ PG_DATADIR }}/PG_VERSION"
