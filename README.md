@@ -2,7 +2,7 @@ This set of ansible playbooks deploy various environment such as laravel / IBM M
 
 ## Prerequisite(Test Environment)
 
-- Vagrant + VirtualBox VM running CentOS 7.5 with git and ansible 2.5.x.
+- Vagrant + VirtualBox VM running CentOS 7.6 with git and ansible 2.8.x.
 - typical installation process could be as follows:
 
 ```bash
@@ -22,6 +22,8 @@ And then log in to the VM as user "vagrant".
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
   config.vm.network "private_network", ip: "192.168.56.2"
+  config.vm.network :forwarded_port, guest: 22, host: 2202
+  config.vm.synced_folder ".", "/vagrant", disabled: true
   config.vm.hostname = "example.local"
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
@@ -75,9 +77,9 @@ $ ansible-playbook jobs/laravel.yml
 
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
-## Components versions ( as of 2018/09/08 ).
+## Components versions ( as of 2019/09/04 ).
 
-- php-7.2.8
+- php-7.2.21
 - SQLite-3.7.17 / MariaDB-5.5.60 / PostgreSQL-10.5
 - Laravel-5.5.28
 - Codeigniter-3.1.9
@@ -88,6 +90,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 - Sphinx 1.6.3
 - GitBucket 4.22.0
 - chromium 61.0.3163.100
+- zabbix 4.2.6
 
 ## Dependencies in roles
 
@@ -103,6 +106,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
           - laravel-dusk
         - codeigniter
         - cakephp3
+        - zabbix
       - mariadb
         - wordpress
         - vuedo
