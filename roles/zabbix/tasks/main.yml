@@ -1,0 +1,3 @@
+---
+- import_tasks: core.yml
+  tags: zabbix-db
