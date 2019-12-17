@@ -28,3 +28,10 @@
     src: pgpool.conf.sample
     dest: "{{ PGPOOL_CONF_DIR }}/pgpool.conf"
   become: yes
+
+- name: Ad hoc patch - should be fixed
+  lineinfile:
+    path: /etc/pgpool-II-10/pgpool.conf
+    regexp: ^pool_passwd
+    line: pool_passwd = ''
+  become: yes

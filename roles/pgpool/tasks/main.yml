@@ -18,6 +18,14 @@
 #     mode: 0644
 #   become: yes
 # 
+- name: Prepare for pid directory
+  file:
+    path: /var/run/pgpool-II-10/
+    state: directory
+    owner: postgres
+    group: postgres
+  become: yes
+
 - name: Add {{ PGPOOL_BIN_DIR }} to $PATH
   template:
     src: pgpool.sh
