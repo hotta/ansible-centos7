@@ -1,0 +1,24 @@
+---
+- name: roles/services/handlers/main.yml
+  command: echo
+
+- name: restart firewalld
+  systemd:
+    name: firewalld
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: restart httpd
+  systemd:
+    name: httpd
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: restart mariadb
+  systemd:
+    name: mariadb
+    state: restarted
+    enabled: yes
+  become: yes

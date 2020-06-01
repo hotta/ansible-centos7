@@ -2,14 +2,30 @@
 - name: roles/mariadb/tasks/main.yml
   command: echo
 
+- name: Get MariaDB installation script
+  get_url:
+    url: https://downloads.mariadb.com/MariaDB/mariadb_repo_setup
+    dest: "{{ ansible_user_dir }}"
+
+- name: Run MariaDB installation script(install repository)
+  command: sh {{ ansible_user_dir }}/mariadb_repo_setup \
+    --mariadb-server-version=mariadb-{{ MARIADB_VER }}
+  become: yes
+
 - name: Install mariadb packages
   yum: 
     name:
       - mariadb-server
-      - mariadb
-      - mysql-connector-python
-      - MySQL-python
+      - python2-PyMySQL
   become: yes
+
+- name: Install mariadb bindings from remi73
+  yum:
+    enablerepo: remi,remi-php73
+    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
+  become: yes
+  notify: reload php-fpm
+  when: PHP_REPO == "remi73"
 
 - name: Install mariadb bindings from remi72
   yum:
@@ -41,39 +57,46 @@
   notify: reload php-fpm
   when: PHP_REPO == "webtatic72"
 
-# zoneinfo support - cf. https://github.com/mjanser/ansible-role-mysql
-# If check_mode is "no", the command module runs as "normal mode" 
-# even if ansible-playbook envoked with --check option.
-# https://docs.ansible.com/ansible/2.5/user_guide/playbooks_checkmode.html
-
-- name: Set encoding for server
-  lineinfile:
-    path: /etc/my.cnf.d/server.cnf
-    line: character-set-server=utf8
-    regexp: ^character-set-server=utf8
-    insertafter: ^\[mysqld\]
-  become: yes
-  tags: mariadb
-
-- name: Enable mariadb
-  service: name=mariadb state=started enabled=yes
+- name: Autostart mariadb 
+  systemd: 
+    name:     mariadb
+    state:    started 
+    enabled:  yes
   become: yes
 
-- name: Check zoneinfo presence
-  command: mysql -NBe "SELECT COUNT(*) FROM mysql.time_zone"
-  register: mysql_timezones_count
-  changed_when: false
-  check_mode: no
+- name: Set MariaDB's root password
+  mysql_user:
+    login_unix_socket:  /var/lib/mysql/mysql.sock
+    name: root
+    password: "{{ DB_ROOT_PW }}"
   become: yes
 
-- name: ensure timezone data is imported
-  shell: "mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql mysql"
-  when: mysql_timezones_count.stdout|int < 1
+- name: Put /root/.my.cnf
+  template:
+    src: my.cnf
+    dest: /root/.my.cnf
   become: yes
 
 - name: Create User
   mysql_user:
-    name: "{{ ansible_user_id }}"
-    password: ''
-    priv: '*.*:ALL'
+    name: "{{ DB_USER }}"
+    host: "{{ item }}"
+    password: "{{ DB_PASSWORD }}"
+    priv: '*.*:ALL,GRANT'
+    login_unix_socket:  /var/lib/mysql/mysql.sock
   become: yes
+  with_items:
+    - ::1
+    - 127.0.0.1
+    - localhost
+    - '%'
+
+- name: Grant Access from development client
+  firewalld:
+    immediate: yes
+    permanent: yes
+    state: enabled
+    rich_rule: 'rule family=ipv4 service name="mysql" source address="{{ item }}" accept'
+  become: yes
+  with_items: "{{ DB_DEV_CIDR }}"
+  notify: restart firewalld

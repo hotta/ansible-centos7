@@ -81,7 +81,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 
 - php-7.3.18
 - composer 1.10.6 2020-05-06 10:28:10
-- SQLite-3.7.17 / MariaDB-5.5.60 / PostgreSQL-10.5
+- SQLite-3.7.17 / MariaDB-10.4.13 / PostgreSQL-10.5
 - Laravel-5.5.28
 - Codeigniter-3.1.9
 - IBM MQ 8.0.0

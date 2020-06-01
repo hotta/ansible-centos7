@@ -20,3 +20,11 @@ PHP_WEBTATIC_URL: http://mirror.webtatic.com/yum/
 # Python3
 PYTHON3_DIR: /opt/python36
 PYTHON3_BINDIR: /opt/python36/bin
+# MariaDB
+MARIADB_VER:      '10.4'
+DB_ROOT_PW:       ''
+DB_HOST:          'localhost'
+DB_PORT:          '3306'
+DB_USER:          "{{ ansible_user_id }}"
+DB_PASSWORD:      'mysql'
+DB_DEV_CIDR:      [ '192.168.56.0/24' ]
