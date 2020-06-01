@@ -3,3 +3,4 @@
 .env
 *.rpmnew
 host_vars/localhost.yml
+ansible.cfg

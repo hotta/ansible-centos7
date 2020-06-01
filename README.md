@@ -79,7 +79,8 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 
 ## Components versions ( as of 2019/09/04 ).
 
-- php-7.2.21
+- php-7.3.18
+- composer 1.10.6 2020-05-06 10:28:10
 - SQLite-3.7.17 / MariaDB-5.5.60 / PostgreSQL-10.5
 - Laravel-5.5.28
 - Codeigniter-3.1.9

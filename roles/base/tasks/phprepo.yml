@@ -1,5 +1,5 @@
 ---
-- name: ~/ansible-centos7/roles/base/tasks/phprepo.yml
+- name: roles/base/tasks/phprepo.yml
   command: echo
 
 - name: Validate PHP_REPO variable
@@ -9,6 +9,7 @@
     - PHP_REPO != 'webtatic72'
     - PHP_REPO != 'remi56'
     - PHP_REPO != 'remi72'
+    - PHP_REPO != 'remi73'
 
 - name: set vars for php repositories
   include_vars: "{{ PHP_REPO }}.yml"
@@ -31,4 +32,4 @@
   yum:
     name: "{{ PHP_REPO_PKG }}"
   become: yes
-  when: PHP_REPO == 'remi56' or PHP_REPO == 'remi72'
+  when: PHP_REPO in [ 'remi56', 'remi72', 'remi73' ]
