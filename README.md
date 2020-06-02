@@ -2,8 +2,8 @@ This set of ansible playbooks deploy various environment such as laravel / IBM M
 
 ## Prerequisite(Test Environment)
 
-- Vagrant + VirtualBox VM running CentOS 7.6 with git and ansible 2.8.x.
-- typical installation process could be as follows:
+- Vagrant + VirtualBox VM running CentOS 7.8 with git and ansible 2.9.x.
+- typical installation process could be like this:
 
 ```bash
 mkdir XXXX
@@ -30,7 +30,7 @@ Vagrant.configure("2") do |config|
     vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   end
   config.vm.provision "shell", inline: <<-SHELL
-    sudo yum -y update
+    sudo yum -y reinstall glibc-common
     sudo yum -y install git epel-release
     sudo yum -y install ansible
   SHELL
@@ -41,7 +41,6 @@ end
 
 - Create EC2 instance from "CentOS 7 (x86_64) - with Updates HVM" AMI in AWS Marketplace 
 - Log in to the instance as user "centos"
-- sudo yum update
 - sudo yum -y install git epel-release
 - sudo yum -y install ansible
 
@@ -56,10 +55,12 @@ $ sudo ln -fs $PWD /etc/ansible
 
 ## Customize localhost.yml if nessesary
 
+Take a glance at group_vars/all first. If you'd like to customize any variable, you can override it by write down in host_vars/all.
+
 ```bash
 $ cd host_vars
 $ cp localhost.yml.tmpl localhost.yml
-$ vi localhost.yml                    # if nessesary
+$ vi localhost.yml
 $ cd ..
 ```
 
@@ -82,7 +83,8 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 - php-7.3.18
 - composer 1.10.6 2020-05-06 10:28:10
 - SQLite-3.7.17 / MariaDB-10.4.13 / PostgreSQL-10.5
-- Laravel-5.5.28
+- Laravel 7.13.0 / 6.18.16
+- Nginx 1.16
 - Codeigniter-3.1.9
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4

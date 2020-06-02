@@ -21,3 +21,13 @@
 - name: Enable nginx
   command: echo
   notify: restart nginx
+
+- name: Grant Access from development client
+  firewalld:
+    immediate: yes
+    permanent: yes
+    state: enabled
+    rich_rule: 'rule family=ipv4 service name="http" source address="{{ item }}" accept'
+  become: yes
+  with_items: "{{ DB_DEV_CIDR }}"
+  notify: restart firewalld

@@ -1,5 +1,8 @@
 # Basic Congiguration Control
 ---
+- name: roles/base/tasks/main.yml
+  command: echo
+
 - name: Check if hosts exists
   stat: 
     path: /etc/ansible/hosts

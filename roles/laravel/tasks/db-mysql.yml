@@ -4,12 +4,14 @@
 
 - name: Create User
   mysql_user:
-    name: "{{ LARAVEL_DB_USERNAME }}"
+    name:     "{{ LARAVEL_DB_USERNAME }}"
     password: "{{ LARAVEL_DB_PASSWORD }}"
-    priv: "{{ DB_DATABASE }}.*, ALL"
+    priv:     "{{ LARAVEL_DB_DATABASE }}.*:ALL,GRANT"
+    login_unix_socket:  /var/lib/mysql/mysql.sock
   become: yes
 
 - name: Create Database
   mysql_db:
     name: "{{ LARAVEL_DB_DATABASE }}"
+    login_unix_socket:  /var/lib/mysql/mysql.sock
   become: yes

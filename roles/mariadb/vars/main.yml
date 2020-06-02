@@ -1,5 +1,2 @@
 # roles/mariadb/vars/main.yml
-MARIADB_VER:      '10.4'
-DB_ROOT_PW:       ''
 DB_PORT:          '3306'
-DB_PASSWORD:      'mysql'

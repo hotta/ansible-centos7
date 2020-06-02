@@ -4,11 +4,15 @@
 - import_tasks: core.yml
   tags: laravel
 - import_tasks: env.yml
+
 - import_tasks: db-pgsql.yml
   when: DB_TYPE == "pgsql"
   tags: laravel-pgsql
+
 - import_tasks: db-mysql.yml
   when: DB_TYPE == "mysql"
+  tags: laravel-mysql
+
 - import_tasks: db-sqlite.yml
   when: DB_TYPE == "sqlite"
 - import_tasks: whoops.yml
