@@ -1,30 +1,96 @@
-# group_vars/all - Common constants among all environment
----
-WWW_BASE:       /var/www
-WEBSERVER_USER: nginx
-WEBSERVER_GROUP: nginx
-# Composer
+# group_vars/all
+
+# ------------------------ System global -----------------------------
+_V:                   "{{ ansible_distribution_major_version }}"
+SYSTEM_LOCALE:        ja
+TIME_ZONE:            Asia/Tokyo
+PROMPT_FILE:          bash_prompt.sh
+# --------------------------- Webserver ------------------------------
+WWW_BASE:             /var/www
+WEBSERVER_USER:       nginx
+WEBSERVER_GROUP:      nginx
+# ------------------------------ PHP ---------------------------------
+PHP_REPO:             remi73        # webtatic72 / remi72 / webtatic56 / remi73
+PHP_INI_DIR:          /etc
+PHP_VAR_DIR:          /var
+PHP_LOG_DIR:          /var/log
+PHP_BIN_DIR:          /usr/bin
+PHP_LIB_DIR:          /usr/lib64/php
+PHP_MODULE_DIR:       "{{ PHP_LIB_DIR }}/modules"
+PHP_REMI_URL:         http://rpms.famillecollet.com/enterprise/
+PHP_WEBTATIC_URL:     http://mirror.webtatic.com/yum/
+XDEBUG_REMOTE_HOST:   192.168.56.1
+XDEBUG_IDEKEY:        netbeans-xdebug
+# ---------------------------- Composer ------------------------------
 COMPOSER_HOME:  "{{ ansible_user_dir }}/.composer"
 COMPOSER_GLOBAL_BIN: "{{ COMPOSER_HOME }}/vendor/bin"
-# Bash
-PROMPT_FILE: bash_prompt.sh
-_V: "{{ ansible_distribution_major_version }}"
-PHP_INI_DIR:  /etc
-PHP_VAR_DIR:  /var
-PHP_LOG_DIR:  /var/log
-PHP_BIN_DIR:  /usr/bin
-PHP_LIB_DIR:  /usr/lib64/php
-PHP_MODULE_DIR: "{{ PHP_LIB_DIR }}/modules"
-PHP_REMI_URL: http://rpms.famillecollet.com/enterprise/
-PHP_WEBTATIC_URL: http://mirror.webtatic.com/yum/
-# Python3
-PYTHON3_DIR: /opt/python36
-PYTHON3_BINDIR: /opt/python36/bin
-# MariaDB
-MARIADB_VER:      '10.4'
-DB_ROOT_PW:       ''
-DB_HOST:          'localhost'
-DB_PORT:          '3306'
-DB_USER:          "{{ ansible_user_id }}"
-DB_PASSWORD:      'mysql'
+# ----------------------------- Laravel ------------------------------
+LARAVEL_LOCALE:       ja
+LARAVEL_SERVER_NAME:  laravel.local
+LARAVEL_DB_HOST:      localhost
+LARAVEL_DB_DATABASE:  laravel
+LARAVEL_DB_USERNAME:  "{{ ansible_user_id }}"
+LARAVEL_DB_PASSWORD:
+# ----------------------------- WordPress ----------------------------
+WP_DB_NAME:           wp
+WP_DB_USER:           wp
+WP_DB_PASSWORD:
+WP_DB_HOST:           localhost
+WP_HOME:              "{{ WWW_BASE }}/wordpress"
+WP_SERVER_NAME:       wordpress.local
+WP_SITEURL:           http://{{ WP_SERVER_NAME }}
+WP_TITLE:             WordPress Default Site
+WP_ADMIN_USER:        wp-admin
+WP_ADMINPASS:         _adm1np@ss
+WP_ADMIN_EMAIL:       admin@example.com
+WP_FORCE_REINSTALL:   false
+WP_REMOVE_PREVIOUS_DB:  false
+WP_POST_MAX_SIZE:     10m
+# ----------------------------- GitBucket ----------------------------
+GITBUCKET_VERSION:    4.31.2
+GITBUCKET_WAR_DIR:    /opt/gitbucket/lib
+GITBUCKET_WAR_FILE:   "{{ GITBUCKET_WAR_DIR }}/gitbucket.war"
+GITBICKET_LOG_DIR:    /var/log/gitbucket
+GITBUCKET_HOME:       /var/lib/gitbucket
+GITBUCKET_PORT:       8888
+GITBUCKET_USER:       gitbucket
+GITBUCKET_LOG_FILE:   "{{ GITBICKET_LOG_DIR }}/run.log"
+GITBUCKET_PID_FILE:   /var/run/gitbucket.pid
+# ---------------------------- Codeigniter ---------------------------
+CI3_VERSION:          3.1.9
+GI3_ARCHIVE_URL:      "https://codeload.github.com/bcit-ci/CodeIgniter/zip/{{ CI3_VERSION }}"
+CI3_ARCHIVE_NAME:     "CodeIgniter-{{ CI3_VERSION }}.zip"
+CI3_SERVER_NAME:      ci3.local
+CI3_DB_DRIVER:        postgre
+CI3_DB_HOST:          localhost
+CI3_DB_DATABASE:      ci3
+CI3_DB_USERNAME:      "{{ ansible_user_id }}"
+CI3_DB_PASSWORD:
+CI3_BASE_DIR:         "{{ WWW_BASE }}/ci3"
+CI3_SYSTEM_DIR:       "{{ CI3_BASE_DIR }}/system"
+CI3_APP_DIR:          "{{ CI3_BASE_DIR }}/application"
+CI3_VIEW_DIR:         "{{ CI3_BASE_DIR }}/application/views"
+CI3_DOCROOT:          "{{ CI3_BASE_DIR }}/public"
+CI3_BASEURL:          "http://{{ CI3_SERVER_NAME }}/"
+CI3_LANGUAGE:         japanese
+CI3_COMPOSER_AUTOLOAD:  false # true or /path/to/autoload.php or false
+CI3_LOG_THRESHOLD:      4     # 0.Disables 1. Error 2.Debug 3.Information 4.All
+# ----------------------------- CakePHP3 -----------------------------
+CAKE3_HOME:           "{{ WWW_BASE }}/cakephp3"
+CAKE3_NAME:           .
+CAKE3_DB_CONNECTION:  mysql
+CAKE3_SERVER_NAME:    cake3.local
+CAKE3_DB_HOST:        localhost
+CAKE3_DB_DATABASE:    my_app
+CAKE3_DB_USERNAME:    my_app
+CAKE3_DB_PASSWORD:    secret
+# ------------------------------ Zabbix -------------------------------
+ZABBIX_VER:           4.2.6
+ZABBIX_DB_USERNAME:   zabbix
+ZABBIX_DB_DATABSE:    zabbix
+ZABBIX_DB_PASSWORD:   zabbix
+ZABBIX_DB_PORT:       5432
+# ---------------------------- Database ------------------------------
+DB_TYPE:          'pgsql'                 # 'pgsql' or 'mysql' or 'sqlite'
 DB_DEV_CIDR:      [ '192.168.56.0/24' ]
+DB_USER:          "{{ LARAVEL_DB_USERNAME }}"

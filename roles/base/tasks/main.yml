@@ -14,8 +14,7 @@
   command: echo
   failed_when: |
     etc_ansible_hosts.stat.exists != true        or
-    host_vars_localhost_yml.stat.exists != true  or
-    ansible_distribution != 'CentOS' 
+    ansible_distribution          != 'CentOS' 
 
 - name: Check if EC2
   stat:
