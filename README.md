@@ -78,17 +78,22 @@ $ ansible-playbook jobs/laravel.yml
 
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
-## Components versions ( as of 2019/09/04 ).
+## Components versions
+
+### tested ( as of 2020/06/03 ).
 
 - php-7.3.18
-- composer 1.10.6 2020-05-06 10:28:10
-- SQLite-3.7.17 / MariaDB-10.4.13 / PostgreSQL-10.5
+- composer 1.10.6
+- SQLite-3.7.17 / MariaDB-10.4.13 / PostgreSQL-12
 - Laravel 7.13.0 / 6.18.16
 - Nginx 1.16
+- WordPress 5.4.1
+
+### Not tested ( as of 2020/06/03 ).
+
 - Codeigniter-3.1.9
 - IBM MQ 8.0.0
 - FreeRadius 3.0.4
-- WordPress 4.9.6
 - CakePHP 3.6.11
 - Sphinx 1.6.3
 - GitBucket 4.22.0

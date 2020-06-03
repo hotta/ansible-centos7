@@ -69,12 +69,8 @@
     login_unix_socket:  /var/lib/mysql/mysql.sock
     name: root
     password: "{{ MARIADB_ROOT_PW }}"
-    host:     "{{ item }}"
   become: yes
-  with_items:
-    - ::1
-    - 127.0.0.1
-    - localhost
+  tags: set_password
 
 - name: Put /root/.my.cnf
   template:
