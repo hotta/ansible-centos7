@@ -17,6 +17,7 @@
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
       - "{{ PHP_PKG_PREFIX }}-mcrypt"
+      - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "remi56"
 
@@ -34,6 +35,7 @@
       - "{{ PHP_PKG_PREFIX }}-gd"
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "remi72"
 
@@ -53,6 +55,7 @@
       - "{{ PHP_PKG_PREFIX }}-mcrypt"
       - "{{ PHP_PKG_PREFIX }}-snmp"
       - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "webtatic56"
 
@@ -68,8 +71,28 @@
       - "{{ PHP_PKG_PREFIX }}-pecl-zip"
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "webtatic72"
+
+- name: Install PHP dependencies from remi73
+  yum:
+    enablerepo: "{{ PHP_ENABLEREPO }}"
+    name: 
+      - "{{ PHP_PKG_PREFIX }}"
+      - "{{ PHP_PKG_PREFIX }}-mbstring"
+      - "{{ PHP_PKG_PREFIX }}-cli"
+      - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-pdo"
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+      - "{{ PHP_PKG_PREFIX }}-gd"
+      - "{{ PHP_PKG_PREFIX }}-intl"
+      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-bcmath"
+      - "{{ PHP_PKG_PREFIX }}-fpm"
+  become: yes
+  when: PHP_REPO == "remi73"
 
 - name: php.ini - date.timezone
   lineinfile:
@@ -77,7 +100,6 @@
     regexp:       "^;date.timezone ="
     line:         "date.timezone = {{ TIME_ZONE }}"
   become: yes
-  when:           PHP_JAPANIZE == true
 
 - name: php.ini - mbstring.language
   lineinfile:
@@ -85,7 +107,7 @@
     regexp:       "^;mbstring.language = Japanese"
     line:         "mbstring.language = Japanese"
   become: yes
-  when:           PHP_JAPANIZE == true
+  when:           TIME_ZONE == 'Asia/Tokyo'
 
 - name: Reset owner for WWW_BASE
   file:

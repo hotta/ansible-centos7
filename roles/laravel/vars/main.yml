@@ -1,5 +1,0 @@
-# group_vars/laravel
----
-LARAVEL_BIN:      "{{ COMPOSER_GLOBAL_BIN }}/laravel"
-LARAVEL_HOME:     "{{ WWW_BASE }}/laravel"
-DOCUMENT_ROOT:    "{{ LARAVEL_HOME }}"

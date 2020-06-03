@@ -37,8 +37,8 @@
   
 - name: Create Database
   mysql_db:
-    login_user: root
     name: "{{ WP_DB_NAME }}"
+  become: yes
   
 - name: Create Database User
   mysql_user:
@@ -47,6 +47,7 @@
     password: "{{ WP_DB_PASSWORD }}"
     login_host: "{{ WP_DB_HOST }}"
     priv: "{{ WP_DB_NAME }}.*:ALL,GRANT"
+  become: yes
   
 - name: Install wp instance --path={{ WP_HOME }}
   shell: "{{ WP_CLI }} core install --path={{ WP_HOME }}

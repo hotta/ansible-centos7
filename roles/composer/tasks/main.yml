@@ -1,21 +1,31 @@
 # Default "composer" RPM package depends on php-5.4, so we install it 
 # from the original site.
-# Composer will be installed as /usr/bin/composer. It should be at
-# /usr/local/bin, ansible does not recognize it unfortunately.
 ---
 - name: roles/composer/tasks/main.yml
   command: echo
-- name: get and deploy Composer
-  get_url: url=https://getcomposer.org/composer.phar 
-    dest=/usr/bin/composer mode=755 force=no
+
+- name: get Composer installer
+  get_url:
+    url:  https://getcomposer.org/installer 
+    dest: /tmp/composer-setup.php
   become: yes
   tags: composer
+
+- name: Install composer
+  command: /usr/bin/php /tmp/composer-setup.php --install-dir="/usr/bin"  \
+    --filename="composer"
+  become: yes
+  tags: composer
+
 - name: Prepare $COMPOSER_HOME directory
   file:
     path: "{{ COMPOSER_HOME }}"
     state: directory
+
 - name: Add $COMPOSER_GLOBAL_BIN to $PATH
-  template: src=composer.sh dest=/etc/profile.d/
+  template: 
+    src: composer.sh 
+    dest: /etc/profile.d/
   become: yes
 
 - name: Use https://packagist.jp instead

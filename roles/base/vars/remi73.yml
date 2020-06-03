@@ -1,0 +1,7 @@
+# roles/base/vars/remi73.yml
+---
+PHP_PKG_PREFIX: php
+PHP_NGINX_PKG:  nginx
+PHP_REPO_PKG:   "{{ PHP_REMI_URL }}/remi-release-{{ _V }}.rpm"
+PHP_REPO_FILE:  remi.repo
+PHP_ENABLEREPO: remi,remi-php73

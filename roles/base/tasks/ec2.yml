@@ -1,5 +1,8 @@
 # EC2 Specific Configuration ( to make hostname static )
 ---
+- name: roles/base/tasks/ec2.yml
+  command: echo
+
 - name: Modify /etc/hostname
   lineinfile:
     dest: /etc/hostname

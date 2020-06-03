@@ -3,4 +3,4 @@
 ---
 - hosts: localhost
   roles:
-    - postgresql
+    - { role: postgresql,   tags: pg    }

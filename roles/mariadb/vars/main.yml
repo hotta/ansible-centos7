@@ -1,0 +1,2 @@
+# roles/mariadb/vars/main.yml
+DB_PORT:          '3306'
