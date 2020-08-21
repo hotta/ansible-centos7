@@ -80,6 +80,11 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 
 ## Components versions
 
+### tested ( as of 2020/08/21 ).
+
+- pgpoolAdmin-4.1.0 from github
+- postgresql12-12.4-1PGDG
+
 ### tested ( as of 2020/06/03 ).
 
 - php-7.3.18
