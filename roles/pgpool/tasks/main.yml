@@ -6,21 +6,15 @@
 - name: Install pgpool-II packages
   yum:
     name:
-      - pgpool-II-10
-      - pgpool-II-10-extensions
+      - pgpool-II-{{ PG_VERSION }}
+      - pgpool-II-{{ PG_VERSION }}-extensions
       - ed
   become: yes
   tags: pgpool
 
-# - name: remove executable permission bit
-#   file:
-#     path: /usr/lib/systemd/system/pgpool-II-10.service
-#     mode: 0644
-#   become: yes
-# 
 - name: Prepare for pid directory
   file:
-    path: /var/run/pgpool-II-10/
+    path: /var/run/pgpool-II-{{ PG_VERSION }}/
     state: directory
     owner: postgres
     group: postgres

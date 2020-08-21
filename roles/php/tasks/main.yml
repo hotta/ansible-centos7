@@ -17,6 +17,7 @@
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
       - "{{ PHP_PKG_PREFIX }}-mcrypt"
+      - "{{ PHP_PKG_PREFIX }}-process"
       - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "remi56"
@@ -35,6 +36,7 @@
       - "{{ PHP_PKG_PREFIX }}-gd"
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-process"
       - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "remi72"
@@ -55,6 +57,7 @@
       - "{{ PHP_PKG_PREFIX }}-mcrypt"
       - "{{ PHP_PKG_PREFIX }}-snmp"
       - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-process"
       - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "webtatic56"
@@ -71,6 +74,7 @@
       - "{{ PHP_PKG_PREFIX }}-pecl-zip"
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-process"
       - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "webtatic72"
@@ -90,6 +94,7 @@
       - "{{ PHP_PKG_PREFIX }}-intl"
       - "{{ PHP_PKG_PREFIX }}-mysqlnd"
       - "{{ PHP_PKG_PREFIX }}-bcmath"
+      - "{{ PHP_PKG_PREFIX }}-process"
       - "{{ PHP_PKG_PREFIX }}-fpm"
   become: yes
   when: PHP_REPO == "remi73"

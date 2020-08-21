@@ -5,13 +5,13 @@
 #   source THIS_FILE
 #   /path/to/pgpool_setup -s
 #
-export PGPOOL_INSTALL_DIR=/usr/pgpool-10
-export PGPOOLDIR=/etc/pgpool-II-10
-export PGBIN=/usr/pgsql-10/bin
-export PGLIB=/usr/pgsql-10/lib
+export PGPOOL_INSTALL_DIR=/usr/pgpool-{{ PG_VERSION }}
+export PGPOOLDIR=/etc/pgpool-II-{{ PG_VERSION }}
+export PGBIN=/usr/pgsql-{{ PG_VERSION }}/bin
+export PGLIB=/usr/pgsql-{{ PG_VERSION }}/lib
 # If run as normal user, this will fail cause by permission denied.
 # export PGSOCKET_DIR=/var/run/postgresql
 export PGSOCKET_DIR=/tmp
 export PGHOST=/tmp
 env|grep PG|grep -v LS_
-# /usr/pgpool-10/bin/pgpool_setup -s
+# /usr/pgpool-{{ PG_VERSION }}/bin/pgpool_setup -s

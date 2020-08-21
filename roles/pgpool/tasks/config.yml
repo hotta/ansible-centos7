@@ -31,7 +31,7 @@
 
 - name: Ad hoc patch - should be fixed
   lineinfile:
-    path: /etc/pgpool-II-10/pgpool.conf
+    path: /etc/pgpool-II-{{ PG_VERSION }}/pgpool.conf
     regexp: ^pool_passwd
     line: pool_passwd = ''
   become: yes
