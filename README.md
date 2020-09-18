@@ -48,14 +48,11 @@ end
 
 ```bash
 $ git clone https://github.com/hotta/ansible-centos7.git
-$ sudo rm -r /etc/ansible
-$ cd ansible-centos7
-$ sudo ln -fs $PWD /etc/ansible
 ```
 
-## Customize localhost.yml if nessesary
+## (Option) Customize localhost.yml 
 
-Take a glance at group_vars/all first. If you'd like to customize any variable, you can override it by write down in host_vars/all.
+Take a glance at group_vars/all first. If you'd like to customize any variable, you can override it by write down in host_vars/localhost.yml.
 
 ```bash
 $ cd host_vars
@@ -80,6 +77,10 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 
 ## Components versions
 
+### tested ( as of 2020/09/18 ).
+
+- zabbix4(4.0.26) with snmptt
+
 ### tested ( as of 2020/08/21 ).
 
 - pgpoolAdmin-4.1.0 from github
@@ -103,7 +104,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 - Sphinx 1.6.3
 - GitBucket 4.22.0
 - chromium 61.0.3163.100
-- zabbix 4.2.6
+- zabbix 4.0.24 (PostgreSQL support only for now)
 
 ## Dependencies in roles
 

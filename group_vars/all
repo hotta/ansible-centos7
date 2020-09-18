@@ -90,12 +90,12 @@ CAKE3_DB_HOST:        localhost
 CAKE3_DB_DATABASE:    my_app
 CAKE3_DB_USERNAME:    my_app
 CAKE3_DB_PASSWORD:    secret
-# ------------------------------ Zabbix -------------------------------
-ZABBIX_VER:           4.2.6
+# ------------------------------ Zabbix4 -------------------------------
 ZABBIX_DB_USERNAME:   zabbix
 ZABBIX_DB_DATABSE:    zabbix
 ZABBIX_DB_PASSWORD:   zabbix
 ZABBIX_DB_PORT:       5432
+ZABBIX_AGENT_HOSTNAME:  'Zabbix server'
 # ---------------------------- Database ------------------------------
 DB_TYPE:          'pgsql'                 # 'pgsql' or 'mysql' or 'sqlite'
 DB_DEV_CIDR:      [ '192.168.56.0/24' ]

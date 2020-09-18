@@ -1,0 +1,6 @@
+# -*- coding: utf_8 -*- 
+# ansible-playbook zabbix.yml
+---
+- hosts: localhost
+  roles:
+    - zabbix4

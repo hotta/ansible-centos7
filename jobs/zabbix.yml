@@ -1,9 +1,0 @@
-# -*- coding: utf_8 -*- 
-# ansible-playbook zabbix.yml
-# -------------------------------------------------------------------
-# WARNING: This job will install Japanese latest version of zabbix
-# -------------------------------------------------------------------
----
-- hosts: localhost
-  roles:
-    - zabbix
