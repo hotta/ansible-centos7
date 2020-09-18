@@ -103,7 +103,7 @@ You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible
 - Sphinx 1.6.3
 - GitBucket 4.22.0
 - chromium 61.0.3163.100
-- zabbix 4.2.6
+- zabbix 4.0.24 (PostgreSQL support only for now)
 
 ## Dependencies in roles
 

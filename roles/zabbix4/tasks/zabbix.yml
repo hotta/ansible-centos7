@@ -1,0 +1,86 @@
+---
+- name: roles/zabbix/tasks/zabbix.yml
+  command: echo
+
+- name: Install zabbix repo
+  yum:
+    name: https://repo.zabbix.com/zabbix/4.0/rhel/7/x86_64/zabbix-release-4.0-2.el7.noarch.rpm
+  become: yes
+
+- name: Install zabbix core packages
+  yum:
+    name: 
+      - zabbix-server-pgsql
+      - zabbix-web-pgsql
+      - zabbix-web-japanese
+      - zabbix-agent
+  become: yes
+
+- name: Create DB User for zabbix
+  postgresql_user:
+    name: "{{ ZABBIX_DB_USERNAME }}"
+    password: "{{ ZABBIX_DB_PASSWORD }}"
+    role_attr_flags: NOSUPERUSER
+
+- name: Create home directory for DB user
+  file:
+    path: /var/lib/{{ ZABBIX_DB_USERNAME }}
+    state: directory
+    owner: "{{ ZABBIX_DB_USERNAME }}"
+  become: yes
+
+- name: Check if Database exists
+  command: "{{ PSQL }} {{ ZABBIX_DB_DATABSE }}"
+  register: db
+  ignore_errors: yes
+
+# - debug: var=db
+
+- name: Create Database for zabbix
+  postgresql_db:
+    name: "{{ ZABBIX_DB_DATABSE }}"
+    owner: "{{ ZABBIX_DB_USERNAME }}"
+  when: ! db.rc
+
+- name: Check if users table exists
+  shell: |
+    echo "select count(*) from pg_tables where tablename = 'users'" |\
+    {{ PSQL }} -At {{ ZABBIX_DB_DATABSE }}
+  register: count
+
+# - debug: var=count
+
+- name: Get path of schema file
+  shell: rpm -ql zabbix-server-pgsql | grep create.sql.gz
+  args:
+    warn: no
+  register: GZ
+
+- name: Import schema and data
+  shell: zcat {{ GZ.stdout }} | {{ PSQL }} {{ ZABBIX_DB_DATABSE }}
+  when: count.stdout == '0'
+
+- name: Change owner of database objects
+  postgresql_owner:
+    db: "{{ ZABBIX_DB_DATABSE }}"
+    new_owner: "{{ ZABBIX_DB_USERNAME }}"
+    reassign_owned_by: "{{ ansible_user_id }}"
+
+- name: Deploy zabbix_server.conf
+  template:
+    src: zabbix_server.conf
+    dest: /etc/zabbix/
+  become: yes
+
+- name: Change group for php directory
+  file:
+    path: /var/lib/php/session
+    state: directory
+    group: apache
+  become: yes
+
+- name: Deploy apache conf zabbix.conf 
+  template:
+    src: zabbix.conf
+    dest: /etc/httpd/conf.d/
+  become: yes
