@@ -37,8 +37,18 @@
     enabled: yes
   become: yes
 
+- name: Grant Access from development client
+  firewalld:
+    immediate: yes
+    permanent: yes
+    state: enabled
+    rich_rule: 'rule family=ipv4 service name="http" source address="{{ item }}" accept'
+  become: yes
+  with_items: "{{ DB_DEV_CIDR }}"
+
 - name: |
     Zabbix installation completed.
     Visit http://Server-IP/zabbix/ and configure initial settings.
     Credentials for Zabbix Administrator login is Admin/zabbix.
   command: echo
+
