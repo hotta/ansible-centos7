@@ -1,0 +1,4 @@
+---
+collections:
+  - name: community.mysql
+    version: 1.0.1

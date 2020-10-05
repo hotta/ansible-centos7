@@ -44,6 +44,16 @@ end
 - sudo yum -y install git epel-release
 - sudo yum -y install ansible
 
+## (New) Install ansible collections
+
+```bash
+$ ansible-galaxy collection install community.mysql
+```
+
+Note: 
+  - requires ansible 2.9+
+  - Run ansible-galaxy command as user that runs ansible, not root.
+
 ## Put this set of playbooks
 
 ```bash

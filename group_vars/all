@@ -12,6 +12,8 @@ WEBSERVER_GROUP:      nginx
 # ----------------------------- MariaDB ------------------------------
 MARIADB_VER:          '10.4'
 MARIADB_ROOT_PW:       'p@ssw0rd'
+MARIADB_PORT:         3306
+MARIADB_SOCKET:       /var/lib/mysql/mysql.sock
 # ------------------------------ PHP ---------------------------------
 PHP_REPO:             remi73        # webtatic72 / remi72 / webtatic56 / remi73
 PHP_INI_DIR:          /etc

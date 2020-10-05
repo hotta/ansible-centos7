@@ -17,6 +17,7 @@
     name:
       - mariadb-server
       - python2-PyMySQL
+      - python-psycopg2
   become: yes
 
 - name: Install mariadb bindings from remi73
@@ -66,7 +67,7 @@
 
 - name: Set MariaDB's root password
   mysql_user:
-    login_unix_socket:  /var/lib/mysql/mysql.sock
+    login_unix_socket:  "{{ MARIADB_SOCKET }}"
     name: root
     password: "{{ MARIADB_ROOT_PW }}"
   become: yes
