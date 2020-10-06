@@ -1,0 +1,30 @@
+---
+# ok: [localhost] => {
+#     "users": {
+#         "changed": false,
+#         "executed_queries": [
+#             "show tables like 'users'"
+#         ],
+#         "failed": false,
+#         "query_result": [
+#             []
+#         ],
+#         "rowcount": [
+#             0
+#         ]
+#     }
+# }
+
+- hosts: localhost
+  vars:
+    users:
+      changed: false
+      executed_queries: [ "show tables like 'users'" ]
+      failed: false
+      query_result: [ [] ]
+      rowcount: [ 0 ]
+  tasks:
+#   - setup:
+    - debug: var=users.rowcount[0]
+    - command: echo
+      when: users.rowcount[0]|int == 0
