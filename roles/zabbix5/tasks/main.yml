@@ -1,0 +1,57 @@
+---
+- name: roles/zabbix5/tasks/main.yml
+  command: echo
+
+- import_tasks: zabbix.yml
+- import_tasks: snmp.yml
+
+- name: Start zabbix-server service
+  systemd:
+    name: zabbix-server
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Start zabbix-agent service
+  systemd:
+    name: zabbix-agent
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Start snmptt(SNMP Trap Translator) service
+  systemd:
+    name: snmptt
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Start snmptrapd services
+  systemd:
+    name: snmptrapd
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Start httpd services
+  systemd:
+    name: httpd
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Grant Access from development client
+  firewalld:
+    immediate: yes
+    permanent: yes
+    state: enabled
+    rich_rule: 'rule family=ipv4 service name="http" source address="{{ item }}" accept'
+  become: yes
+  with_items: "{{ DB_DEV_CIDR }}"
+
+- name: |
+    Zabbix installation completed.
+    Visit http://Server-IP/zabbix/ and configure initial settings.
+    Credentials for Zabbix Administrator login is Admin/zabbix.
+  command: echo
+

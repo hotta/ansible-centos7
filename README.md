@@ -44,6 +44,16 @@ end
 - sudo yum -y install git epel-release
 - sudo yum -y install ansible
 
+## (New) Install ansible collections
+
+```bash
+$ ansible-galaxy collection install community.mysql
+```
+
+Note: 
+  - requires ansible 2.9+
+  - Make sure execute ansible-galaxy command as user that runs ansible, not root.
+
 ## Put this set of playbooks
 
 ```bash
@@ -76,6 +86,10 @@ $ ansible-playbook jobs/laravel.yml
 You may find jobs you want at [/jobs/README.md](https://github.com/hotta/ansible-centos7/tree/master/jobs).
 
 ## Components versions
+
+### tested ( as of 2020/10/07 ).
+
+- zabbix5(5.0.46) with snmptt, as an other role 'zabbix5'.
 
 ### tested ( as of 2020/09/18 ).
 

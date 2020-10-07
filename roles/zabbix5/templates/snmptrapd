@@ -1,0 +1,3 @@
+# /etc/sysconfig/snmptrapd
+
+OPTIONS="-m +ALL -Lsd -On"

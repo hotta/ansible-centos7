@@ -1,0 +1,25 @@
+pcp-export-pcp2zabbix.x86_64 : Performance Co-Pilot tools for exporting PCP metrics to Zabbix
+pcp-export-zabbix-agent.x86_64 : Module for exporting PCP metrics to Zabbix agent
+python-pyzabbix.noarch : PyZabbix is a Python module for working with the Zabbix API
+python2-zabbix-api-erigones.noarch : Zabbix API Python Library
+python36-zabbix-api-erigones.noarch : Zabbix API Python Library
+uwsgi-stats-pusher-zabbix.x86_64 : uWSGI - Zabbix Stats Pusher for uWSGI
+zabbix-agent.x86_64 : Old Zabbix Agent
+zabbix-agent2.x86_64 : New Zabbix Agent
+zabbix-apache-conf-scl.noarch : Zabbix frontend configuration for apache (scl version)
+zabbix-get.x86_64 : Zabbix Get
+zabbix-java-gateway.x86_64 : Zabbix java gateway
+zabbix-js.x86_64 : Zabbix JS
+zabbix-nginx-conf-scl.noarch : Zabbix frontend configuration for nginx (scl version)
+zabbix-proxy-mysql.x86_64 : Zabbix proxy for MySQL or MariaDB database
+zabbix-proxy-pgsql.x86_64 : Zabbix proxy for PostgreSQL database
+zabbix-proxy-sqlite3.x86_64 : Zabbix proxy for SQLite3 database
+zabbix-release.noarch : Zabbix repository configuration
+zabbix-sender.x86_64 : Zabbix Sender
+zabbix-server-mysql.x86_64 : Zabbix server for MySQL or MariaDB database
+zabbix-server-pgsql.x86_64 : Zabbix server for PostgresSQL database
+zabbix-web.noarch : Zabbix web frontend common package
+zabbix-web-deps-scl.noarch : Convenience package for installing php dependenciesof zabbix-web package from redhat software collections
+zabbix-web-japanese.noarch : Japanese font settings for Zabbix frontend
+zabbix-web-mysql-scl.noarch : Zabbix web frontend for MySQL (scl version)
+zabbix-web-pgsql-scl.noarch : Zabbix web frontend for PostgreSQL (scl version)

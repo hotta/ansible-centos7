@@ -1,0 +1,31 @@
+---
+- name: roles/zabbix5/tasks/snmp.yml
+  command: echo
+
+- name: Install snmp packages
+  yum:
+    name: 
+      - snmptt
+      - net-snmp
+      - net-snmp-utils
+      - net-snmp-perl
+      - perl-Sys-Syslog
+  become: yes
+
+- name: deploy snmptrapd option file
+  template:
+    src: snmptrapd
+    dest: /etc/sysconfig/
+  become: yes
+
+- name: Deploy snmptrapd.conf
+  template:
+    src: snmptrapd.conf
+    dest: /etc/snmp/
+  become: yes
+
+- name: Deploy snmptt.ini
+  template:
+    src: snmptt.ini
+    dest: /etc/snmp/
+  become: yes
