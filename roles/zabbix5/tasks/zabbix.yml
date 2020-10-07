@@ -97,11 +97,24 @@
     group: apache
   become: yes
 
-# - name: Deploy apache conf zabbix.conf 
+# - name: Deploy apache's zabbix.conf 
 #   template:
-#     src: zabbix.conf
-#     dest: /etc/httpd/conf.d/
+#     src: httpd/zabbix.conf
+#     dest: /etc/httpd/conf.d/zabbix.conf
 #   become: yes
+
+- name: Deploy php-fpm's zabbix.conf 
+  template:
+    src: php-fpm/zabbix.conf
+    dest: /etc/opt/rh/rh-php72/php-fpm.d/zabbix.conf
+  become: yes
+
+- name: Start and enable php-fpm
+  systemd:
+    name: rh-php72-php-fpm
+    state: restarted
+    enabled: yes
+  become: yes
 
 - name: Start and enable zabbix-server
   systemd:
