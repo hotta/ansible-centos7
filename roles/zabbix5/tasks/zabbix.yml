@@ -123,3 +123,10 @@
     enabled: yes
   become: yes
 
+- name: Grant access to http
+  firewalld:
+    immediate: yes
+    permanent: yes
+    service: http
+    state: enabled
+  become: yes
