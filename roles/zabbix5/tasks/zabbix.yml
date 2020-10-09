@@ -130,3 +130,11 @@
     service: http
     state: enabled
   become: yes
+
+- name: Grant access to Zabbix Server
+  firewalld:
+    immediate: yes
+    permanent: yes
+    service: zabbix-server
+    state: enabled
+  become: yes
