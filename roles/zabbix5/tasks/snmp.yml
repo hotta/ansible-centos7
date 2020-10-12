@@ -29,3 +29,14 @@
     src: snmptt.ini
     dest: /etc/snmp/
   become: yes
+
+- name: Grant access to Zabbix Server
+  firewalld:
+    immediate: yes
+    permanent: yes
+    service: "{{ item }}"
+    state: enabled
+  become: yes
+  loop:
+    - snmp
+    - snmptrap
