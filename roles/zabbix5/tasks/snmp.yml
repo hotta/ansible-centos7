@@ -24,11 +24,14 @@
     dest: /etc/snmp/
   become: yes
 
-- name: Deploy snmptt.ini
+- name: Deploy snmptt.ini and snmptt.conf
   template:
-    src: snmptt.ini
+    src: "{{ item }}"
     dest: /etc/snmp/
   become: yes
+  loop:
+    - snmptt.ini
+    - snmptt.conf
 
 - name: Grant access to Zabbix Server
   firewalld:

@@ -99,6 +99,7 @@ ZABBIX_DB_PASSWORD:   zabbix
 ZABBIX_DB_PORT:       5432
 ZABBIX_AGENT_HOSTNAME:  'Zabbix server'
 SNMP_COMMUNITY:       'public'
+SNMPTT_LOG_FILE:      '/var/log/snmptt/snmptt.log'
 # ---------------------------- Database ------------------------------
 DB_TYPE:          'pgsql'                 # 'pgsql' or 'mysql' or 'sqlite'
 DB_DEV_CIDR:      [ '192.168.56.0/24' ]
