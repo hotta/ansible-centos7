@@ -2,4 +2,5 @@
 ---
 - hosts: localhost
   roles:
+    - { role: base,       tags: base    }
     - { role: mariadb,    tags: mariadb }
