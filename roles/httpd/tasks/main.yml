@@ -1,0 +1,24 @@
+---
+- name: roles/httpd/tasks/main.yml
+  command: echo
+
+- name: Install httpd
+  yum:
+    name: httpd
+  become: yes
+
+- name: Start httpd services
+  systemd:
+    name: httpd
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Grant Access from client
+  firewalld:
+    immediate: yes
+    permanent: yes
+    state: enabled
+    rich_rule: 'rule family=ipv4 service name="http" source address="{{ item }}" accept'
+  become: yes
+  with_items: "{{ DB_DEV_CIDR }}"
