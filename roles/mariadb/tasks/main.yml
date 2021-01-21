@@ -79,16 +79,17 @@
     dest: /root/.my.cnf
   become: yes
 
-- name: Customize /etc/my.cnf.d/server.cnf
+- name: Deploy customized server.cnf
   template:
     src: server.cnf
     dest: /etc/my.cnf.d/
   become: yes
 
-- name: Enable mariadb customization 
+- name: Restarting mariadb for applying changes
   systemd: 
     name:     mariadb
     state:    restarted 
+    enabled:  yes
   become: yes
 
 - name: Grant Access from development client
