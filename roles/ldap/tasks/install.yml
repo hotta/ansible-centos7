@@ -7,6 +7,14 @@
       - openldap-servers
       - openldap-clients
   become: yes
+
+- name: create directory for remote_tmp
+  file:
+    path: /var/lib/ldap/.ansible/tmp
+    state: directory
+    mode: 0700
+  become: yes
+
 - name: Set DB_CONFIG
   copy:
     src: /usr/share/openldap-servers/DB_CONFIG.example
