@@ -47,7 +47,7 @@ end
 ## (New) Install ansible collections
 
 ```bash
-$ ansible-galaxy collection install community.mysql
+$ ansible-galaxy install -r requirements.yml
 ```
 
 Note: 
