@@ -15,7 +15,7 @@ MARIADB_ROOT_PW:       'p@ssw0rd'
 MARIADB_PORT:         3306
 MARIADB_SOCKET:       /var/lib/mysql/mysql.sock
 # ------------------------------ PHP ---------------------------------
-PHP_REPO:             remi73        # webtatic72 / remi72 / webtatic56 / remi73
+PHP_REPO:             remi74  # webtatic72/remi72/webtatic56/remi73/remi74
 PHP_INI_DIR:          /etc
 PHP_VAR_DIR:          /var
 PHP_LOG_DIR:          /var/log

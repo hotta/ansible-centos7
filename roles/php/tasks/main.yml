@@ -99,6 +99,26 @@
   become: yes
   when: PHP_REPO == "remi73"
 
+- name: Install PHP dependencies from remi74
+  yum:
+    enablerepo: "{{ PHP_ENABLEREPO }}"
+    name: 
+      - "{{ PHP_PKG_PREFIX }}"
+      - "{{ PHP_PKG_PREFIX }}-mbstring"
+      - "{{ PHP_PKG_PREFIX }}-cli"
+      - "{{ PHP_PKG_PREFIX }}-xml"
+      - "{{ PHP_PKG_PREFIX }}-pdo"
+      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
+      - "{{ PHP_PKG_PREFIX }}-gd"
+      - "{{ PHP_PKG_PREFIX }}-intl"
+      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
+      - "{{ PHP_PKG_PREFIX }}-bcmath"
+      - "{{ PHP_PKG_PREFIX }}-process"
+      - "{{ PHP_PKG_PREFIX }}-fpm"
+  become: yes
+  when: PHP_REPO == "remi74"
+
 - name: php.ini - date.timezone
   lineinfile:
     dest:         "{{ PHP_INI_DIR }}/php.ini"

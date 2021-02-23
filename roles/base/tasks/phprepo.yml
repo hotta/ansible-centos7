@@ -10,6 +10,7 @@
     - PHP_REPO != 'remi56'
     - PHP_REPO != 'remi72'
     - PHP_REPO != 'remi73'
+    - PHP_REPO != 'remi74'
 
 - name: set vars for php repositories
   include_vars: "{{ PHP_REPO }}.yml"
@@ -32,4 +33,4 @@
   yum:
     name: "{{ PHP_REPO_PKG }}"
   become: yes
-  when: PHP_REPO in [ 'remi56', 'remi72', 'remi73' ]
+  when: PHP_REPO in [ 'remi56', 'remi72', 'remi73', 'remi74' ]
