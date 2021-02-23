@@ -50,7 +50,7 @@
   become: yes
   
 - name: Install wp instance --path={{ WP_HOME }}
-  shell: "{{ WP_CLI }} core install --path={{ WP_HOME }}
+  shell: "{{ WP_CLI }} core install --allow-root --path={{ WP_HOME }}
     --url={{ WP_SERVER_NAME }} --title='{{ WP_TITLE }}' 
     --admin_user={{ WP_ADMIN_USER }} --admin_password={{ WP_ADMINPASS }} 
     --admin_email={{ WP_ADMIN_EMAIL }}"
