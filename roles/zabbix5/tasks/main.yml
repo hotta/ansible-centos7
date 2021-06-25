@@ -52,6 +52,6 @@
 - name: |
     Zabbix installation completed.
     Visit http://Server-IP/zabbix/ and configure initial settings.
+    Credentials for Zabbix database is {{ ZABBIX_DB_USERNAME }}/{{ ZABBIX_DB_PASSWORD }}.
     Credentials for Zabbix Administrator login is Admin/zabbix.
   command: echo
-

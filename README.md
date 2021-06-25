@@ -44,20 +44,17 @@ end
 - sudo yum -y install git epel-release
 - sudo yum -y install ansible
 
-## (New) Install ansible collections
+## Get this playbook
 
 ```bash
+$ git clone https://github.com/hotta/ansible-centos7.git
+$ cd ansible-centos7
 $ ansible-galaxy collection install -r requirements.yml
 ```
 
 Note: 
-  - requires ansible 2.9+
-  - Make sure execute ansible-galaxy command as user that runs ansible, not root.
+  - Make sure to run ansible-galaxy as user that will run ansible, not root.
 
-## Put this set of playbooks
-
-```bash
-$ git clone https://github.com/hotta/ansible-centos7.git
 ```
 
 ## (Option) Customize localhost.yml 
