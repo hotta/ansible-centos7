@@ -6,7 +6,7 @@
   yum:
     enablerepo: remi,remi-php72
     name:
-      - "{{ PHP_PKG_PREFIX }}-process"
+      - php-process
   become: yes
   when: PHP_REPO == "remi72"
 
@@ -14,7 +14,7 @@
   yum:
     enablerepo: remi,remi-php56
     name:
-      - "{{ PHP_PKG_PREFIX }}-process"
+      - php-process
   become: yes
   when: PHP_REPO == "remi56"
 

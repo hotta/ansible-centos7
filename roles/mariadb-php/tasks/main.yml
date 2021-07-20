@@ -2,34 +2,9 @@
 - name: roles/mariadb-php/tasks/main.yml
   command: echo
 
-- name: Install mariadb bindings from remi74
+- name: Install mariadb bindings from remiXX
   yum:
-    enablerepo: remi,remi-php74
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
+    enablerepo: remi,remi-{{ PHP_REPO }}
+    name: php-mysqlnd
   become: yes
   notify: reload php-fpm
-  when: PHP_REPO == "remi74"
-
-- name: Install mariadb bindings from remi73
-  yum:
-    enablerepo: remi,remi-php73
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "remi73"
-
-- name: Install mariadb bindings from remi72
-  yum:
-    enablerepo: remi,remi-php72
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "remi72"
-
-- name: Install mariadb bindings from remi56
-  yum:
-    enablerepo: remi,remi-php56
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "remi56"

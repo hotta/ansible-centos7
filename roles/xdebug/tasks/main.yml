@@ -4,8 +4,8 @@
 
 - name: Install php-xdebug for remi
   yum: 
-    enablerepo: "{{ PHP_ENABLEREPO }}"
-    name: "{{ PHP_PKG_PREFIX }}-pecl-xdebug"
+    enablerepo: remi,remi-{{ PHP_REPO }}
+    name: php-pecl-xdebug
   become: yes
   when: PHP_ENABLEREPO is defined
 
