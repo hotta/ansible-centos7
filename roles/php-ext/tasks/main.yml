@@ -5,7 +5,6 @@
 
 - name: Install packages required for building php extension
   yum: 
-    enablerepo: remi,remi-{{ PHP_REPO }
     name:
       - php-devel
       - php-devel

@@ -16,6 +16,8 @@ MARIADB_PORT:         3306
 MARIADB_SOCKET:       /var/lib/mysql/mysql.sock
 # ------------------------------ PHP ---------------------------------
 PHP_REPO:             remi74  # remi72/remi73/remi74
+REMI_RELEASE:         https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+PHP_REPO_PKG:         remi,remi-{{ PHP_REPO }}
 PHP_INI_DIR:          /etc
 PHP_VAR_DIR:          /var
 PHP_LOG_DIR:          /var/log

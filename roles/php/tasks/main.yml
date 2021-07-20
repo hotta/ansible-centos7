@@ -4,7 +4,6 @@
 
 - name: Install PHP dependencies from remiXX
   yum:
-    enablerepo: remi,remi-{{ PHP_REPO }
     name: 
       - php
       - php-mbstring
@@ -23,19 +22,17 @@
 
 - name: Install php-mcrypt
   yum:
-    enablerepo: remi,remi-remi56
     name: 
       - php-mcrypt
   become: yes
-  when: PHP_REPO == remi56
+  when: PHP_REPO == "remi56"
 
 - name: Install php-bcmath
   yum:
-    enablerepo: remi,remi-{{ PHP_REPO }}
     name: 
       - php-bcmath
   become: yes
-  when: PHP_REPO == "remi72" or PHP_REPO == "remi73" or PHP_REPO == "remi74"
+  when: PHP_REPO is regex("remi7[234]")
 
 - name: php.ini - date.timezone
   lineinfile:

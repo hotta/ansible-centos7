@@ -2,17 +2,15 @@
 - name: ~/ansible-centos7/roles/pgpoolAdmin/tasks/main.yml
   command: echo
 
-- name: Install additional package from remi72
+- name: Install additional package from remi7X
   yum:
-    enablerepo: remi,remi-php72
     name:
       - php-process
   become: yes
-  when: PHP_REPO == "remi72"
+  when: PHP_REPO is regex("remi7[234]")
 
 - name: Install additional package from remi56
   yum:
-    enablerepo: remi,remi-php56
     name:
       - php-process
   become: yes
