@@ -37,6 +37,17 @@
       - zabbix-web-japanese
   become: yes
 
+# - name: Install php-ldap which is required by zabbix5
+#   yum:
+#     name: php-ldap
+#   become: yes
+
+- name: Add addtional php settings for httpd
+  template:
+    src: httpd/htaccess
+    dest: /usr/share/zabbix/.htaccess
+  become: yes
+
 - name: Create Database for zabbix
   mysql_db:
     name: "{{ ZABBIX_DB_DATABSE }}"
@@ -124,4 +135,11 @@
     permanent: yes
     service: zabbix-server
     state: enabled
+  become: yes
+
+- name: Make directory writable for user apache
+  file:
+    path: /etc/zabbix/web/
+    state: directory
+    owner: apache
   become: yes

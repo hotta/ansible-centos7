@@ -1,0 +1,3 @@
+PHP_Value post_max_size 16M
+PHP_Value max_execution_time 300
+PHP_Value max_input_time 300
