@@ -33,17 +33,3 @@
   become: yes
   notify: reload php-fpm
   when: PHP_REPO == "remi56"
-
-- name: Install mariadb bindings from webtatic56
-  yum:
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "webtatic56"
-
-- name: Install mariadb bindings from webtatic72
-  yum:
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "webtatic72"

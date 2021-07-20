@@ -9,12 +9,6 @@
   become: yes
   when: PHP_ENABLEREPO is defined
 
-- name: Install php-xdebug for webtatic
-  yum: 
-    name: "{{ PHP_PKG_PREFIX }}-pecl-xdebug"
-  become: yes
-  when: PHP_ENABLEREPO is not defined
-
 - name: Put additional settings file.
   template:
     src:  16-xdebug.ini

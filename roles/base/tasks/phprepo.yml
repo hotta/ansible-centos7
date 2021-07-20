@@ -5,8 +5,6 @@
 - name: Validate PHP_REPO variable
   command: echo
   failed_when:
-    - PHP_REPO != 'webtatic56'
-    - PHP_REPO != 'webtatic72'
     - PHP_REPO != 'remi56'
     - PHP_REPO != 'remi72'
     - PHP_REPO != 'remi73'
@@ -23,14 +21,16 @@
     path: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ _V }}
   register: epel_key
 
-- name: Install webtatic repositories
-  yum:
-    name: "{{ PHP_REPO_PKG }}"
-  become: yes
-  when: PHP_REPO == 'webtatic56' or PHP_REPO == 'webtatic72'
-
 - name: Install remi repositories
   yum:
     name: "{{ PHP_REPO_PKG }}"
   become: yes
   when: PHP_REPO in [ 'remi56', 'remi72', 'remi73', 'remi74' ]
+
+- name: Disable remi-php*
+  command: yum-config-manager --disable remi-php*
+  become: yes
+
+- name: Enable {{ PHP_REPO_PKG }}
+  command: yum-config-manager --enable {{ PHP_ENABLEREPO }}
+  become: yes

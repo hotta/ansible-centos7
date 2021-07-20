@@ -18,13 +18,6 @@
   become: yes
   when: PHP_REPO == "remi56"
 
-- name: Install additional package from webtatic
-  yum:
-    name:
-      - "{{ PHP_PKG_PREFIX }}-process"
-  become: yes
-  when: PHP_REPO == "webtatic72"
-
 - name: apply changes of php-fpm
   command: echo
   notify: restart php-fpm
