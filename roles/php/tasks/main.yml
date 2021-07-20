@@ -2,6 +2,8 @@
 - name: roles/php/tasks/main.yml
   command: echo
 
+- import_tasks: phprepo.yml
+
 - name: Install PHP dependencies from remiXX
   yum:
     name: 
@@ -14,6 +16,7 @@
       - php-pecl-zip
       - php-gd
       - php-intl
+      - php-ldap
       - php-mysqlnd
       - php-mcrypt
       - php-process
