@@ -17,10 +17,10 @@
 # Note: zabbix-agent is the older one.
 # There is the new zabbix-agent2 package as well.
 
-- name: Install Software Collection(SCL) to enable scl supported packages
-  yum:
-    name: centos-release-scl
-  become: yes
+# - name: Install Software Collection(SCL) to enable scl supported packages
+#   yum:
+#     name: centos-release-scl
+#   become: yes
 
 - name: Enable zabbix-frontend
   command: yum-config-manager --enable zabbix-frontend
@@ -29,8 +29,8 @@
 - name: Install additional packages
   yum:
     name: 
-      - zabbix-apache-conf-scl
-      - zabbix-web-mysql-scl
+#       - zabbix-apache-conf-scl
+#      - zabbix-web-mysql-scl
       - zabbix-agent
       - zabbix-get
       - zabbix-sender
@@ -97,11 +97,11 @@
     group: apache
   become: yes
 
-# - name: Deploy apache's zabbix.conf 
-#   template:
-#     src: httpd/zabbix.conf
-#     dest: /etc/httpd/conf.d/zabbix.conf
-#   become: yes
+- name: Deploy apache's zabbix.conf 
+  template:
+    src: httpd/zabbix.conf
+    dest: /etc/httpd/conf.d/zabbix.conf
+  become: yes
 
 - name: Start and enable zabbix-server
   systemd:
