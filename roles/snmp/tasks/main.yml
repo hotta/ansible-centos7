@@ -1,15 +1,13 @@
 ---
-- name: roles/zabbix5/tasks/snmp.yml
+- name: roles/snmp/tasks/snmp.yml
   command: echo
 
 - name: Install snmp packages
   yum:
     name: 
-      - snmptt
       - net-snmp
       - net-snmp-utils
       - net-snmp-perl
-      - perl-Sys-Syslog
   become: yes
 
 - name: deploy snmptrapd option file
@@ -24,22 +22,18 @@
     dest: /etc/snmp/
   become: yes
 
-- name: Deploy snmptt.ini and snmptt.conf
-  template:
-    src: "{{ item }}"
-    dest: /etc/snmp/
+- name: Start snmptd services
+  systemd:
+    name: snmpd
+    state: restarted
+    enabled: yes
   become: yes
-  loop:
-    - snmptt.ini
-    - snmptt.conf
 
-- name: Grant access to Zabbix Server
-  firewalld:
-    immediate: yes
-    permanent: yes
-    service: "{{ item }}"
-    state: enabled
+- name: Start snmptrapd services
+  systemd:
+    name: snmptrapd
+    state: restarted
+    enabled: yes
   become: yes
-  loop:
-    - snmp
-    - snmptrap
+
+
