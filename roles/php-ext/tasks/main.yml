@@ -6,7 +6,8 @@
 - name: Install packages required for building php extension
   yum: 
     name:
-      - "{{ PHP_PKG_PREFIX }}-devel"
+      - php-devel
+      - php-devel
       - libxml2-devel
       - openssl-devel
       - readline-devel
@@ -15,5 +16,4 @@
       - re2c
       - yum-utils
       - rpm-build
-      - "{{ PHP_PKG_PREFIX }}-devel"
   become: yes

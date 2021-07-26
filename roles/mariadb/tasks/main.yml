@@ -20,44 +20,6 @@
       - python-psycopg2
   become: yes
 
-- name: Install mariadb bindings from remi73
-  yum:
-    enablerepo: remi,remi-php73
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "remi73"
-
-- name: Install mariadb bindings from remi72
-  yum:
-    enablerepo: remi,remi-php72
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "remi72"
-
-- name: Install mariadb bindings from remi56
-  yum:
-    enablerepo: remi,remi-php56
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "remi56"
-
-- name: Install mariadb bindings from webtatic56
-  yum:
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "webtatic56"
-
-- name: Install mariadb bindings from webtatic72
-  yum:
-    name: "{{ PHP_PKG_PREFIX }}-mysqlnd"
-  become: yes
-  notify: reload php-fpm
-  when: PHP_REPO == "webtatic72"
-
 - name: Autostart mariadb 
   systemd: 
     name:     mariadb

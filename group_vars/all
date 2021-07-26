@@ -15,7 +15,9 @@ MARIADB_ROOT_PW:       'p@ssw0rd'
 MARIADB_PORT:         3306
 MARIADB_SOCKET:       /var/lib/mysql/mysql.sock
 # ------------------------------ PHP ---------------------------------
-PHP_REPO:             remi74  # webtatic72/remi72/webtatic56/remi73/remi74
+PHP_REPO:             remi74  # remi72/remi73/remi74
+REMI_RELEASE:         https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+PHP_REPO_PKG:         remi,remi-{{ PHP_REPO }}
 PHP_INI_DIR:          /etc
 PHP_VAR_DIR:          /var
 PHP_LOG_DIR:          /var/log
@@ -23,7 +25,6 @@ PHP_BIN_DIR:          /usr/bin
 PHP_LIB_DIR:          /usr/lib64/php
 PHP_MODULE_DIR:       "{{ PHP_LIB_DIR }}/modules"
 PHP_REMI_URL:         http://rpms.famillecollet.com/enterprise/
-PHP_WEBTATIC_URL:     http://mirror.webtatic.com/yum/
 XDEBUG_REMOTE_HOST:   192.168.56.1
 XDEBUG_IDEKEY:        vscode
 # ---------------------------- Composer ------------------------------

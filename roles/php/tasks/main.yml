@@ -2,122 +2,40 @@
 - name: roles/php/tasks/main.yml
   command: echo
 
-- name: Install PHP dependencies from remi56
+- import_tasks: phprepo.yml
+
+- name: Install PHP dependencies from remiXX
   yum:
-    enablerepo: "{{ PHP_ENABLEREPO }}"
     name: 
-      - "{{ PHP_PKG_PREFIX }}"
-      - "{{ PHP_PKG_PREFIX }}-mbstring"
-      - "{{ PHP_PKG_PREFIX }}-cli"
-      - "{{ PHP_PKG_PREFIX }}-xml"
-      - "{{ PHP_PKG_PREFIX }}-pdo"
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
-      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-      - "{{ PHP_PKG_PREFIX }}-gd"
-      - "{{ PHP_PKG_PREFIX }}-intl"
-      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
-      - "{{ PHP_PKG_PREFIX }}-mcrypt"
-      - "{{ PHP_PKG_PREFIX }}-process"
-      - "{{ PHP_PKG_PREFIX }}-fpm"
+      - php
+      - php-mbstring
+      - php-cli
+      - php-xml
+      - php-pdo
+      - php-pgsql
+      - php-pecl-zip
+      - php-gd
+      - php-intl
+      - php-ldap
+      - php-mysqlnd
+      - php-mcrypt
+      - php-process
+      - php-fpm
+  become: yes
+
+- name: Install php-mcrypt
+  yum:
+    name: 
+      - php-mcrypt
   become: yes
   when: PHP_REPO == "remi56"
 
-- name: Install PHP dependencies from remi72
+- name: Install php-bcmath
   yum:
-    enablerepo: "{{ PHP_ENABLEREPO }}"
     name: 
-      - "{{ PHP_PKG_PREFIX }}"
-      - "{{ PHP_PKG_PREFIX }}-mbstring"
-      - "{{ PHP_PKG_PREFIX }}-cli"
-      - "{{ PHP_PKG_PREFIX }}-xml"
-      - "{{ PHP_PKG_PREFIX }}-pdo"
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
-      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-      - "{{ PHP_PKG_PREFIX }}-gd"
-      - "{{ PHP_PKG_PREFIX }}-intl"
-      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
-      - "{{ PHP_PKG_PREFIX }}-process"
-      - "{{ PHP_PKG_PREFIX }}-fpm"
+      - php-bcmath
   become: yes
-  when: PHP_REPO == "remi72"
-
-- name: Install PHP dependencies from webtatic56
-  yum:
-    name:
-      - "{{ PHP_PKG_PREFIX }}"
-      - "{{ PHP_PKG_PREFIX }}-mbstring"
-      - "{{ PHP_PKG_PREFIX }}-cli"
-      - "{{ PHP_PKG_PREFIX }}-xml"
-      - "{{ PHP_PKG_PREFIX }}-pdo"
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
-      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-      - "{{ PHP_PKG_PREFIX }}-intl"
-      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
-      - "{{ PHP_PKG_PREFIX }}-mcrypt"
-      - "{{ PHP_PKG_PREFIX }}-snmp"
-      - "{{ PHP_PKG_PREFIX }}-xml"
-      - "{{ PHP_PKG_PREFIX }}-process"
-      - "{{ PHP_PKG_PREFIX }}-fpm"
-  become: yes
-  when: PHP_REPO == "webtatic56"
-
-- name: Install PHP dependencies from webtatic72
-  yum:
-    name:
-      - "{{ PHP_PKG_PREFIX }}"
-      - "{{ PHP_PKG_PREFIX }}-mbstring"
-      - "{{ PHP_PKG_PREFIX }}-cli"
-      - "{{ PHP_PKG_PREFIX }}-xml"
-      - "{{ PHP_PKG_PREFIX }}-pdo"
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
-      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-      - "{{ PHP_PKG_PREFIX }}-intl"
-      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
-      - "{{ PHP_PKG_PREFIX }}-process"
-      - "{{ PHP_PKG_PREFIX }}-fpm"
-  become: yes
-  when: PHP_REPO == "webtatic72"
-
-- name: Install PHP dependencies from remi73
-  yum:
-    enablerepo: "{{ PHP_ENABLEREPO }}"
-    name: 
-      - "{{ PHP_PKG_PREFIX }}"
-      - "{{ PHP_PKG_PREFIX }}-mbstring"
-      - "{{ PHP_PKG_PREFIX }}-cli"
-      - "{{ PHP_PKG_PREFIX }}-xml"
-      - "{{ PHP_PKG_PREFIX }}-pdo"
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
-      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-      - "{{ PHP_PKG_PREFIX }}-gd"
-      - "{{ PHP_PKG_PREFIX }}-intl"
-      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
-      - "{{ PHP_PKG_PREFIX }}-bcmath"
-      - "{{ PHP_PKG_PREFIX }}-process"
-      - "{{ PHP_PKG_PREFIX }}-fpm"
-  become: yes
-  when: PHP_REPO == "remi73"
-
-- name: Install PHP dependencies from remi74
-  yum:
-    enablerepo: "{{ PHP_ENABLEREPO }}"
-    name: 
-      - "{{ PHP_PKG_PREFIX }}"
-      - "{{ PHP_PKG_PREFIX }}-mbstring"
-      - "{{ PHP_PKG_PREFIX }}-cli"
-      - "{{ PHP_PKG_PREFIX }}-xml"
-      - "{{ PHP_PKG_PREFIX }}-pdo"
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
-      - "{{ PHP_PKG_PREFIX }}-pecl-zip"
-      - "{{ PHP_PKG_PREFIX }}-gd"
-      - "{{ PHP_PKG_PREFIX }}-intl"
-      - "{{ PHP_PKG_PREFIX }}-mysqlnd"
-      - "{{ PHP_PKG_PREFIX }}-bcmath"
-      - "{{ PHP_PKG_PREFIX }}-process"
-      - "{{ PHP_PKG_PREFIX }}-fpm"
-  become: yes
-  when: PHP_REPO == "remi74"
+  when: PHP_REPO is regex("remi7[234]")
 
 - name: php.ini - date.timezone
   lineinfile:

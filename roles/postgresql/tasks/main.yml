@@ -24,7 +24,7 @@
     name:
       - postgresql{{ PG_VERSION }}-server
       - postgresql{{ PG_VERSION }}-devel
-      - "{{ PHP_PKG_PREFIX }}-pgsql"
+      - php-pgsql
       - python-psycopg2
   become: yes
 - name: Add {{ PG_BIN_DIR }} to $PATH

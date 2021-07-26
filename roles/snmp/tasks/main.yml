@@ -1,0 +1,39 @@
+---
+- name: roles/snmp/tasks/snmp.yml
+  command: echo
+
+- name: Install snmp packages
+  yum:
+    name: 
+      - net-snmp
+      - net-snmp-utils
+      - net-snmp-perl
+  become: yes
+
+- name: deploy snmptrapd option file
+  template:
+    src: snmptrapd
+    dest: /etc/sysconfig/
+  become: yes
+
+- name: Deploy snmptrapd.conf
+  template:
+    src: snmptrapd.conf
+    dest: /etc/snmp/
+  become: yes
+
+- name: Start snmptd services
+  systemd:
+    name: snmpd
+    state: restarted
+    enabled: yes
+  become: yes
+
+- name: Start snmptrapd services
+  systemd:
+    name: snmptrapd
+    state: restarted
+    enabled: yes
+  become: yes
+
+
