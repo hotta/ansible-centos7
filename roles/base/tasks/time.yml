@@ -2,7 +2,33 @@
 ---
 - name: roles/base/tasks/time.yml
   command: echo
+
 - name: Set time zone (ansible 2.2 or later)
   timezone:
     name: "{{ TIME_ZONE }}"
   become: yes
+
+- name: Install chronyd
+  yum:
+    name: chrony
+  become: yes
+
+- name: Quick time adjust
+  lineinfile:
+    path: /etc/chrony.conf
+    regex: makestep
+    line: makestep 1.0 -1
+  become: yes
+  when: ansible_virtualization_type == "virtualbox"
+
+- name: Restart chronyd to adjust time ASAP
+  systemd:
+    name: chronyd
+    state: restarted
+    enabled: yes
+  become: yes
+  when: ansible_virtualization_type == "virtualbox"
+
+- name: Wait for chrony to sync
+  pause: 
+    seconds: 3

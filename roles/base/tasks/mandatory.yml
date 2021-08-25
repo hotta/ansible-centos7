@@ -4,7 +4,6 @@
 - name: Install tools required for CentOS 7.x
   yum: 
     name:
-      - chrony
       - glibc-devel
       - gcc-c++
       - python-passlib
@@ -23,34 +22,8 @@
       - kernel-devel
       - man
       - npm
+      - psmisc
   become: yes
-  when: ansible_distribution_major_version == '7'
-
-- name: Install tools required for CentOS 6.x
-  yum:
-    name:
-      - chrony
-      - glibc-devel
-      - gcc-c++
-      - python-passlib
-      - git
-      - elinks
-      - patch
-      - rsync
-      - vim-enhanced
-      - nkf
-      - bind-utils
-      - unzip
-      - bzip2
-      - wget
-      - w3m
-      - python-pip
-      - libselinux-python
-      - kernel-devel
-      - man
-      - npm
-  become: yes
-  when: ansible_distribution_major_version == '6'
 
 - name: yum update
   yum:
