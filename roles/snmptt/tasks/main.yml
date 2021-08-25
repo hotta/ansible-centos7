@@ -1,5 +1,5 @@
 ---
-- name: roles/zabbix5/tasks/snmp.yml
+- name: roles/snmptt/tasks/snmp.yml
   command: echo
 
 - name: Install snmptt
@@ -18,13 +18,9 @@
     - snmptt.ini
     - snmptt.conf
 
-- name: Grant access to Zabbix Server
-  firewalld:
-    immediate: yes
-    permanent: yes
-    service: "{{ item }}"
-    state: enabled
+- name: Start snmptt(SNMP Trap Translator) service
+  systemd:
+    name: snmptt
+    state: restarted
+    enabled: yes
   become: yes
-  loop:
-    - snmp
-    - snmptrap

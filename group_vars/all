@@ -10,7 +10,7 @@ WWW_BASE:             /var/www
 WEBSERVER_USER:       nginx
 WEBSERVER_GROUP:      nginx
 # ----------------------------- MariaDB ------------------------------
-MARIADB_VER:          '10.4'
+MARIADB_VER:          '10.5'
 MARIADB_ROOT_PW:       'p@ssw0rd'
 MARIADB_PORT:         3306
 MARIADB_SOCKET:       /var/lib/mysql/mysql.sock
