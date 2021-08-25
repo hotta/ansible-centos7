@@ -1,0 +1,27 @@
+---
+- name: roles/snmptt/tasks/snmptt.yml
+  command: echo
+
+- name: Install snmptt
+  yum:
+    name: 
+      - snmptt
+      - perl-Sys-Syslog
+      - net-snmp-perl
+  become: yes
+
+- name: Deploy snmptt.ini and snmptt.conf
+  template:
+    src: "{{ item }}"
+    dest: /etc/snmp/
+  become: yes
+  loop:
+    - snmptt.ini
+    - snmptt.conf
+
+- name: Start snmptt(SNMP Trap Translator) service
+  systemd:
+    name: snmptt
+    state: restarted
+    enabled: yes
+  become: yes
