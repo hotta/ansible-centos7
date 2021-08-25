@@ -3,7 +3,6 @@
   command: echo
 
 - import_tasks: zabbix.yml
-- import_tasks: snmptt.yml
 
 - name: Start zabbix-server service
   systemd:
@@ -15,13 +14,6 @@
 - name: Start zabbix-agent service
   systemd:
     name: zabbix-agent
-    state: restarted
-    enabled: yes
-  become: yes
-
-- name: Start snmptt(SNMP Trap Translator) service
-  systemd:
-    name: snmptt
     state: restarted
     enabled: yes
   become: yes

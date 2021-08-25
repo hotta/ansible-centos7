@@ -1,0 +1,6 @@
+---
+- name: roles/snmptt/tasks/main.yml
+  set_fact: d=0
+
+- import_tasks: snmptt.yml
+  tags: snmptt

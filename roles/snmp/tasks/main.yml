@@ -36,4 +36,13 @@
     enabled: yes
   become: yes
 
-
+- name: Grant access to NMS such as Zabbix Server
+  firewalld:
+    immediate: yes
+    permanent: yes
+    service: "{{ item }}"
+    state: enabled
+  become: yes
+  loop:
+    - snmp
+    - snmptrap
