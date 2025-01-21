@@ -109,4 +109,3 @@ LDAP_WORKDIR:     "{{ ansible_user_dir}}/ldap"
 LDAP_ROOTPW:      ROOT_PASS
 LDAP_ROOTDN:      dc=example,dc=com
 LDAP_BINDDN:      cn=Manager,dc=example,dc=com
-LDAP_BINDPW:      BIND_PASS

@@ -21,7 +21,10 @@
 - name: Create directory for remote_tmp
   file:
     path: /var/lib/ldap/.ansible/tmp
+    owner: ldap
+    group: ldap
     mode: 0700
+    recurse: true
   become: true
 
 - name: Set DB_CONFIG
@@ -32,28 +35,76 @@
   become: yes
   become_user: ldap
 
-
 - name: Prepare work directory
   file:
     path: "{{ LDAP_WORKDIR }}"
     state: directory
 
+- name: Check olcSuffix
+  community.general.ldap_search:
+    dn: olcDatabase={2}hdb,cn=config
+    bind_dn: cn=config
+    bind_pw: "{{ LDAP_ROOTPW }}"
+    attrs: [ 'olcSuffix' ]
+  register: hdb
+  tags: dump
+
+# ok: [localhost] => {
+#     "hdb": {
+#         "changed": false,
+#         "failed": false,
+#         "results": [
+#             {
+#                 "dn": "olcDatabase={2}hdb,cn=config",
+#                 "olcSuffix": "dc=example,dc=com"
+#             }
+#         ]
+#     }
+# }
+
+- debug:
+#   var: hdb.results.olcSuffix            - variable is not defined
+#   var: hdb.results['olcSuffix']         - variable is not defined
+#   var: "{{ hdb.results['olcSuffix'] }}" - list object has no attribute 'olcSuffix'
+#   msg: "{{ hdb.results | string | regex_search('olcSuffix') }}"   => olcSuffix
+#   msg: "{{ hdb.results.'olcSuffix' }}"  - template error
+    msg: "{{ hdb.results[0]['olcSuffix'] }}"  # dc=example,dc=com
+  tags: dump
+
+- set_fact:
+    init: true
+    when: hdb.results[0]['olcSuffix'] != LDAP_ROOTDN
+  tags: dump
+
+- set_fact:
+    init: false
+    when: hdb.results[0]['olcSuffix'] == LDAP_ROOTDN
+  tags: dump
+
+- debug: var=init
+  tags: dump
+
 - name: Create root password hash
   command: slappasswd -s {{ LDAP_ROOTPW }}
   register: olcRootPass
+  when: init
 
 - debug: var=olcRootPass.stdout
+  when: init
 
 - name: Check if 00_addpw exists
   stat:
     path: "{{ LDAP_WORKDIR }}/00_addpw.ldif"
   register: addpw
+  when: init
 
 - name: Create 00_addpw.ldif
   template:
     src: 00_addpw.ldif
     dest: "{{ LDAP_WORKDIR }}/"
-  when: not addpw.stat.exists
+  when: 
+    - init
+    - not addpw.stat.exists
 
 # - name: Change Root password
 #  community.general.ldap_entry:
@@ -65,6 +116,7 @@
 - name: Set root passwd
   command: ldapmodify -H ldapi:// -f "{{ LDAP_WORKDIR }}/00_addpw.ldif"
   become: true
+  when: init
 
 - name: import schema ldifs
   command: ldapadd -x -D cn=config -w {{ LDAP_ROOTPW }} -f /etc/openldap/schema/{{ item }}
@@ -75,30 +127,38 @@
     - nis.ldif
     - inetorgperson.ldif
   ignore_errors: true
+  when: init
 
 - name: Check if needed schemas exist.
   command: ldapsearch -x -LLL -D cn=config -w {{ LDAP_ROOTPW }} -b cn=schema,cn=config dn
   register: schema
+  when: init
 
 - debug: var=schema.stdout
+  when: init
 
 - name: Create bind password hash
-  command: slappasswd -s {{ LDAP_BINDPW }}
+  command: slappasswd -s {{ LDAP_ROOTPW }}
   register: olcBindPass
+  when: init
 
 - debug: var=olcBindPass.stdout
+  when: init
 
 - name: Check if 01_change_domain exists
   stat:
     path: "{{ LDAP_WORKDIR }}/01_change_domain.ldif"
   register: ch_domain
+  when: init
 
 - name: Create 01_change_domain.ldif
   template:
     src: 01_change_domain.ldif
     dest: "{{ LDAP_WORKDIR }}/"
-  when: not ch_domain.stat.exists
+  when:
+    - init
+    - not ch_domain.stat.exists
 
 - name: Change domain
   command: ldapadd -x -D cn=config -w {{ LDAP_ROOTPW }} -f "{{ LDAP_WORKDIR }}/01_change_domain.ldif"
-
+  when: init
