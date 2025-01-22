@@ -1,0 +1,104 @@
+---
+- name: roles/openldap/tasks/main.yml
+  assert: { that: true, quiet: true }
+
+- name: Install LDAP support packages
+  yum: 
+    name:
+      - openldap-servers
+      - openldap-clients
+      - migrationtools
+      - ldapvi
+  become: yes
+
+- name: Start slapd
+  systemd:
+    name: slapd
+    state: started
+    enabled: true
+  become: true
+
+- name: Create directory for remote_tmp
+  file:
+    path: /var/lib/ldap/.ansible/tmp
+    mode: 0700
+  become: true
+
+- name: Set DB_CONFIG
+  copy:
+    src: /usr/share/openldap-servers/DB_CONFIG.example
+    dest: /var/lib/ldap/DB_CONFIG
+    remote_src: true
+  become: yes
+  become_user: ldap
+
+
+- name: Prepare work directory
+  file:
+    path: "{{ LDAP_WORKDIR }}"
+    state: directory
+
+- name: Create root password hash
+  command: slappasswd -s {{ LDAP_ROOTPW }}
+  register: olcRootPass
+
+- debug: var=olcRootPass.stdout
+
+- name: Check if 00_addpw exists
+  stat:
+    path: "{{ LDAP_WORKDIR }}/00_addpw.ldif"
+  register: addpw
+
+- name: Create 00_addpw.ldif
+  template:
+    src: 00_addpw.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+  when: not addpw.stat.exists
+
+# - name: Change Root password
+#  community.general.ldap_entry:
+#    dn: olcDatabase={0}config,cn=config
+#    objectClass: olcDatabaseConfig
+#    olcRootPW: "{{ olcRootPass.stdout }}"
+#  become: true
+
+- name: Set root passwd
+  command: ldapmodify -H ldapi:// -f "{{ LDAP_WORKDIR }}/00_addpw.ldif"
+  become: true
+
+- name: import schema ldifs
+  command: ldapadd -x -D cn=config -w {{ LDAP_ROOTPW }} -f /etc/openldap/schema/{{ item }}
+  become: true
+  loop:
+    - core.ldif
+    - cosine.ldif
+    - nis.ldif
+    - inetorgperson.ldif
+  ignore_errors: true
+
+- name: Check if needed schemas exist.
+  command: ldapsearch -x -LLL -D cn=config -w {{ LDAP_ROOTPW }} -b cn=schema,cn=config dn
+  register: schema
+
+- debug: var=schema.stdout
+
+- name: Create bind password hash
+  command: slappasswd -s {{ LDAP_BINDPW }}
+  register: olcBindPass
+
+- debug: var=olcBindPass.stdout
+
+- name: Check if 01_change_domain exists
+  stat:
+    path: "{{ LDAP_WORKDIR }}/01_change_domain.ldif"
+  register: ch_domain
+
+- name: Create 01_change_domain.ldif
+  template:
+    src: 01_change_domain.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+  when: not ch_domain.stat.exists
+
+- name: Change domain
+  command: ldapadd -x -D cn=config -w {{ LDAP_ROOTPW }} -f "{{ LDAP_WORKDIR }}/01_change_domain.ldif"
+
