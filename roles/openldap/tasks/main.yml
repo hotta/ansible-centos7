@@ -48,6 +48,7 @@
     attrs: [ 'olcSuffix' ]
   register: hdb
   tags: dump
+  ignore_errors: true
 
 # ok: [localhost] => {
 #     "hdb": {
@@ -68,20 +69,17 @@
 #   var: "{{ hdb.results['olcSuffix'] }}" - list object has no attribute 'olcSuffix'
 #   msg: "{{ hdb.results | string | regex_search('olcSuffix') }}"   => olcSuffix
 #   msg: "{{ hdb.results.'olcSuffix' }}"  - template error
-    msg: "{{ hdb.results[0]['olcSuffix'] }}"  # dc=example,dc=com
+    var: hdb
   tags: dump
 
 - set_fact:
     init: true
-    when: hdb.results[0]['olcSuffix'] != LDAP_ROOTDN
-  tags: dump
 
 - set_fact:
     init: false
-    when: hdb.results[0]['olcSuffix'] == LDAP_ROOTDN
-  tags: dump
-
-- debug: var=init
+  when:
+    - not hdb.failed
+    - hdb.results[0]['olcSuffix'] == LDAP_ROOTDN
   tags: dump
 
 - name: Create root password hash
