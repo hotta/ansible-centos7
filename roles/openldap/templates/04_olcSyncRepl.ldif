@@ -1,0 +1,28 @@
+dn: olcOverlay=syncprov,olcDatabase={2}hdb,cn=config
+changetype: add
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: syncprov
+
+dn: olcDatabase={2}hdb,cn=config
+changetype: modify
+add: olcSyncRepl
+olcSyncRepl: rid=001 
+  provider=ldap://{{ LDAP_SERVER1 }}/ 
+  bindmethod=simple
+  binddn="{{ LDAP_BINDDN }}"
+  credentials={{ LDAP_BINDPW }} 
+  searchbase="{{ LDAP_BASEDN }}"
+  type=refreshAndPersist
+  retry="5 5 300 5" timeout=1
+olcSyncRepl: rid=002 
+  provider=ldap://{{ LDAP_SERVER2 }}/ 
+  bindmethod=simple
+  binddn="{{ LDAP_BINDDN }}"
+  credentials=sa3ku1ra2 
+  searchbase="{{ LDAP_BASEDN }}"
+  type=refreshAndPersist
+  retry="5 5 300 5" timeout=1
+-
+add: olcMirrorMode
+olcMirrorMode: TRUE
