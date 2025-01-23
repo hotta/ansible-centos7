@@ -19,7 +19,7 @@ olcSyncRepl: rid=002
   provider=ldap://{{ LDAP_SERVER2 }}/ 
   bindmethod=simple
   binddn="{{ LDAP_BINDDN }}"
-  credentials=sa3ku1ra2 
+  credentials={{ LDAP_BINDPW }} 
   searchbase="{{ LDAP_BASEDN }}"
   type=refreshAndPersist
   retry="5 5 300 5" timeout=1
