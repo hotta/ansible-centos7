@@ -1,0 +1,99 @@
+---
+- name: roles/openldap/tasks/instance.yml
+  assert: { that: true, quiet: true }
+
+- name: Create root password hash
+  command: slappasswd -s {{ LDAP_BINDPW }}
+  register: olcRootPass
+
+- debug: var=olcRootPass.stdout
+
+- name: Check if 00_addpw exists
+  stat:
+    path: "{{ LDAP_WORKDIR }}/00_addpw.ldif"
+  register: addpw
+
+- name: Create 00_addpw.ldif
+  template:
+    src: 00_addpw.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+  when: not addpw.stat.exists
+
+# - name: Change Root password
+#  community.general.ldap_entry:
+#    dn: olcDatabase={0}config,cn=config
+#    objectClass: olcDatabaseConfig
+#    olcRootPW: "{{ olcRootPass.stdout }}"
+#  become: true
+
+- name: Set root passwd
+  command: ldapmodify -H ldapi:// -f "{{ LDAP_WORKDIR }}/00_addpw.ldif"
+  become: true
+
+- name: import schema ldifs
+  command: ldapadd -x -D cn=config -w {{ LDAP_BINDPW }} -f /etc/openldap/schema/{{ item }}
+  become: true
+  loop:
+    - core.ldif
+    - cosine.ldif
+    - nis.ldif
+    - inetorgperson.ldif
+  ignore_errors: true
+
+- name: Check if needed schemas exist.
+  command: ldapsearch -x -LLL -D cn=config -w {{ LDAP_BINDPW }} -b cn=schema,cn=config dn
+  register: schema
+
+- debug: var=schema.stdout
+
+- name: Create bind password hash
+  command: slappasswd -s {{ LDAP_BINDPW }}
+  register: olcBindPass
+
+- debug: var=olcBindPass.stdout
+
+- name: Check if 01_change_domain exists
+  stat:
+    path: "{{ LDAP_WORKDIR }}/01_change_domain.ldif"
+  register: ch_domain
+
+- name: Create 01_change_domain.ldif
+  template:
+    src: 01_change_domain.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+  when: not ch_domain.stat.exists
+
+- name: Change domain
+  command: ldapadd -x -D cn=config -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/01_change_domain.ldif"
+
+- name: Create 02_olcModuleLoad.ldif
+  template:
+    src: 02_olcModuleLoad.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+
+- name: Install replicaiton module
+  command: ldapadd -x -D cn=config -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/02_olcModuleLoad.ldif"
+
+- name: Create 03_olcServerID.ldif
+  template:
+    src: 03_olcServerID.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+
+- name: Determine server IDs
+  command: ldapadd -x -D cn=config -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/03_olcServerID.ldif"
+
+- name: Create 04_olcSyncRepl.ldif
+  template:
+    src: 04_olcSyncRepl.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+
+- name: Set up replication
+  command: ldapadd -x -D cn=config -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/04_olcSyncRepl.ldif"
+
+- name: Create 05_base.ldif
+  template:
+    src: 05_base.ldif
+    dest: "{{ LDAP_WORKDIR }}/"
+
+- name: Base entry
+  command: ldapadd -x -D {{ LDAP_BINDDN }} -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/05_base.ldif"

@@ -1,0 +1,14 @@
+dn: {{ LDAP_BASEDN }}
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+dc: example
+o: Example
+
+dn: ou=People,{{ LDAP_BASEDN }}
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Group,{{ LDAP_BASEDN }}
+objectClass: organizationalUnit
+ou: Group
