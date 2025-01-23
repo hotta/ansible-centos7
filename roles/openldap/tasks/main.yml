@@ -190,3 +190,11 @@
 - name: Set up replication
   command: ldapadd -x -D cn=config -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/04_olcSyncRepl.ldif"
   when: init
+
+- name: Open firewall
+  firewalld:
+    service: ldap
+    immediate: true
+    permanent: true
+    state: enabled
+  become: true
