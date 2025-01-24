@@ -95,5 +95,5 @@
     src: 05_base.ldif
     dest: "{{ LDAP_WORKDIR }}/"
 
-- name: Base entry
-  command: ldapadd -x -D {{ LDAP_BINDDN }} -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/05_base.ldif"
+# - name: Base entry
+#   command: ldapadd -x -D {{ LDAP_BINDDN }} -w {{ LDAP_BINDPW }} -f "{{ LDAP_WORKDIR }}/05_base.ldif"
