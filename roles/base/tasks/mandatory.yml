@@ -23,12 +23,7 @@
       - man
       - npm
       - psmisc
-  become: yes
-
-- name: yum update
-  yum:
-    name: '*'
-    state: latest
+      - python-ldap
   become: yes
 
 - name: Prepare directory for WWW_BASE
